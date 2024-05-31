@@ -1,3 +1,5 @@
+import { setLayoutDefault } from '../templates/template-creator';
+
 const detailMitra = {
   async render() {
     return `
@@ -21,6 +23,7 @@ const detailMitra = {
   },
 
   async afterRender() {
+    setLayoutDefault();
     const partnerData = {
       id: 6969,
       username: 'ptasriindah',
@@ -28,7 +31,7 @@ const detailMitra = {
       description: 'PT Asri Indah fokus mendaur ulang  PVC dan limbah plastik lainnya. Daur ulang (PVC) dapat digunakan untuk membuat banyak produk baru, termasuk Polyester staple fiber /filamen yang digunakan untuk pakaian, tekstil rumah (selimut, bantal, karpet), suku cadang otomotif (karpet, insulasi suara, lapisan boot, sarung jok) dan barang-barang keperluan industri (geotekstil dan insulasi atap), dan kemasan botol PVC baru untuk produk makanan dan non-makanan. Ini umumnya dicampur dalam rasio virgin PVC untuk didaur ulang, tergantung pada aplikasi yang diperlukan.',
       phone_number: 882233334455,
       email: 'contact@asriindah.com',
-      address: 'Komplek Industri Trikencana Kav.12A Cilampeni Katapang Bandung ',
+      address: 'Komplek Industri Trikencana Kav.12A Cilampeni Katapang Bandung',
       website: 'ptasriindah.com',
       photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR00ZT1jtWcl-wpBOre7RCPoL-_DicUYQnrOw&s',
     };

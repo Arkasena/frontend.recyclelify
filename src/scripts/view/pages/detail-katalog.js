@@ -1,3 +1,5 @@
+import { setLayoutDefault } from '../templates/template-creator';
+
 const detailKatalog = {
   async render() {
     return `
@@ -15,6 +17,7 @@ const detailKatalog = {
   },
 
   async afterRender() {
+    setLayoutDefault();
     const catalogData = {
       photo: 'https://www.purwakartapost.co.id/wp-content/uploads/2019/06/Daur-Ulang-Sampah-Plastik.jpeg',
       name: 'Totebag',

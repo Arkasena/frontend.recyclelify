@@ -20,7 +20,28 @@ function mainPages(containerName) {
 }
 function loginPagesTemplateCreator() {
   return `   
-  <section class="flex w-full h-full absolute z-100 top-0 flex-row items-center bg-lime-50">
+  <section class="flex w-full h-full flex-row items-center bg-lime-50">
     </section>`;
 }
-export { mainPages, loginPagesTemplateCreator };
+function setLayoutDashboard() {
+  document.querySelector('header').setAttribute('layout', 'dashboard');
+  document.querySelector('main').setAttribute('layout', 'dashboard');
+  document.querySelector('footer').setAttribute('layout', 'dashboard');
+}
+function setLayoutDefault() {
+  document.querySelector('header').setAttribute('layout', 'default');
+  document.querySelector('main').setAttribute('layout', 'default');
+  document.querySelector('footer').setAttribute('layout', 'default');
+}
+function setLayoutNothing() {
+  document.querySelector('header').setAttribute('layout', 'nothing');
+  document.querySelector('main').setAttribute('layout', 'default');
+  document.querySelector('footer').setAttribute('layout', 'nothing');
+}
+export {
+  mainPages,
+  loginPagesTemplateCreator,
+  setLayoutDashboard,
+  setLayoutDefault,
+  setLayoutNothing,
+};

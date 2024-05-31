@@ -16,13 +16,6 @@ class FilterMitra extends HTMLElement {
   _checkBoxisChecked() {
     const url = new URLSearchParams((window.location.href).split('?')[1]);
     console.log(url);
-    const locate = url.getAll('locate');
-    locate.forEach((value) => {
-      const checkbox = document.querySelector(`[value="${value}"]`);
-      if (checkbox) {
-        checkbox.checked = true;
-      }
-    });
     const plasticType = url.getAll('plasticType');
     plasticType.forEach((value) => {
       const checkbox = document.querySelector(`[value="${value}"]`);
@@ -67,14 +60,6 @@ class FilterMitra extends HTMLElement {
     <h2 class="font-semibold text-lg mb-4">Filter</h2>
     <div class="border-gray-300 border-2 w-[256px] rounded-2xl p-4 flex flex-col">
         <form id="filter" method="get" class="flex flex-col gap-6">
-            <div class="flex flex-col w-full">
-                <h3 class="font-medium text-sm mb-2">Lokasi</h3>
-                <label for="jawa" class="text-sm px-2 py-2 flex flex-row items-center"><input type="checkbox" name="locate" id="jawa" value="pulau jawa" class="mr-2 accent-lime-400 cursor-pointer w-4 h-4 ">Pulau Jawa</label>
-                <label for="kalimantan" class="text-sm px-2 py-2 flex flex-row items-center"><input type="checkbox" name="locate" id="kalimantan" value="pulau kalimantan" class="mr-2 accent-lime-400 cursor-pointer w-4 h-4 ">Pulau Kalimantan</label>
-                <label for="papua" class="text-sm px-2 py-2 flex flex-row items-center"><input type="checkbox" name="locate" id="papua" value="pulau papua" class="mr-2 accent-lime-400 cursor-pointer w-4 h-4 ">Pulau Papua</label>
-                <label for="sumatra" class="text-sm px-2 py-2 flex flex-row items-center"><input type="checkbox" name="locate" id="sumatra" value="pulau sumatra" class="mr-2 accent-lime-400 cursor-pointer w-4 h-4 ">Pulau Sumatra</label>
-                <label for="sulawesi" class="text-sm px-2 py-2 flex flex-row items-center"><input type="checkbox" name="locate" id="sulawesi" value="pulau sulawesi" class="mr-2 accent-lime-400 cursor-pointer w-4 h-4 ">Pulau Sulawesi</label>
-            </div>
             <div class="grid grid-cols-2 w-full">
                 <h3 class="font-medium text-sm mb-2 col-span-2">Jenis Plastik</h3>
                 <label for="PETE" class="text-sm px-2 py-2 flex flex-row items-center"><input type="checkbox" name="plasticType" id="PETE" value="PETE" class="mr-2 accent-lime-400 cursor-pointer w-4 h-4 ">PETE</label>

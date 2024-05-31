@@ -10,10 +10,10 @@ const app = new App({
 
 window.addEventListener('hashchange', () => {
   app.renderPage();
-  NavigationActiveInitiator.init({ navigationElement: document.querySelectorAll('ul#navigation a') });
+  NavigationActiveInitiator.init();
 });
 
 window.addEventListener('load', () => {
   app.renderPage();
-  NavigationActiveInitiator.init({ navigationElement: document.querySelectorAll('ul#navigation a') });
+  NavigationActiveInitiator.init();
 });

@@ -21,3 +21,5 @@ import './components/other-component/hero';
 import './components/other-component/pagination';
 import './components/other-component/app-header';
 import './components/other-component/app-footer';
+import './components/other-component/app-main';
+import './components/other-component/bantuan';

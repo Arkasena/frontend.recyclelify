@@ -1,4 +1,4 @@
-import { mainPages } from '../templates/template-creator';
+import { mainPages, setLayoutDefault } from '../templates/template-creator';
 
 const mitra = {
   async render() {
@@ -6,6 +6,7 @@ const mitra = {
   },
 
   async afterRender() {
+    setLayoutDefault();
     const section = document.querySelector('#hero');
     const hero = document.createElement('hero-element');
     hero.heroData = {

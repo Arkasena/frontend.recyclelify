@@ -5,14 +5,9 @@ class FormPenjualan extends HTMLElement {
     super();
     this._partnerData = {
       id: null,
-      username: null,
       name: null,
-      description: null,
       phone_number: null,
-      email: null,
       address: null,
-      website: null,
-      photo: null,
     };
   }
 
@@ -204,17 +199,17 @@ class FormPenjualan extends HTMLElement {
                        <tr>
                            <td>Nama</td>
                            <td class="w-fit">:</td>
-                           <td>PT Asri Indah</td>
+                           <td>${this.partnerData.name}</td>
                        </tr>
                        <tr>
                            <td>Alamat</td>
                            <td class="w-fit">:</td>
-                           <td>Komplek Industri Trikencana Kav.12A Cilampeni Katapang Bandung</td>
+                           <td>${this.partnerData.address}</td>
                        </tr>
                        <tr>
                            <td>Nomor Telepon</td>
                            <td class="w-fit">:</td>
-                           <td>+62 214214124124241</td>
+                           <td>+62 ${this.partnerData.phone_number}</td>
                        </tr>
                    </table>
                </div>
