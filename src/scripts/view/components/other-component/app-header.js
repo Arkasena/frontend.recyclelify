@@ -1,4 +1,5 @@
 /* eslint-disable default-case */
+/* eslint-disable class-methods-use-this */
 class AppHeader extends HTMLElement {
   constructor() {
     super();
@@ -11,7 +12,6 @@ class AppHeader extends HTMLElement {
   }
 
   connectedCallback() {
-    this.attributeChangedCallback();
     this.handleRender();
   }
 
@@ -68,6 +68,20 @@ class AppHeader extends HTMLElement {
         svg.setAttribute('stroke', '#65A30D');
       }
     }
+    this.personButtonOnclickFunction();
+  }
+
+  personButtonOnclickFunction() {
+    document.querySelector('#personButton').addEventListener('click', () => {
+      const dropdown = document.querySelector('#personButtonContent');
+      if (dropdown.classList.contains('hidden')) {
+        dropdown.classList.remove('hidden');
+        dropdown.classList.add('flex');
+      } else {
+        dropdown.classList.remove('flex');
+        dropdown.classList.add('hidden');
+      }
+    });
   }
 
   renderNothing() {
@@ -78,29 +92,34 @@ class AppHeader extends HTMLElement {
     if (this.classList.contains('hidden')) { this.classList.remove('hidden'); }
     this.classList.add('w-full', 'bg-white', 'h-[78px]', 'flex', 'justify-center', 'shadow-sm', 'py-4', 'bg-white', 'z-50');
     this.innerHTML = `
-    <div class=" w-full max-w-[1500px] flex flex-row justify-between items-center px-6">
-    <a href="/"><div class="w-40 h-9 bg-slate-100"></div></a>
-    <nav class="flex flex-row items-center" id="nav-bar">
-    <ul class="flex flex-row gap-4" id="navigation">
-    <a href="/"><li class="px-4 py-3">Home</li></a>
-    <a href="#/partner"><li class="px-4 py-3">Mitra</li></a>
-    <a href="#/catalog"><li class="px-4 py-3">Katalog</li></a>
-    <a href=""><li class="px-4 py-3">Blog</li></a>
-    <a href="#/about-us"><li class="px-4 py-3" >Tentang Kami</li></a>
-    <a href="#/help"><li class="px-4 py-3">Bantuan</li></a>
-    </ul>
-    <div class="mr-2 w-11 h-11 bg-lime-600 flex justify-center items-center rounded-xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
-    <div onclick="location.href='#/dashboard'" class="w-11 h-11 bg-lime-600 flex justify-center items-center rounded-xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></div>
-    </nav>
-    </div>
+    <div class=" w-full max-w-[1500px] flex flex-row justify-between items-center px-6 relative">
+            <a href="/"><div class="w-40 h-9 bg-slate-100"></div></a>
+            <nav class="flex flex-row items-center" id="nav-bar">
+                <ul class="flex flex-row gap-4" id="navigation">
+                    <a href="/"><li class="px-4 py-3">Beranda</li></a>
+                    <a href="#/partner"><li class="px-4 py-3">Mitra</li></a>
+                    <a href="#/catalog"><li class="px-4 py-3">Katalog</li></a>
+                    <a href=""><li class="px-4 py-3">Blog</li></a>
+                    <a href="#/about-us"><li class="px-4 py-3" >Tentang Kami</li></a>
+                    <a href="#/help"><li class="px-4 py-3">Bantuan</li></a>
+                </ul>
+                <div class="mr-2 w-11 h-11 bg-lime-600 flex justify-center items-center rounded-xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
+                <button id="personButton" class="w-11 h-11 bg-lime-600 flex justify-center items-center rounded-xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></button>
+                <div id="personButtonContent" class="flex-col border shadow-md bg-white border-gray-200 rounded-lg py-2 w-[168px] absolute right-4 top-14 hidden">
+                    <a href="#/dashboard" class="p-3">DashBoard</a>
+                    <a href="" class="p-3">Profil Saya</a>
+                    <a href="" class="p-3">Keluar</a>
+                </div>
+            </nav>
+        </div>
     `;
   }
 
   renderDashboardUI() {
     if (this.classList.contains('hidden')) { this.classList.remove('hidden'); }
-    this.classList.add('w-full', 'bg-white', 'h-[78px]', 'flex', 'justify-center', 'border', 'bg-white', 'border-gray-200');
+    this.classList.add('flex-col', 'bg-white', 'h-[78px]', 'flex', 'justify-center', 'border', 'bg-white', 'border-gray-200');
     this.innerHTML = `
-    <div class=" w-full flex flex-row justify-between items-center px-6">
+    <div class="w-full flex flex-row justify-between items-center px-6">
             <div class="flex flex-row gap-16 justify-center items-center px-4">
                 <a href="/"><div class="w-40 h-9 bg-slate-100"></div></a>
                 <h1 class="text-2xl font-medium">Statistik</h1>
@@ -117,7 +136,12 @@ class AppHeader extends HTMLElement {
                     </ul>
                 </div>
                 <div class="mr-2 w-11 h-11 bg-lime-600 flex justify-center items-center rounded-xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
-                <div class="w-11 h-11 bg-lime-600 flex justify-center items-center rounded-xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></div>
+                <button id="personButton" class="w-11 h-11 bg-lime-600 flex justify-center items-center rounded-xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></button>
+                <div id="personButtonContent" class="flex-col border shadow-md bg-white border-gray-200 rounded-lg py-2 w-[168px] absolute right-4 top-16 hidden">
+                    <a href="#/dashboard" class="p-3">DashBoard</a>
+                    <a href="" class="p-3">Profil Saya</a>
+                    <a href="" class="p-3">Keluar</a>
+                </div>
             </nav>
         </div>
     `;

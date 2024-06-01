@@ -71,7 +71,7 @@ class AppFooter extends HTMLElement {
 
   renderDashboardUI() {
     if (this.classList.contains('hidden')) { this.classList.remove('hidden'); }
-    this.classList.add('w-[calc(100%-244px)]', 'flex', 'justify-center', 'items-center', 'border-t', 'border-gray-300', 'bg-white', 'ml-[244px]');
+    this.classList.add('flex', 'justify-center', 'items-center', 'border-t', 'border-gray-300', 'bg-white', 'ml-[244px]', 'w-[calc(100%-245px)]');
     this.innerHTML = `
     <div class="py-6 w-full flex flex-row items-center justify-between px-6">
     <div class="w-40 h-9 bg-slate-100">
