@@ -23,3 +23,32 @@ import './components/other-component/app-header';
 import './components/other-component/app-footer';
 import './components/other-component/app-main';
 import './components/other-component/bantuan';
+// end dashboard component - start reusable component
+import './components/dashboard/solid-button';
+import './components/dashboard/bordered-button';
+// dashboard
+import './components/dashboard/last-transaction';
+import './components/dashboard/sales-recap';
+import './components/dashboard/barchart';
+import './components/dashboard/linechart';
+// statistic
+import './components/dashboard/statistic/seliing-statistic-analysis';
+import './components/dashboard/statistic/buying-statistic-analysis';
+import './components/dashboard/statistic/month-dropdown-menu-statistic';
+import './components/dashboard/statistic/transaction-type-dropdown-menu-statistic';
+// transaction
+import './components/dashboard/transaction/dashboard-menu-tab-selling-transaction';
+import './components/dashboard/transaction/dashboard-menu-tab-buying-transaction';
+import './components/dashboard/transaction/selling-transaction-list';
+import './components/dashboard/transaction/buying-transaction-list';
+// setting
+import './components/dashboard/setting/collaborator-dashboard-menu-tab-setting';
+import './components/dashboard/setting/partner-dashboard-menu-tab-setting';
+import './components/dashboard/setting/collaborator-setting-profile';
+import './components/dashboard/setting/partner-setting-profile';
+import './components/dashboard/setting/setting-account';
+import './components/dashboard/setting/open-to-receive-trash';
+
+// notification
+import './components/dashboard/notification/collaborator-notification-message';
+import './components/dashboard/notification/partner-notification-message';
