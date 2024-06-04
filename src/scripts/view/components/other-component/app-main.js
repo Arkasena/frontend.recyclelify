@@ -22,7 +22,7 @@ class AppMain extends HTMLElement {
   }
 
   _emptyContent() {
-    this._shadowRoot.innerHTML = '';
+    this.innerHTML = '';
   }
 
   attributeChangedCallback(name, oldvalue, newValue) {
@@ -53,7 +53,7 @@ class AppMain extends HTMLElement {
   }
 
   renderDashboardUI() {
-    this.classList.add('flex', 'flex-col', 'flex-grow', 'mt-20', 'ml-[244px]', 'bg-gray-50');
+    this.classList.add('flex', 'flex-col', 'flex-grow', 'mt-[78px]', 'ml-[244px]', 'bg-gray-50');
   }
 }
 customElements.define('app-main', AppMain, { extends: 'main' });

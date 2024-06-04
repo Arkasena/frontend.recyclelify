@@ -44,7 +44,7 @@ const collaboratorDashboardStatistic = {
   },
 
   async afterRender() {
-    setLayoutDashboard();
+    setLayoutDashboard(2);
     // input data ke barchart
     const barChartComponent = document.querySelector('bar-chart');
     const barChartData = {

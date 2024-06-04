@@ -13,7 +13,7 @@ const partnerDashboardSelingTransaction = {
   },
 
   async afterRender() {
-    setLayoutDashboard();
+    setLayoutDashboard(2);
     const TransactionListComponent = document.querySelector('selling-transaction-list');
 
     const dummyData = [
@@ -49,7 +49,7 @@ const partnerDashboardSelingTransaction = {
     const generateTransactionItems = (status) => {
       const transactionList = TransactionListComponent.querySelector('#selling-transaction-list');
       transactionList.innerHTML = '';
-      dummyData.forEach(data => {
+      dummyData.forEach((data) => {
         if (data.status === status) {
           const transactionItem = document.createElement('div');
           transactionItem.classList.add('w-full', 'h-full', 'grid', 'grid-cols-12', 'px-8', 'py-4', 'mt-4', 'hover:bg-gray-100', 'rounded-lg');

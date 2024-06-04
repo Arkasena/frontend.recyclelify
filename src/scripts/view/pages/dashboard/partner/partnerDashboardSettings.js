@@ -15,7 +15,7 @@ const partnerDashboardSettings = {
   },
 
   async afterRender() {
-    setLayoutDashboard();
+    setLayoutDashboard(2);
     const menuTabSetting = document.querySelector('partner-dashboard-menu-tab-setting');
     const settingProfile = document.querySelector('partner-setting-profile');
     const settingAccount = document.querySelector('setting-account');

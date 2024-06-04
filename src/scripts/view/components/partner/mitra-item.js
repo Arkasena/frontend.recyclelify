@@ -32,7 +32,7 @@ class MitraItem extends HTMLElement {
   render() {
     this._emptyContent();
     this.innerHTML += `
-    <a href="#/partner/${this.mitraData.id}">
+    <a href="#/find-partner/${this.mitraData.id}">
     <div class="flex flex-col shadow-md rounded-2xl">
     <div class="w-full aspect-video rounded-2xl">
     <img class="w-full aspect-video rounded-2xl " src="${this.mitraData.photo}" alt="sampah">

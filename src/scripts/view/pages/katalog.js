@@ -20,7 +20,7 @@ const katalog = {
     filterContainer.innerHTML = '<filter-katalog></filter-katalog>';
     const katalogContainer = document.querySelector('#katalogContainer');
     const katalogData = {
-      id: 292929,
+      endpoint: 'catalog/2929',
       photo: 'https://www.purwakartapost.co.id/wp-content/uploads/2019/06/Daur-Ulang-Sampah-Plastik.jpeg',
       name: 'Tote Bag',
       description: 'Terbuat dari bahan plastik PVC daur ulang berkualitas tinggi, totebag ini merupakan pilihan sempurna untuk anda',

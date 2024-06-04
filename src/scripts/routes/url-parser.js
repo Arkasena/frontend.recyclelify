@@ -2,7 +2,7 @@ const UrlParser = {
   parseActiveUrlWithCombiner() {
     const url = window.location.hash.slice(1).toLowerCase();
     const splitedUrl = this._urlSplitter(url);
-    return this._urlCombiner2(splitedUrl);
+    return this._urlCombiner(splitedUrl);
   },
 
   parseActiveUrlWithoutCombiner() {
@@ -18,25 +18,27 @@ const UrlParser = {
       action: urlsSplits[3] || null,
     };
   },
-
   _urlCombiner(splitedUrl) {
-    return (splitedUrl.resource ? `/${splitedUrl.resource}` : '/')
-      + (splitedUrl.id ? '/:id' : '')
-      + (splitedUrl.action ? `/${splitedUrl.action}` : '');
-  },
-  _urlCombiner2(splitedUrl) {
-    let resource = '';
+    let resource = '/';
     if (splitedUrl.resource) {
-      if ((splitedUrl.resource).includes('?')) {
-        resource = `/${(splitedUrl.resource).split('?')[0]}?`;
-      } else {
-        resource = `/${splitedUrl.resource}`;
+      resource = `/${splitedUrl.resource}`;
+      if (splitedUrl.resource.includes('?')) {
+        resource = `${resource.split('?')[0]}?`;
       }
-    } else {
-      resource = '/';
     }
-    console.log((resource + (splitedUrl.id ? '/:id' : '') + (splitedUrl.action ? `/${splitedUrl.action}` : '')));
-    return resource + (splitedUrl.id ? '/:id' : '') + (splitedUrl.action ? `/${splitedUrl.action}` : '');
+    let idSegment = '';
+    if (splitedUrl.id) {
+      if (isNaN(splitedUrl.id)) {
+        idSegment = `/${splitedUrl.id}`;
+      } else {
+        idSegment = '/:id';
+      }
+    }
+    let actionSegment = '';
+    if (splitedUrl.action) {
+      actionSegment = `/${splitedUrl.action}`;
+    }
+    return resource + idSegment + actionSegment;
   },
 };
 

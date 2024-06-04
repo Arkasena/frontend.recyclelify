@@ -11,7 +11,7 @@ const partnerDashboardNotification = {
   },
 
   async afterRender() {
-    setLayoutDashboard();
+    setLayoutDashboard(2);
     const notifications = [
       {
         seller_name: 'PT Asri Indah',

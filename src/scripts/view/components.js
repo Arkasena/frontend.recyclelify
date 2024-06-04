@@ -48,7 +48,8 @@ import './components/dashboard/setting/collaborator-setting-profile';
 import './components/dashboard/setting/partner-setting-profile';
 import './components/dashboard/setting/setting-account';
 import './components/dashboard/setting/open-to-receive-trash';
-
 // notification
 import './components/dashboard/notification/collaborator-notification-message';
 import './components/dashboard/notification/partner-notification-message';
+import './components/profile/my-profile';
+import './components/profile/form-tambah-produk';

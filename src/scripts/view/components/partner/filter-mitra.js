@@ -51,7 +51,7 @@ class FilterMitra extends HTMLElement {
     } else {
       urlParams = formQueryString.toString();
     }
-    window.location.href = `${window.location.origin}/#/partner?${urlParams.replace(/\+/g, ' ')}`;
+    window.location.href = `${window.location.origin}/#/find-partner?${urlParams.replace(/\+/g, ' ')}`;
   }
 
   render() {

@@ -23,8 +23,16 @@ function loginPagesTemplateCreator() {
   <section class="flex w-full h-full flex-row items-center bg-lime-50">
     </section>`;
 }
-function setLayoutDashboard() {
-  document.querySelector('header').setAttribute('layout', 'dashboard');
+function setLayoutDashboard(userType) {
+  let user;
+  if (userType === 1) {
+    user = 'collaborator';
+  } else if (userType === 2) {
+    user = 'partner';
+  }
+  const header = document.querySelector('header');
+  header.userType = user;
+  header.setAttribute('layout', 'dashboard');
   document.querySelector('main').setAttribute('layout', 'dashboard');
   document.querySelector('footer').setAttribute('layout', 'dashboard');
 }

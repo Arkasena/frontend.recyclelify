@@ -14,7 +14,7 @@ const collaboratorDashboardSettings = {
   },
 
   async afterRender() {
-    setLayoutDashboard();
+    setLayoutDashboard(1);
     const menuTabSetting = document.querySelector('collaborator-dashboard-menu-tab-setting');
     const settingProfile = document.querySelector('collaborator-setting-profile');
     const settingAccount = document.querySelector('setting-account');

@@ -2,7 +2,7 @@ class KatalogItem extends HTMLElement {
   constructor() {
     super();
     this._katalogData = {
-      id: null,
+      endpoint: null,
       photo: null,
       name: null,
       description: null,
@@ -30,7 +30,7 @@ class KatalogItem extends HTMLElement {
   render() {
     this._emptyContent();
     this.innerHTML += `
-    <a href="#/catalog/${this.katalogData.id}">
+    <a href="#/${this.katalogData.endpoint}">
     <div class="flex flex-col shadow-md rounded-2xl">
         <div class="w-full aspect-video rounded-2xl">
             <img class="w-full aspect-video rounded-2xl " src="${this.katalogData.photo}" alt="produk ${this.katalogData.name}">

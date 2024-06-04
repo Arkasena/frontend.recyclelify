@@ -27,7 +27,7 @@ const partnerDashboard = {
   },
 
   async afterRender() {
-    setLayoutDashboard();
+    setLayoutDashboard(2);
     const lastTransactionComponent = document.querySelector('last-transaction');
     const data = {
       company_image: 'https://yt3.googleusercontent.com/ytc/AIdro_ndItzJEgeNIMkMeMRnFGFjUCxCmCvmzQZ_s-MYCEp6fA=s900-c-k-c0x00ffffff-no-rj',

@@ -11,7 +11,7 @@ class FormLoginContent extends HTMLElement {
 
   _submitForm() {
     let url = window.location.origin;
-    url = `${url}/#/partner`;
+    url = `${url}/#/find-partner`;
     window.location.href = url;
   }
 

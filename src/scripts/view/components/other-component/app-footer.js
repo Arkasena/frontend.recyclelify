@@ -22,7 +22,7 @@ class AppFooter extends HTMLElement {
   }
 
   _emptyContent() {
-    this._shadowRoot.innerHTML = '';
+    this.innerHTML = '';
   }
 
   attributeChangedCallback(name, oldvalue, newValue) {
@@ -47,11 +47,14 @@ class AppFooter extends HTMLElement {
   }
 
   renderNothing() {
+    this._emptyContent();
+    this.classList.remove(...this.classList);
     this.classList.add('hidden');
   }
 
   renderDefaultUI() {
-    if (this.classList.contains('hidden')) { this.classList.remove('hidden'); }
+    this._emptyContent();
+    this.classList.remove(...this.classList);
     this.classList.add('w-full', 'flex', 'justify-center', 'items-center', 'border-t', 'border-gray-300', 'bg-white');
     this.innerHTML = `
     <div class="py-6 w-full max-w-[1500px] flex flex-row items-center justify-between px-6">
@@ -70,7 +73,8 @@ class AppFooter extends HTMLElement {
   }
 
   renderDashboardUI() {
-    if (this.classList.contains('hidden')) { this.classList.remove('hidden'); }
+    this._emptyContent();
+    this.classList.remove(...this.classList);
     this.classList.add('flex', 'justify-center', 'items-center', 'border-t', 'border-gray-300', 'bg-white', 'ml-[244px]', 'w-[calc(100%-245px)]');
     this.innerHTML = `
     <div class="py-6 w-full flex flex-row items-center justify-between px-6">

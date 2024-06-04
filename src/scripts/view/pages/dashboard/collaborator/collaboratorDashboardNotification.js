@@ -11,7 +11,7 @@ const collaboratorDashboardNotification = {
   },
 
   async afterRender() {
-    setLayoutDashboard();
+    setLayoutDashboard(1);
     const notifications = [
       {
         company_name: 'PT Asri Indah',
