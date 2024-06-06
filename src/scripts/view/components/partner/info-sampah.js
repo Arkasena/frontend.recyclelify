@@ -3,12 +3,13 @@ class InfoSampah extends HTMLElement {
   // eslint-disable-next-line no-useless-constructor
   constructor() {
     super();
-    this._materialType = ['pet', 'hdpe', 'pvc', 'hdpe', 'pvc', 'hdpe'];
+    this._materialType = null;
   }
 
   connectedCallback() {
     this.render();
     this._createMaterialTypeButton(this.materialType, document.querySelector('#materialType'));
+    document.querySelector('button-sampah').dispatchEvent(new Event('click'));
   }
 
   set materialType(value) {
@@ -28,9 +29,13 @@ class InfoSampah extends HTMLElement {
     allMaterial.forEach((material) => {
       const materialButton = document.createElement('button-sampah');
       materialButton.jenisSampah = material;
-      // materialButton.addEventListener('click', () => {
-      //   aboutContainer.innerHTML = `<about-${material}></about-${material}>`;
-      // });
+      materialButton.addEventListener('click', () => {
+        const aboutSampah = document.createElement('about-sampah');
+        aboutSampah.sampahType = material;
+        const aboutContainer = document.querySelector('#about');
+        aboutContainer.innerHTML = '';
+        aboutContainer.append(aboutSampah);
+      });
       materialTypeContainer.append(materialButton);
     });
   }
@@ -41,7 +46,7 @@ class InfoSampah extends HTMLElement {
     <div class="flex flex-col w-full p-6 rounded-xl shadow-lg mb-8">
     <div class="flex flex-col gap-8 w-full">
     <h2 class="text-center font-semibold text-lime-700">Informasi Jenis Sampah yang Diterima</h2>
-    <div class="flex flex-row gap-2" id="materialType">
+    <div class="flex flex-row gap-2 justify-center" id="materialType">
     </div>
     <div class="flex flex-row justify-between">
     <div class="flex flex-row gap-2">
@@ -60,7 +65,7 @@ class InfoSampah extends HTMLElement {
     </div>
     </div>
     <div class="w-full">
-    <a href="${window.location.hash}/form"><button class="bg-lime-600 w-full h-10 text-lg text-white rounded-lg">Ajukan Penjualan Sampah</button></a>
+    <a id="linkJual" href="${window.location.hash}/form"><button class="bg-lime-600 w-full h-10 text-lg text-white rounded-lg">Ajukan Penjualan Sampah</button></a>
     </div>
     `;
   }

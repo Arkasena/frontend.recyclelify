@@ -39,8 +39,8 @@ class DetailKatalog extends HTMLElement {
     this._emptyContent();
     this.innerHTML += `
     <div class="flex flex-col w-full gap-8">
-    <div class="flex flex-row w-full gap-8">
-        <div>
+    <div class="flex flex-col 670:flex-row w-full gap-8">
+        <div class="flex justify-center">
             <div class="w-80 h-80">
                 <img class="w-full aspect-square rounded-2xl" src="${this.catalogData.photo}" alt="Gambar ${this.catalogData.name}">
             </div>
@@ -61,7 +61,6 @@ class DetailKatalog extends HTMLElement {
     <div class="border border-gray-200"></div>
     <div class="w-full">
         <div class="flex flex-row w-full gap-4">
-        
             <div class="w-14 h-14 rounded-xl bg-gray-300 flex justify-center items-center">
                 <img class="w-14 h-14 rounded-xl" src="${this.catalogData.partnerPhoto}" alt="Foto ${this.catalogData.partnerName}">
             </div>
@@ -95,7 +94,7 @@ class DetailKatalog extends HTMLElement {
     <div class="border border-gray-200 w-full"></div>
     <div class="flex flex-col w-full gap-4">
         <h2 class="text-xl font-semibold">Lainnya dari ${this.catalogData.partnerName}</h2>
-        <div class="w-full flex flex-row gap-3" id="otherProduct">
+        <div class="w-full grid grid-cols-2 md:grid-cols-4 gap-3" id="otherProduct">
             
         </div>
     </div>

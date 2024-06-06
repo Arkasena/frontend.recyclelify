@@ -1,4 +1,4 @@
-import { setLayoutDefault } from "../templates/template-creator";
+import { setLayoutDefault } from '../../templates/template-creator';
 
 const tambahProduk = {
   async render() {

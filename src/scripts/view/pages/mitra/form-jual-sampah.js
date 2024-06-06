@@ -1,4 +1,4 @@
-import { setLayoutDefault } from '../templates/template-creator';
+import { setLayoutDefault } from '../../templates/template-creator';
 
 const formJualSampah = {
   async render() {
@@ -11,11 +11,11 @@ const formJualSampah = {
                     <span id="mitraNameContainer" class="text-lime-700 font-medium"></span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
                     <span class="text-gray-400">Formulir Penjualan</span>
                 </div>
-                <div class="flex flex-row w-full gap-36">
-                    <div class="flex flex-col flex-grow" id="formContent">
+                <div class="flex flex-col 890:flex-row w-full gap-8 lg:gap-16 xl:gap-36">
+                    <div class="flex order-2 890:-order-10 flex-col flex-grow" id="formContent">
 
                     </div>
-                    <div class="flex flex-col" id="materialInformationContainer">
+                    <div class="flex flex-col 890:max-w-[352px]" id="materialInformationContainer">
     
                     </div>   
                 </div>
@@ -43,6 +43,7 @@ const formJualSampah = {
     formContent.append(formPenjualan);
     const mitraNameContainer = document.querySelector('#mitraNameContainer');
     mitraNameContainer.textContent = partnerData.name;
+    document.querySelector('#linkJual').remove();
   },
 };
 

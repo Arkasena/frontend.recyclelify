@@ -1,4 +1,4 @@
-import { setLayoutDefault } from '../templates/template-creator';
+import { setLayoutDefault } from '../../templates/template-creator';
 
 const detailMitra = {
   async render() {
@@ -10,11 +10,11 @@ const detailMitra = {
                     <span class="text-lime-700 font-medium">Pencarian</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
                     <span id="partnerNameContainer"></span>
                 </div>
-                <div class="flex flex-row w-full gap-36">
+                <div class="flex flex-col 890:flex-row w-full gap-12 md:gap-10 lg:gap-24 xl:gap-36">
                     <div class="flex flex-col flex-grow" id="partnerInformationContainer">
                         
                     </div>
-                    <div class="flex flex-col w-full" id="materialInformationContainer">
+                    <div class="flex flex-col 890:max-w-[352px] self-center" id="materialInformationContainer">
                     </div>   
                 </div>
             </div>
@@ -47,7 +47,7 @@ const detailMitra = {
     detailMitraContent.classList.add('flex', 'flex-col', 'gap-8', 'w-full');
     partnerInformationContainer.append(detailMitraContent);
     // end tambah detail mitra - start tambah info sampah
-    const allMaterial = ['pet', 'hdpe', 'pvc', 'hdpe', 'pvc', 'hdpe'];
+    const allMaterial = ['pet', 'hdpe', 'pvc', 'ldpe', 'pp', 'ps'];
     const infoSampah = document.createElement('info-sampah');
     infoSampah.materialType = allMaterial;
     materialInformationContainer.append(infoSampah);

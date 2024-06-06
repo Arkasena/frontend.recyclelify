@@ -1,4 +1,4 @@
-import { setLayoutDefault } from '../templates/template-creator';
+import { setLayoutDefault } from '../../templates/template-creator';
 
 const editProduct = {
   async render() {
@@ -12,7 +12,8 @@ const editProduct = {
 
   async afterRender() {
     setLayoutDefault();
-    document.querySelector('#content').append(document.createElement('form-produk'));
+    const formProduk = document.createElement('form-produk');
+    document.querySelector('#content').append(formProduk);
     const form = document.querySelector('#productForm');
     const inputId = document.createElement('input');
     inputId.setAttribute('type', 'hidden');
@@ -25,11 +26,9 @@ const editProduct = {
       price: 5000,
       link: 'https://www.tokopedia.com/',
       description: 'ini Produk bagus',
+      category: ['fashion', 'dekorasi', 'perabotan'],
     };
-    form.elements.name.value = currentData.name;
-    form.elements.price.value = currentData.price;
-    form.elements.link.value = currentData.link;
-    form.elements.description.value = currentData.description;
+    formProduk.formData = currentData;
     form.elements.id.value = currentData.id;
   },
 };

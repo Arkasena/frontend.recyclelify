@@ -45,15 +45,18 @@ class AppMain extends HTMLElement {
   }
 
   renderNothing() {
+    this.classList.remove(...this.classList);
     this.classList.add('hidden');
   }
 
   renderDefaultUI() {
+    this.classList.remove(...this.classList);
     this.classList.add('flex', 'flex-col', 'flex-grow', 'mt-20');
   }
 
   renderDashboardUI() {
-    this.classList.add('flex', 'flex-col', 'flex-grow', 'mt-[78px]', 'ml-[244px]', 'bg-gray-50');
+    this.classList.remove(...this.classList);
+    this.classList.add('flex', 'flex-col', 'flex-grow', 'mt-[78px]', 'ml-0', 'lg:ml-[244px]', 'bg-gray-50');
   }
 }
 customElements.define('app-main', AppMain, { extends: 'main' });

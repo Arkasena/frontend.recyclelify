@@ -57,8 +57,8 @@ class AppFooter extends HTMLElement {
     this.classList.remove(...this.classList);
     this.classList.add('w-full', 'flex', 'justify-center', 'items-center', 'border-t', 'border-gray-300', 'bg-white');
     this.innerHTML = `
-    <div class="py-6 w-full max-w-[1500px] flex flex-row items-center justify-between px-6">
-    <div class="w-40 h-9 bg-slate-100">
+    <div class="py-6 w-full max-w-[1500px] flex flex-row items-center justify-between px-6 gap-3 890:gap-0">
+    <div class="w-40 h-9 bg-slate-100 hidden 890:block">
     </div>
     <p class="text-gray-300 text-lg">Copyright © 2024 Recyclelify | All Rights Reserved</p>
     <div class="flex flex-row gap-4">
@@ -75,9 +75,9 @@ class AppFooter extends HTMLElement {
   renderDashboardUI() {
     this._emptyContent();
     this.classList.remove(...this.classList);
-    this.classList.add('flex', 'justify-center', 'items-center', 'border-t', 'border-gray-300', 'bg-white', 'ml-[244px]', 'w-[calc(100%-245px)]');
+    this.classList.add('flex', 'justify-center', 'items-center', 'border-t', 'border-gray-300', 'bg-white', 'ml-0', 'w-full', 'lg:ml-[244px]', 'lg:w-[calc(100%-245px)]');
     this.innerHTML = `
-    <div class="py-6 w-full flex flex-row items-center justify-between px-6">
+    <div class="py-6 w-full flex flex-row items-center justify-between px-6 gap-3 890:gap-0">
     <div class="w-40 h-9 bg-slate-100">
     </div>
     <p class="text-gray-300 text-lg">Copyright © 2024 Recyclelify | All Rights Reserved</p>

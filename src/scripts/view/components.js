@@ -7,7 +7,7 @@ import './components/login-register/form-daftar-user-profile';
 // end regis/login component - start partner component
 import './components/partner/mitra-item';
 import './components/partner/filter-mitra';
-import './components/partner/pet';
+import './components/partner/about-sampah';
 import './components/partner/info-sampah';
 import './components/partner/detail-mitra';
 import './components/partner/button-info-sampah';

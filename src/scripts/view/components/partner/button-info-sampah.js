@@ -3,6 +3,14 @@ class buttonSampah extends HTMLElement {
   constructor() {
     super();
     this._jenisSampah = null;
+    this._borderColor = {
+      PVC: 'border-red-600',
+      LDPE: 'border-green-600',
+      PP: 'border-sky-400',
+      PS: 'border-purple-600',
+      HDPE: 'border-orange-600',
+      PET: 'border-yellow-600',
+    };
   }
 
   connectedCallback() {
@@ -18,15 +26,23 @@ class buttonSampah extends HTMLElement {
     return this._jenisSampah;
   }
 
+  get borderColor() {
+    return this._borderColor;
+  }
+
   _emptyContent() {
     this.innerHTML = '';
   }
 
   render() {
     this._emptyContent();
-    this.classList.add('w-11', 'aspect-auto');
+    this.classList.add('w-18', '890:w-11', 'aspect-auto');
     this.innerHTML += `
-    <button><img class="w-11 aspect-auto" src="./images/others/${this.jenisSampah}.svg" alt="${this.jenisSampah}"></button>
+            <button>
+              <div class="border rounded-lg p-2 ${this.borderColor[this.jenisSampah.toUpperCase()]}">
+                    <img class="890:w-11 aspect-auto" src="./images/others/${this.jenisSampah.toUpperCase()}.svg" alt="${this.jenisSampah}">
+                </div>  
+            </button>
       `;
   }
 }

@@ -1,19 +1,19 @@
 import page404 from '../view/pages/404';
 import bantuan from '../view/pages/bantuan';
 import blank from '../view/pages/blank';
-import detailKatalog from '../view/pages/detail-katalog';
-import detailKatalogEdit from '../view/pages/detail-katalog-edit';
-import detailMitra from '../view/pages/detail-mitra';
-import editProduct from '../view/pages/edit-product';
-import formJualSampah from '../view/pages/form-jual-sampah';
-import katalog from '../view/pages/katalog';
+import detailKatalog from '../view/pages/katalog/detail-katalog';
+import detailKatalogEdit from '../view/pages/katalog/detail-katalog-edit';
+import detailMitra from '../view/pages/mitra/detail-mitra';
+import editProduct from '../view/pages/katalog/edit-product';
+import formJualSampah from '../view/pages/mitra/form-jual-sampah';
+import katalog from '../view/pages/katalog/katalog';
 import landingPage from '../view/pages/landing-page';
 import login from '../view/pages/login';
-import mitra from '../view/pages/mitra';
+import mitra from '../view/pages/mitra/mitra';
 import profilSaya from '../view/pages/profil-saya';
 import registerAccount from '../view/pages/register-account';
 import registerRadio from '../view/pages/register-radio';
-import tambahProduk from '../view/pages/tambah-produk';
+import tambahProduk from '../view/pages/katalog/tambah-produk';
 import tentangKami from '../view/pages/tentang-kami';
 
 // Collaborator dashboard

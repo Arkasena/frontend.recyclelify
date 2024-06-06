@@ -129,7 +129,7 @@ class MyProfile extends HTMLElement {
                     <h2 class="text-xl font-semibold">Katalog</h2>
                     <a href="#/my-profile/add-product" class="h-8 bg-lime-600 text-gray-50 px-3 flex items-center text-center rounded-lg">Tambah Item Katalog</a>
                 </div>
-                <div class="grid grid-cols-4 gap-8" id="katalogContainer">
+                <div class="grid grid-cols-2 890:grid-cols-4 gap-8" id="katalogContainer">
                 </div>
             </div>
         </div>

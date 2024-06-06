@@ -1,4 +1,5 @@
-import { mainPages, setLayoutDefault } from '../templates/template-creator';
+import sortbutton from '../../../utils/sortbutton-function';
+import { mainPages, setLayoutDefault } from '../../templates/template-creator';
 
 const katalog = {
   async render() {
@@ -32,6 +33,8 @@ const katalog = {
       katalogItem.katalogData = katalogData;
       katalogContainer.append(katalogItem);
     }
+    const sortButton = document.querySelector('#sort');
+    sortbutton(sortButton);
     const currentUrl = new URLSearchParams((window.location.href).split('?')[1]);
     let curentPages;
     if (currentUrl.has('page')) {

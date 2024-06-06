@@ -14,6 +14,7 @@ class monthDropdownMenuStatistic extends HTMLElement {
     const dropdownMenu = this.querySelector('#dropdownMenu');
 
     filterButton.addEventListener('click', () => {
+      event.stopPropagation();
       dropdownMenu.classList.toggle('hidden');
     });
 
@@ -34,7 +35,7 @@ class monthDropdownMenuStatistic extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <div class="relative inline-block text-left m-4">
+      <div class=" inline-block text-left m-4">
         <button id="filterButton" class="flex flex-row justify-center items-center w-full rounded-md shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-lime-600">
           <p>Pilih Bulan</p>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down pl-2"><path d="m6 9 6 6 6-6"/></svg>

@@ -84,6 +84,7 @@ class DetailMitra extends HTMLElement {
         </ul>
     </div>
 </div>
+<div class="border border-gray-200 890:hidden"></div>
       `;
   }
 }

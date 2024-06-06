@@ -1,18 +1,49 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable max-len */
 /* eslint-disable class-methods-use-this */
 class FormProduk extends HTMLElement {
   // eslint-disable-next-line no-useless-constructor
   constructor() {
     super();
+    this._formData = {
+      name: '',
+      price: '',
+      link: '',
+      description: '',
+      category: [],
+    };
   }
 
   connectedCallback() {
     this.render();
     this.formSubmit();
+    this.checkedCheckbox();
+    this.previewGambar();
+  }
+
+  set formData(value) {
+    this._formData = value;
+    this.render();
+    this.formSubmit();
+    this.checkedCheckbox();
+    this.previewGambar();
+  }
+
+  get formData() {
+    return this._formData;
   }
 
   _emptyContent() {
     this.innerHTML = '';
+  }
+
+  checkedCheckbox() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((checkbox) => {
+      if ((this.formData.category).includes(checkbox.value)) {
+        checkbox.checked = true;
+      }
+    });
   }
 
   formSubmit() {
@@ -84,17 +115,19 @@ class FormProduk extends HTMLElement {
   }
 
   previewGambar() {
-    const preview = document.getElementById('preview'); // tempat image
-    const file = document.getElementById('picture').files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      preview.src = reader.result;
-    };
-    if (file) {
-      reader.readAsDataURL(file);
-    } else {
-      preview.src = '';
-    }
+    document.querySelector('input[type="file"]').addEventListener('change', () => {
+      const preview = document.getElementById('preview'); // tempat image
+      const file = document.getElementById('picture').files[0];
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        preview.src = reader.result;
+      };
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        preview.src = '';
+      }
+    });
   }
 
   render() {
@@ -114,7 +147,7 @@ class FormProduk extends HTMLElement {
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-up"><path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21"/><path d="m14 19.5 3-3 3 3"/><path d="M17 22v-5.5"/><circle cx="9" cy="9" r="2"/></svg>
                     <img src="" id="preview" alt="" class="z-10 absolute max-w-full max-h-full">
                 </div>
-                <input onchange="previewGambar()" accept=".jpg, .jpeg, .png" id="picture" type="file" class="hidden">
+                <input accept=".jpg, .jpeg, .png" id="picture" type="file" class="hidden">
             </label>
             <span class="text-gray-400 text-center pt-3">Upload foto produk</span>
         </div>
@@ -130,7 +163,7 @@ class FormProduk extends HTMLElement {
                     </td>
                     <td>
                         <div class="flex flex-col w-full">
-                            <div class="p-2 w-full shadow-sm border items-center rounded-md"><input aria-describedby="nameValidation" class="placeholder:text-left w-full outline-none" type="text" id="name" name="name" placeholder="Masukan nama produk" required></div>
+                            <div class="p-2 w-full shadow-sm border items-center rounded-md"><input aria-describedby="nameValidation" class="placeholder:text-left w-full outline-none" type="text" id="name" name="name" value="${this.formData.name}" placeholder="Masukan nama produk"  required></div>
                             <p id="nameValidation" class="text-red-500 text-sm" aria-live="polite"></p>
                         </div>
                     </td>
@@ -141,7 +174,7 @@ class FormProduk extends HTMLElement {
                     </td>
                     <td>
                         <div class="flex flex-col w-full">
-                            <div class="p-2 w-full shadow-sm border items-center rounded-md"><input aria-describedby="priceValidation" class="placeholder:text-left w-full outline-none" type="text" id="price" name="price" placeholder="Masukan harga produk" required></div>
+                        <div class="p-2 flex flex-row w-full shadow-sm border items-center rounded-md"><span class="font-medium pr-2">Rp.</span><input aria-describedby="priceValidation" class="placeholder:text-left w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none outline-none" type="number" value="${this.formData.price}" id="price" name="price" placeholder="100.000" required></div>
                             <p id="priceValidation" class="text-red-500 text-sm" aria-live="polite"></p>
                         </div>
                     </td>
@@ -152,7 +185,7 @@ class FormProduk extends HTMLElement {
                     </td>
                     <td>
                         <div class="flex flex-col w-full">
-                            <div class="p-2 w-full shadow-sm border items-center rounded-md"><input aria-describedby="linkValidation" class="placeholder:text-left w-full outline-none" type="text" id="link" name="link" placeholder="Masukan link penjualan produk" required></div>
+                            <div class="p-2 w-full shadow-sm border items-center rounded-md"><input aria-describedby="linkValidation" class="placeholder:text-left w-full outline-none" type="text" id="link" name="link" value="${this.formData.link}" placeholder="Masukan link penjualan produk" required></div>
                             <p id="linkValidation" class="text-red-500 text-sm" aria-live="polite"></p>
                         </div>
                     </td>
@@ -163,7 +196,7 @@ class FormProduk extends HTMLElement {
                     </td>
                     <td>
                         <div class="p-2 w-full shadow-sm border items-center rounded-md">
-                            <textarea name="description" id="description" class="w-full placeholder:text-left outline-none h-44" placeholder="Masukan deskripsi produk" required></textarea>
+                            <textarea name="description" id="description" class="w-full placeholder:text-left outline-none h-44" placeholder="Masukan deskripsi produk" required>${this.formData.description}</textarea>
                         </div>
                         <p id="descriptionValidation" class="text-red-500 text-sm" aria-live="polite"></p>
                     </td>

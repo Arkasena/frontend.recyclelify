@@ -5,7 +5,7 @@ const landingPage = {
     return `
     <section class="w-full flex justify-center">
             <div class="w-full max-w-[1500px] flex flex-col gap-6 justify-center relative px-6">
-                <div class="flex flex-col gap-8 w-full max-w-[551px] pt-40 pb-16 z-10">
+                <div class="flex flex-col gap-8 w-full max-w-[551px] pt-10 md:pt-32 pb-16 z-10">
                     <h1 class="text-4xl font-bold">Langkah Kecil untuk Perubahan Besar</h1>
                     <p class="text-xl">Platform revolusioner yang mengubah cara Anda melihat sampah plastik. Gabung sekarang dan jadilah bagian dari solusi untuk masa depan yang bersih dan hijau!</p>
                     <div class="flex flex-row gap-3">
@@ -20,10 +20,10 @@ const landingPage = {
         </section>
         <section class="w-full flex justify-center py-20 relative">
             <div class="absolute w-[70px] left-0 top-0"><img src="./images/others/square-dot.svg" alt=""></div>
-            <div class="absolute w-[70px] right-0 bottom-[-56px] rotate-180"><img src="./images/others/square-dot.svg" alt=""></div>
+            <div class="absolute w-[70px] right-0 bottom-[-36px] md:bottom-[-56px] rotate-180"><img src="./images/others/square-dot.svg" alt=""></div>
             <div class="w-full max-w-[1500px] flex flex-col gap-20 justify-center items-center px-6">
                 <h2 class="text-4xl font-bold">Layanan Kami</h2>
-                <div class="flex flex-row gap-12">
+                <div class="flex flex-col gap-8 lg:flex-row lg:gap:12">
                     <div class="py-16 px-8 flex flex-col gap-6 bg-lime-50 rounded-2xl">
                         <h2 class="text-2xl font-semibold text-center">Kolaborator</h2>
                         <p class="text-center">Kumpulkan dan jual sampah plastik kepada mitra. Dapatkan keuntungan dari setiap sampah plastik yang Anda kumpulkan.</p>
@@ -42,7 +42,7 @@ const landingPage = {
         <section class="w-full flex justify-center mt-10 mb-20">
             <div class="w-full max-w-[1500px] flex flex-col gap-20 justify-center items-center relative px-6">
                 <h2 class="text-4xl font-bold text-center">Ketahui Jenis Sampah Plastik Disekitarmu</h2>
-                <div class="grid grid-cols-2 gap-[30px]">
+                <div class="grid md:grid-cols-2 gap-[30px]">
                     <div class="p-8 flex flex-row gap-6 bg-yellow-50 justify-center items-center rounded-2xl">
                         <img src="./images/others/PET.svg" alt="Polyethylene terephthalate">
                         <div class="flex flex-col gap-2">
