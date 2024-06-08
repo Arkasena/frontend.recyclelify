@@ -31,6 +31,10 @@ import partnerDashboardBuyingTransaction from '../view/pages/dashboard/partner/p
 import partnerDashboardNotification from '../view/pages/dashboard/partner/partnerDashboardNotification';
 import partnerDashboardSettings from '../view/pages/dashboard/partner/partnerDashboardSettings';
 
+// Transaction detail
+import collaboratorTransactionDetail from '../view/pages/transaction-detail/collaborator-transaction-detail';
+import partnerTransactionDetail from '../view/pages/transaction-detail/partner-transaction-detail';
+
 const routes = {
   '/': landingPage,
   '/login': login,
@@ -64,6 +68,9 @@ const routes = {
   '/my-product/:id': detailKatalogEdit,
   '/my-product/:id/edit': editProduct,
   '/404': page404,
+  // Transaction-detail
+  '/collaborator/transaction-detail': collaboratorTransactionDetail,
+  '/partner/transaction-detail': partnerTransactionDetail,
 };
 
 export default routes;

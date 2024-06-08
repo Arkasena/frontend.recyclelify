@@ -165,6 +165,22 @@ svg{
 }
 
 
+/* toggle */
+
+.toggle-checkbox:checked + .toggle-label {
+    background-color: #84cc16; /* Ini adalah warna lime-600 */
+}
+  
+/* Gaya toggle lainnya */
+.toggle-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+  
+.toggle-label {
+    transition: background-color 0.2s ease-in-out;
+}
 
 
 

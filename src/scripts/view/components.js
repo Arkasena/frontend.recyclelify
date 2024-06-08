@@ -53,3 +53,8 @@ import './components/dashboard/notification/collaborator-notification-message';
 import './components/dashboard/notification/partner-notification-message';
 import './components/profile/my-profile';
 import './components/profile/form-tambah-produk';
+// transaction-detail
+import './components/transaction-detail/collaborator-breadcrumbs';
+import './components/transaction-detail/partner-breadcrumbs';
+import './components/transaction-detail/collaborator-transaction-form';
+import './components/transaction-detail/partner-transaction-form';

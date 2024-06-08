@@ -36,6 +36,23 @@ class OpenToReceiveTrash extends HTMLElement {
     this.render();
     this.formSubmit();
     this.checkboxFunction();
+    this.toggleFunction();
+  }
+
+  toggleFunction() {
+    const toggles = this.querySelectorAll('input[name="toggle"]');
+    toggles.forEach((toggle) => {
+      toggle.addEventListener('change', () => {
+        const label = toggle.nextElementSibling;
+        if (toggle.checked) {
+          label.classList.add('bg-lime-700');
+          label.classList.remove('bg-gray-300');
+        } else {
+          label.classList.add('bg-gray-300');
+          label.classList.remove('bg-lime-700');
+        }
+      });
+    });
   }
 
   checkboxFunction() {
@@ -148,6 +165,7 @@ class OpenToReceiveTrash extends HTMLElement {
     this.render();
     this.formSubmit();
     this.checkboxFunction();
+    this.toggleFunction();
   }
 
   get trashData() {
@@ -158,92 +176,127 @@ class OpenToReceiveTrash extends HTMLElement {
     this.innerHTML = `
     <div id="open-to-recieve-trash-setting" class="flex flex-col gap-4">
             <form id="receiveForm" class="flex flex-col gap-4">
-                <h3 class="font-semibold">Tanggal Penerimaan</h3>
                 <h3 class="font-semibold">Jenis Sampah Plastik</h3>
                 <div class="flex flex-col justify-between">
-                    <div class="grid grid-cols-4 justify-between">
-                        <label for="PETE" class="text-base px-2 py-2 flex flex-row items-center">
+                    <div class="grid grid-cols-12 gap-4 justify-between">
+                        <label for="PETE" class="text-base px-2 py-2 flex flex-row items-center col-start-1 col-end-3">
                             <input type="checkbox" name="plasticType" id="PETE" value="PETE" class="mr-2 accent-lime-400 cursor-pointer w-4 h-4">PETE
                         </label>
-                        <label for="PETEMinimal" class="text-base px-2 py-2 flex flex-row items-center">
-                            Minimal<input type="number" min=0 id="PETEminimal" name="PETEminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
-                        </label>
-                        <label for="PETEMaksimal" class="text-base px-2 py-2 flex flex-row items-center">
-                            Maksimal<input type="number" min=0 id="PETEmaximal" name="PETEmaximal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
-                        </label>
-                        <label for="PETEHarga" class="text-base px-2 py-2 flex flex-row items-center">
-                            Harga<input type="number" min=0 id="PETEharga" name="PETEharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
-                        </label>
+                        <div class="grid grid-cols-3 col-start-3 col-end-12">
+                          <label for="PETEMinimal" class="text-base px-2 py-2 flex flex-row items-center">
+                              Minimal<input type="number" min=0 id="PETEminimal" name="PETEminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
+                          </label>
+                          <label for="PETEMaksimal" class="text-base px-2 py-2 flex flex-row items-center">
+                              Maksimal<input type="number" min=0 id="PETEmaximal" name="PETEmaximal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
+                          </label>
+                          <label for="PETEHarga" class="text-base px-2 py-2 flex flex-row items-center">
+                              Harga<input type="number" min=0 id="PETEharga" name="PETEharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
+                          </label>
+                        </div>
+                        <div class="col-start-12 col-end-13 relative inline-block w-16 mr-2 align-middle self-center justify-self-end select-none transition duration-200 ease-in">
+                          <input type="checkbox" name="toggle" id="toggle" class="toggle-checkbox absolute block w-8 h-8 rounded-full bg-white border-4 appearance-none cursor-pointer focus:outline-none transition-transform transform duration-200 ease-in-out">
+                          <label for="toggle" class="toggle-label block overflow-hidden h-8 rounded-full bg-gray-300 cursor-pointer"></label>
+                        </div>
                     </div>
-                    <div class="grid grid-cols-4 justify-between">
-                        <label for="HDPE" class="text-base px-2 py-2 flex flex-row items-center">
+                    <div class="grid grid-cols-12 gap-4 justify-between">
+                        <label for="HDPE" class="text-base px-2 py-2 flex flex-row items-center col-start-1 col-end-3">
                             <input type="checkbox" name="plasticType" id="HDPE" value="HDPE" class="mr-2 accent-lime-400 cursor-pointer w-4 h-4">HDPE
                         </label>
-                        <label for="HDPEmminimal" class="text-base px-2 py-2 flex flex-row items-center">
-                            Minimal<input type="number" min=0 id="HDPEminimal" name="HDPEminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
-                        </label>
-                        <label for="HDPEMaksimal" class="text-base px-2 py-2 flex flex-row items-center">
-                            Maksimal<input type="number" min=0 id="HDPEmaximal" name="HDPEmaximal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
-                        </label>
-                        <label for="HDPEHarga" class="text-base px-2 py-2 flex flex-row items-center">
-                            Harga<input type="number" min=0 id="HDPEharga" name="HDPEharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
-                        </label>
+                        <div class="grid grid-cols-3 col-start-3 col-end-12">
+                          <label for="HDPEmminimal" class="text-base px-2 py-2 flex flex-row items-center">
+                              Minimal<input type="number" min=0 id="HDPEminimal" name="HDPEminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
+                          </label>
+                          <label for="HDPEMaksimal" class="text-base px-2 py-2 flex flex-row items-center">
+                              Maksimal<input type="number" min=0 id="HDPEmaximal" name="HDPEmaximal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
+                          </label>
+                          <label for="HDPEHarga" class="text-base px-2 py-2 flex flex-row items-center">
+                              Harga<input type="number" min=0 id="HDPEharga" name="HDPEharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
+                          </label>
+                        </div>
+                        <div class="col-start-12 col-end-13 relative inline-block w-16 mr-2 align-middle self-center justify-self-end select-none transition duration-200 ease-in">
+                          <input type="checkbox" name="toggle" id="toggle" class="toggle-checkbox absolute block w-8 h-8 rounded-full bg-white border-4 appearance-none cursor-pointer focus:outline-none transition-transform transform duration-200 ease-in-out">
+                          <label for="toggle" class="toggle-label block overflow-hidden h-8 rounded-full bg-gray-300 cursor-pointer"></label>
+                        </div>
                     </div>
-                    <div class="grid grid-cols-4 justify-between">
-                        <label for="PVC" class="text-base px-2 py-2 flex flex-row items-center">
+                    <div class="grid grid-cols-12 justify-between gap-4">
+                        <label for="PVC" class="text-base px-2 py-2 flex flex-row items-center col-start-1 col-end-3">
                             <input type="checkbox" name="plasticType" id="PVC" value="PVC" class="mr-2 accent-lime-400 cursor-pointer w-4 h-4">PVC
                         </label>
-                        <label for="PVCminimal" class="text-base px-2 py-2 flex flex-row items-center">
+                        <div class="grid grid-cols-3 col-start-3 col-end-12">
+                          <label for="PVCminimal" class="text-base px-2 py-2 flex flex-row items-center">
                             Minimal<input type="number" min=0 id="PVCminimal" name="PVCminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
-                        </label>
-                        <label for="PVCMaksimal" class="text-base px-2 py-2 flex flex-row items-center">
-                            Maksimal<input type="number" min=0 id="PVCmaximal" name="PVCmaximal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
-                        </label>
-                        <label for="PVCHarga" class="text-base px-2 py-2 flex flex-row items-center">
-                            Harga<input type="number" min=0 id="PVCharga" name="PVCharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
-                        </label>
+                          </label>
+                          <label for="PVCMaksimal" class="text-base px-2 py-2 flex flex-row items-center">
+                              Maksimal<input type="number" min=0 id="PVCmaximal" name="PVCmaximal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
+                          </label>
+                          <label for="PVCHarga" class="text-base px-2 py-2 flex flex-row items-center">
+                              Harga<input type="number" min=0 id="PVCharga" name="PVCharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
+                          </label>
+                        </div>
+                        <div class="col-start-12 col-end-13 relative inline-block w-16 mr-2 align-middle self-center justify-self-end select-none transition duration-200 ease-in">
+                          <input type="checkbox" name="toggle" id="toggle" class="toggle-checkbox absolute block w-8 h-8 rounded-full bg-white border-4 appearance-none cursor-pointer focus:outline-none transition-transform transform duration-200 ease-in-out">
+                          <label for="toggle" class="toggle-label block overflow-hidden h-8 rounded-full bg-gray-300 cursor-pointer"></label>
+                        </div>
                     </div>
-                    <div class="grid grid-cols-4 justify-between">
+                    <div class="grid grid-cols-12 gap-4 justify-between">
                         <label for="LDPE" class="text-base px-2 py-2 flex flex-row items-center">
                             <input type="checkbox" name="plasticType" id="LDPE" value="LDPE" class="mr-2 accent-lime-400 cursor-pointer w-4 h-4">LDPE
                         </label>
-                        <label for="LDPEminimal" class="text-base px-2 py-2 flex flex-row items-center">
+                        <div class="grid grid-cols-3 col-start-3 col-end-12">
+                          <label for="LDPEminimal" class="text-base px-2 py-2 flex flex-row items-center">
                             Minimal<input type="number" min=0 id="LDPEminimal" name="LDPEminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
-                        </label>
-                        <label for="LDPEMaksimal" class="text-base px-2 py-2 flex flex-row items-center">
-                            Maksimal<input type="number" min=0 id="LDPEmaximal" name="LDPEmaximal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
-                        </label>
-                        <label for="LDPEHarga" class="text-base px-2 py-2 flex flex-row items-center">
-                            Harga<input type="number" min=0 id="LDPEharga" name="LDPEharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
-                        </label>
+                          </label>
+                          <label for="LDPEMaksimal" class="text-base px-2 py-2 flex flex-row items-center">
+                              Maksimal<input type="number" min=0 id="LDPEmaximal" name="LDPEmaximal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
+                          </label>
+                          <label for="LDPEHarga" class="text-base px-2 py-2 flex flex-row items-center">
+                              Harga<input type="number" min=0 id="LDPEharga" name="LDPEharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
+                          </label>
+                        </div>
+                        <div class="col-start-12 col-end-13 relative inline-block w-16 mr-2 align-middle self-center justify-self-end select-none transition duration-200 ease-in">
+                          <input type="checkbox" name="toggle" id="toggle" class="toggle-checkbox absolute block w-8 h-8 rounded-full bg-white border-4 appearance-none cursor-pointer focus:outline-none transition-transform transform duration-200 ease-in-out">
+                          <label for="toggle" class="toggle-label block overflow-hidden h-8 rounded-full bg-gray-300 cursor-pointer"></label>
+                        </div>
                     </div>
-                    <div class="grid grid-cols-4 justify-between">
+                    <div class="grid grid-cols-12 gap-4 justify-between">
                         <label for="PP" class="text-base px-2 py-2 flex flex-row items-center">
                             <input type="checkbox" name="plasticType" id="PP" value="PP" class="mr-2 accent-lime-400 cursor-pointer w-4 h-4">PP
                         </label>
-                        <label for="PPminimal" class="text-base px-2 py-2 flex flex-row items-center">
+                        <div class="grid grid-cols-3 col-start-3 col-end-12">
+                          <label for="PPminimal" class="text-base px-2 py-2 flex flex-row items-center">
                             Minimal<input type="number" min=0 id="PPminimal" name="PPminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
-                        </label>
-                        <label for="PPMaksimal" class="text-base px-2 py-2 flex flex-row items-center">
-                            Maksimal<input type="number" min=0 id="PPmaximal" name="PPmaximal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
-                        </label>
-                        <label for="PPHarga" class="text-base px-2 py-2 flex flex-row items-center">
-                            Harga<input type="number" min=0 id="PPharga" name="PPharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
-                        </label>
+                          </label>
+                          <label for="PPMaksimal" class="text-base px-2 py-2 flex flex-row items-center">
+                              Maksimal<input type="number" min=0 id="PPmaximal" name="PPmaximal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
+                          </label>
+                          <label for="PPHarga" class="text-base px-2 py-2 flex flex-row items-center">
+                              Harga<input type="number" min=0 id="PPharga" name="PPharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
+                          </label>
+                        </div>
+                        <div class="col-start-12 col-end-13 relative inline-block w-16 mr-2 align-middle self-center justify-self-end select-none transition duration-200 ease-in">
+                          <input type="checkbox" name="toggle" id="toggle" class="toggle-checkbox absolute block w-8 h-8 rounded-full bg-white border-4 appearance-none cursor-pointer focus:outline-none transition-transform transform duration-200 ease-in-out">
+                          <label for="toggle" class="toggle-label block overflow-hidden h-8 rounded-full bg-gray-300 cursor-pointer"></label>
+                        </div>
                     </div>
-                    <div class="grid grid-cols-4 justify-between">
+                    <div class="grid grid-cols-12 gap-4 justify-between">
                         <label for="PS" class="text-base px-2 py-2 flex flex-row items-center">
                             <input type="checkbox" name="plasticType" id="PS" value="PS" class="mr-2 accent-lime-400 cursor-pointer w-4 h-4">PS
                         </label>
-                        <label for="PSminimal" class="text-base px-2 py-2 flex flex-row items-center">
-                            Minimal<input type="number" min=0 id="PSminimal" name="PSminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
-                        </label>
-                        <label for="PSMaksimal" class="text-base px-2 py-2 flex flex-row items-center">
-                            Maksimal<input type="number" min=0 id="PSmaximal" name="PSmaximal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
-                        </label>
-                        <label for="PSHarga" class="text-base px-2 py-2 flex flex-row items-center">
-                            Harga<input type="number" min=0 id="PSharga" name="PSharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
-                        </label>
+                        <div class="grid grid-cols-3 col-start-3 col-end-12">
+                          <label for="PSminimal" class="text-base px-2 py-2 flex flex-row items-center">
+                              Minimal<input type="number" min=0 id="PSminimal" name="PSminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
+                          </label>
+                          <label for="PSMaksimal" class="text-base px-2 py-2 flex flex-row items-center">
+                              Maksimal<input type="number" min=0 id="PSmaximal" name="PSmaximal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
+                          </label>
+                          <label for="PSHarga" class="text-base px-2 py-2 flex flex-row items-center">
+                              Harga<input type="number" min=0 id="PSharga" name="PSharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500   relative  text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
+                          </label>
+                        </div>
+                        <div class="col-start-12 col-end-13 relative inline-block w-16 mr-2 align-middle self-center justify-self-end select-none transition duration-200 ease-in">
+                          <input type="checkbox" name="toggle" id="toggle" class="toggle-checkbox absolute block w-8 h-8 rounded-full bg-white border-4 appearance-none cursor-pointer focus:outline-none transition-transform transform duration-200 ease-in-out">
+                          <label for="toggle" class="toggle-label block overflow-hidden h-8 rounded-full bg-gray-300 cursor-pointer"></label>
+                        </div>
                     </div>
                 </div>
                 <div class="place-self-end">

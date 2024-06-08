@@ -5,11 +5,12 @@ class SolidButton extends HTMLElement {
       name: this.getAttribute('name') || 'Button',
       linkTo: this.getAttribute('linkTo') || '#',
       disabled: this.hasAttribute('disabled'),
+      width: this.getAttribute('width') || 'auto',
     };
   }
 
   static get observedAttributes() {
-    return ['name', 'linkTo', 'disabled'];
+    return ['name', 'linkTo', 'disabled', 'width'];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -38,18 +39,26 @@ class SolidButton extends HTMLElement {
 
   render() {
     this._Content();
-    const disabled = this._buttonData.disabled ? 'disabled' : '';
+    const {
+      disabled,
+      width,
+      name,
+      linkTo,
+    } = this._buttonData;
+
+    const disabledClass = disabled ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-lime-600 hover:bg-lime-700';
+
     this.innerHTML += `
-      <button class="solid-button rounded-xl px-4 py-3 text-white text-sm ${disabled ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-lime-600 hover:bg-lime-700'}" ${disabled}>
-        ${this.buttonData.name}
+      <button class="solid-button rounded-xl px-4 py-3 text-white text-sm ${disabledClass}" ${disabled ? 'disabled' : ''} style="width: ${width};">
+        ${name}
       </button>
     `;
 
     const button = this.querySelector('button');
-    if (!this._buttonData.disabled) {
+    if (!disabled) {
       button.addEventListener('click', () => {
-        if (this.buttonData.linkTo) {
-          window.location.href = this.buttonData.linkTo;
+        if (linkTo) {
+          window.location.href = linkTo;
         }
       });
     }

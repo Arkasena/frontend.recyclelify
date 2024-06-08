@@ -1,4 +1,4 @@
-import { setLayoutNothing } from "../templates/template-creator";
+import { setLayoutNothing } from '../templates/template-creator';
 
 const page404 = {
   async render() {
