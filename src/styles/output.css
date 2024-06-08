@@ -2287,8 +2287,30 @@ video {
     width: 2.75rem;
   }
 
+  .\38 90\:w-max {
+    width: -moz-max-content;
+    width: max-content;
+  }
+
+  .\38 90\:w-fit {
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+
+  .\38 90\:w-full {
+    width: 100%;
+  }
+
+  .\38 90\:w-\[352px\] {
+    width: 352px;
+  }
+
   .\38 90\:max-w-\[352px\] {
     max-width: 352px;
+  }
+
+  .\38 90\:flex-grow {
+    flex-grow: 1;
   }
 
   .\38 90\:grid-cols-4 {

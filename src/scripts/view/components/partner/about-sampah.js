@@ -5,7 +5,7 @@ class AboutSampah extends HTMLElement {
     this._sampahType = null;
     this._sampahData = {
       type: {
-        PET: 'PET (Polyethylene Terephthalate)',
+        PETE: 'PET (Polyethylene Terephthalate)',
         LDPE: 'LDPE (Low Density Polyethylene)',
         PP: 'PP (Polypropylene)',
         PS: 'PS (Polystyrene)',
@@ -13,7 +13,7 @@ class AboutSampah extends HTMLElement {
         PVC: 'PVC (Polyvinyl Chloride)',
       },
       agka: {
-        PET: '1',
+        PETE: '1',
         LDPE: '4',
         PP: '5',
         PS: '6',
@@ -21,7 +21,7 @@ class AboutSampah extends HTMLElement {
         PVC: '3',
       },
       code: {
-        PET: 'PETE atau PET',
+        PETE: 'PETE atau PET',
         LDPE: 'LDPE atau PE-LD',
         PP: 'PP',
         PS: 'PS',
@@ -29,7 +29,7 @@ class AboutSampah extends HTMLElement {
         PVC: 'PVC atau V',
       },
       desc: {
-        PET: 'Biasanya simbol ini banyak ditemukan pada plastik untuk kemasan makanan dan minuman, seperti :',
+        PETE: 'Biasanya simbol ini banyak ditemukan pada plastik untuk kemasan makanan dan minuman, seperti :',
         LDPE: 'Biasanya simbol ini banyak ditemukan pada kantong plastik (kresek) hingga bungkus makanan. Contohnya :',
         PP: 'Biasanya simbol ini banyak ditemukan pada kemasan produk yang tahan panas seperti :',
         PS: 'Biasanya simbol ini banyak ditemukan pada box penyimpanan hingga wadah makanan seperti :',
@@ -37,7 +37,7 @@ class AboutSampah extends HTMLElement {
         PVC: 'Biasanya simbol ini banyak ditemukan pada produk industri konstruksi material seperti :',
       },
       example: {
-        PET: ['Botol minuman', 'Botol soda', 'Botol minyak', 'Botol saus', 'Wadah selai', 'Kotak obat', 'dan lain lain'],
+        PETE: ['Botol minuman', 'Botol soda', 'Botol minyak', 'Botol saus', 'Wadah selai', 'Kotak obat', 'dan lain lain'],
         LDPE: ['Plastik laundry', 'Bungkus makanan ringan', 'Tas belanja/kresek', 'Kemasan buah', 'Plastik pembungkus roti', 'dan lain lain'],
         PP: ['Botol sirup', 'Kotak yogurt', 'Sedotan plastik', 'Tali plastik', 'Kaleng cat', 'Ember', 'dan lain lain'],
         PS: ['Wadah makanan styrofoam', 'Wadah telur', 'Sedotan plastik', 'Box produk elektronik', 'Cooler box', 'Insulasi suara', 'dan lain lain'],

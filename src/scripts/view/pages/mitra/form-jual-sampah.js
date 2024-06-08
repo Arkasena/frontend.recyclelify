@@ -27,9 +27,38 @@ const formJualSampah = {
   async afterRender() {
     setLayoutDefault();
     const materialInformationContainer = document.querySelector('#materialInformationContainer');
-    const allMaterial = ['pet', 'hdpe', 'pvc', 'hdpe', 'pvc', 'hdpe'];
+    const acceptTrash = [
+      {
+        name: 'PETE',
+        accept: true,
+        minimumTransactionWeight: '2',
+        maximumTransactionWeight: '10',
+        pricePerKilogram: '1000',
+      },
+      {
+        name: 'HDPE',
+        accept: false,
+        minimumTransactionWeight: '3',
+        maximumTransactionWeight: '9',
+        pricePerKilogram: '500',
+      },
+      {
+        name: 'PVC',
+        accept: true,
+        minimumTransactionWeight: '1',
+        maximumTransactionWeight: '8',
+        pricePerKilogram: '600',
+      },
+      {
+        name: 'PS',
+        accept: false,
+        minimumTransactionWeight: '2',
+        maximumTransactionWeight: '4',
+        pricePerKilogram: '2000',
+      },
+    ];
     const infoSampah = document.createElement('info-sampah');
-    infoSampah.materialType = allMaterial;
+    infoSampah.materialType = acceptTrash;
     materialInformationContainer.append(infoSampah);
     const formPenjualan = document.createElement('form-penjualan');
     const formContent = document.querySelector('#formContent');
@@ -40,6 +69,7 @@ const formJualSampah = {
       address: 'Komplek Industri Trikencana Kav.12A Cilampeni Katapang Bandung',
     };
     formPenjualan.partnerData = partnerData;
+    formPenjualan.acceptRules = acceptTrash;
     formContent.append(formPenjualan);
     const mitraNameContainer = document.querySelector('#mitraNameContainer');
     mitraNameContainer.textContent = partnerData.name;

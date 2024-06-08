@@ -9,7 +9,7 @@ class buttonSampah extends HTMLElement {
       PP: 'border-sky-400',
       PS: 'border-purple-600',
       HDPE: 'border-orange-600',
-      PET: 'border-yellow-600',
+      PETE: 'border-yellow-600',
     };
   }
 
