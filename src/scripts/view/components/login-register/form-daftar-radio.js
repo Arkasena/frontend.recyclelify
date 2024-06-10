@@ -30,7 +30,7 @@ class FormDaftarRadio extends HTMLElement {
         <form id='form-select-role'>
         <div class="flex flex-row items-center w-full gap-4 p-4 pb-8">
         <div class="w-5 h-5">
-        <input class="w-5 h-5 p-3 cursor-pointer accent-lime-600" type="radio" id="mitra" name="role" value="mitra" required>
+        <input class="w-5 h-5 p-3 cursor-pointer accent-lime-600" type="radio" id="mitra" name="role" value="partner" required>
         </div>
         <div class="flex flex-col">
         <label for="mitra" class="text-lime-600 text-lg font-semibold cursor-pointer">mitra</label>
@@ -39,7 +39,7 @@ class FormDaftarRadio extends HTMLElement {
         </div>
         <div class="flex flex-row items-center w-full gap-4 p-4 pb-16">
         <div class="w-5 h-5">
-        <input class="w-5 h-5 p-3 cursor-pointer accent-lime-600" type="radio" id="kolaborator" name="role" value="kolaborator" required>
+        <input class="w-5 h-5 p-3 cursor-pointer accent-lime-600" type="radio" id="kolaborator" name="role" value="collaborator" required>
         </div>
         <div class="flex flex-col">
         <label for="kolaborator" class="text-lime-600 text-lg font-semibold cursor-pointer">Kolaborator</label>

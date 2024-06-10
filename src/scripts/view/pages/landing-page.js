@@ -44,7 +44,7 @@ const landingPage = {
                 <h2 class="text-4xl font-bold text-center">Ketahui Jenis Sampah Plastik Disekitarmu</h2>
                 <div class="grid md:grid-cols-2 gap-[30px]">
                     <div class="p-8 flex flex-row gap-6 bg-yellow-50 justify-center items-center rounded-2xl">
-                        <img src="./images/others/PET.svg" alt="Polyethylene terephthalate">
+                        <img src="./images/others/PETE.svg" alt="Polyethylene terephthalate">
                         <div class="flex flex-col gap-2">
                             <h2 class="font-semibold">POLYETHYLENE TEREPHTHALATE</h2>
                             <p class="text-sm">Jenis plastik sekali pakai dengan tingkat bahaya dan kesulitan terurai yang tergolong sedang. Sifatnya ringat, kurat, transparan.</p>

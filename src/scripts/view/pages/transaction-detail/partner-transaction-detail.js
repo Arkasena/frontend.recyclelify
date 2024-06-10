@@ -3,7 +3,7 @@ import { setLayoutDefault } from '../../templates/template-creator';
 const partnerTransactionDetail = {
   async render() {
     return `
-    <section class="w-full justify-center">
+    <section class="w-full flex justify-center">
         <div class="w-full max-w-[1500px] flex flex-col gap-6 justify-center relative px-6 py-6">
             <partner-breadcrumbs-transaction></partner-breadcrumbs-transaction>
             <partner-transaction-form></partner-transaction-form>

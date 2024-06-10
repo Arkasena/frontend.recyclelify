@@ -14,8 +14,9 @@ class FormLoginImg extends HTMLElement {
 
   render() {
     this._emptyContent();
+    this.classList.add('hidden', 'lg:flex');
     this.innerHTML += `
-    <div class="flex items-center">
+    <div class="flex items-center max-w-[450px]">
     <img class="px-10" src="./images/others/form-login.png" alt="">
     </div>
     `;

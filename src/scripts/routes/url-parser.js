@@ -16,6 +16,7 @@ const UrlParser = {
       resource: urlsSplits[1] || null,
       id: urlsSplits[2] || null,
       action: urlsSplits[3] || null,
+      other: urlsSplits[4] || null,
     };
   },
   _urlCombiner(splitedUrl) {
@@ -38,7 +39,15 @@ const UrlParser = {
     if (splitedUrl.action) {
       actionSegment = `/${splitedUrl.action}`;
     }
-    return resource + idSegment + actionSegment;
+    let otherSegment = '';
+    if (splitedUrl.other) {
+      if (isNaN(splitedUrl.other)) {
+        otherSegment = `/${splitedUrl.other}`;
+      } else {
+        otherSegment = '/:id';
+      }
+    }
+    return resource + idSegment + actionSegment + otherSegment;
   },
 };
 

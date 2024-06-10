@@ -1,4 +1,4 @@
-import { loginPagesTemplateCreator, setLayoutNothing } from '../templates/template-creator';
+import { loginPagesTemplateCreator, setLayoutNothing } from '../../templates/template-creator';
 
 const login = {
   async render() {
@@ -9,7 +9,7 @@ const login = {
     setLayoutNothing();
     const section = document.querySelector('section');
     section.innerHTML = `<form-login class="flex-1 p-24 h-full bg-white flex flex-col justify-center items-center rounded-r-[52px]"></form-login>
-    <login-img></login-img>`;
+    <login-img class="hidden lg:flex"></login-img>`;
   },
 };
 

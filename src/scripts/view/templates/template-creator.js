@@ -20,7 +20,7 @@ function mainPages(containerName) {
 }
 function loginPagesTemplateCreator() {
   return `   
-  <section class="flex w-full h-full flex-row items-center bg-lime-50">
+  <section class="flex w-full h-full z-50 top-0 flex-row items-center bg-lime-50">
     </section>`;
 }
 function setLayoutDashboard(userType) {
@@ -43,7 +43,7 @@ function setLayoutDefault() {
 }
 function setLayoutNothing() {
   document.querySelector('header').setAttribute('layout', 'nothing');
-  document.querySelector('main').setAttribute('layout', 'default');
+  document.querySelector('main').setAttribute('layout', 'nothing');
   document.querySelector('footer').setAttribute('layout', 'nothing');
 }
 export {

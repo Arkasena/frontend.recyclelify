@@ -39,6 +39,8 @@ class AppMain extends HTMLElement {
       this.renderDefaultUI();
     } else if (this.layout === 'dashboard') {
       this.renderDashboardUI();
+    } else if (this.layout === 'nothing') {
+      this.renderNothing();
     } else {
       this.renderDefaultUI();
     }
@@ -46,7 +48,7 @@ class AppMain extends HTMLElement {
 
   renderNothing() {
     this.classList.remove(...this.classList);
-    this.classList.add('hidden');
+    this.classList.add('flex', 'flex-col', 'flex-grow');
   }
 
   renderDefaultUI() {

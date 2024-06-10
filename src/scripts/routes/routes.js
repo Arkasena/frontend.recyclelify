@@ -8,11 +8,11 @@ import editProduct from '../view/pages/katalog/edit-product';
 import formJualSampah from '../view/pages/mitra/form-jual-sampah';
 import katalog from '../view/pages/katalog/katalog';
 import landingPage from '../view/pages/landing-page';
-import login from '../view/pages/login';
+import login from '../view/pages/login-register/login';
 import mitra from '../view/pages/mitra/mitra';
 import profilSaya from '../view/pages/profil-saya';
-import registerAccount from '../view/pages/register-account';
-import registerRadio from '../view/pages/register-radio';
+import registerAccount from '../view/pages/login-register/register-account';
+import registerRadio from '../view/pages/login-register/register-radio';
 import tambahProduk from '../view/pages/katalog/tambah-produk';
 import tentangKami from '../view/pages/tentang-kami';
 
@@ -69,8 +69,8 @@ const routes = {
   '/my-product/:id/edit': editProduct,
   '/404': page404,
   // Transaction-detail
-  '/collaborator/transaction-detail': collaboratorTransactionDetail,
-  '/partner/transaction-detail': partnerTransactionDetail,
+  '/collaborator/dashboard/transaction/:id': collaboratorTransactionDetail,
+  '/partner/dashboard/transaction/:id': partnerTransactionDetail,
 };
 
 export default routes;

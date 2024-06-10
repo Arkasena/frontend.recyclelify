@@ -1,4 +1,4 @@
-import { loginPagesTemplateCreator, setLayoutNothing } from '../templates/template-creator';
+import { loginPagesTemplateCreator, setLayoutNothing } from '../../templates/template-creator';
 
 const registerRadio = {
   async render() {

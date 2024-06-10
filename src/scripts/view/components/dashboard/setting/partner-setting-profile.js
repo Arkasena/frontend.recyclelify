@@ -76,10 +76,8 @@ class PartnerSettingProfile extends HTMLElement {
       e.preventDefault();
       const formData = {
         name: form.elements.name.value,
-        address: form.elements.address.value,
-        city: form.elements.city.value,
-        province: form.elements.province.value,
-        phone: form.elements.phone.value,
+        address: `${form.elements.address.value}+${form.elements.city.value}+${form.elements.province.value}`,
+        phone: `+62${form.elements.phone.value}`,
         website: form.elements.website.value,
         description: form.elements.description.value,
       };
