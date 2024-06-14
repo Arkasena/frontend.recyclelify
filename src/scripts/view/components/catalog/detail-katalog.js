@@ -7,6 +7,7 @@ class DetailKatalog extends HTMLElement {
       name: null,
       description: null,
       price: null,
+      link: null,
       partnerName: null,
       partnerUsername: null,
       partnerDescription: null,
@@ -55,7 +56,7 @@ class DetailKatalog extends HTMLElement {
                 </div>
                 
             </div>
-            <a href="https://www.tokopedia.com/" target="_blank" class="cursor-pointer rounded-lg text-sm text-white bg-lime-600 h-8 w-fit px-4 flex flex-row justify-center items-center">Kunjungi halaman pembelian<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg></a>
+            <a href="${this.catalogData.link}" target="_blank" class="cursor-pointer rounded-lg text-sm text-white bg-lime-600 h-8 w-fit px-4 flex flex-row justify-center items-center">Kunjungi halaman pembelian<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg></a>
         </div>
     </div>
     <div class="border border-gray-200"></div>

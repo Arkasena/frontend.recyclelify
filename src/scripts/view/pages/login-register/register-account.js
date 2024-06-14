@@ -1,3 +1,4 @@
+import API_ENDPOINT from '../../../global/api-endpoint';
 import UrlParser from '../../../routes/url-parser';
 import { loginPagesTemplateCreator, setLayoutNothing } from '../../templates/template-creator';
 
@@ -44,7 +45,22 @@ const registerAccount = {
           address: `${formEl.elements.alamat.value}+${formEl.elements.kota.value}+${formEl.elements.provinsi.value}`,
         };
         console.log(data);
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        };
+        fetch(API_ENDPOINT.PARTNER, options)
+          .then((response) => response.json())
+          .then((result) => {
         window.location.href = `${window.location.origin}/#/login`;
+            console.log(result);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
       });
     });
   },

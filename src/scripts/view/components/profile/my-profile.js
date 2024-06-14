@@ -119,8 +119,16 @@ class MyProfile extends HTMLElement {
                 </div>
                 <div class="border border-gray-200 w-full"></div>
                 <div class="px-6 py-4 flex flex-row gap-2">
-                    <div class="bg-lime-100 py-2 px-4 rounded-xl">PVC</div>
-                    <div class="bg-lime-100 py-2 px-4 rounded-xl">+ 2 lainnya</div>
+                        ${this.userData.plasticType ? `
+                            ${this.userData.plasticType.total > 1 ? `
+                                <div class="bg-lime-100 py-2 px-4 rounded-xl">${this.userData.plasticType.name}</div>
+                                <div class="bg-lime-100 py-2 px-4 rounded-xl">+${Number(this.userData.plasticType.total) - 1} lainnya</div>
+                                ` : `
+                                <div class="bg-lime-100 py-2 px-4 rounded-xl">${this.userData.plasticType.name}</div>
+                                `}
+                                ` : `
+                                <div class="bg-lime-100 py-2 px-4 rounded-xl">Tidak menerima</div>
+                                `}
                 </div>
             </div>
         </a>

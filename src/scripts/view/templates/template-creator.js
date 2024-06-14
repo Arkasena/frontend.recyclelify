@@ -12,6 +12,9 @@ function mainPages(containerName) {
                     <button id="sort" class="h-9 w-28 bg-zinc-100 items-center flex justify-evenly rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down-up"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></svg>Urutkan</button>
                 </div>
                 <div class="grid grid-cols-2 lg:grid-cols-3 w-full gap-6" id="${containerName}">
+                    <div id="loading" class="flex h-20 justify-center items-center col-span-2 lg:col-span-3">
+                        <div class="loading"></div>
+                    </div>
 
                 </div>
             </div>

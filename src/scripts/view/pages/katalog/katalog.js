@@ -1,3 +1,4 @@
+import ProductResources from '../../../data/product-resources';
 import sortbutton from '../../../utils/sortbutton-function';
 import { mainPages, setLayoutDefault } from '../../templates/template-creator';
 
@@ -10,6 +11,13 @@ const katalog = {
     setLayoutDefault();
     const section = document.querySelector('#hero');
     const hero = document.createElement('hero-element');
+    const filterContainer = document.querySelector('#filterContainer');
+    filterContainer.innerHTML = '<filter-katalog></filter-katalog>';
+    const katalogContainer = document.querySelector('#katalogContainer');
+    const loading = document.getElementById('loading');
+    const currentUrl = new URLSearchParams((window.location.href).split('?')[1]);
+    const sortButton = document.querySelector('#sort');
+    sortbutton(sortButton);
     hero.heroData = {
       header: 'Jelajahi Produk Daur Ulang!',
       firstDesc: 'Dari perabotan hingga aksesoris, beragam produk berkualitas yang terbuat dari bahan daur ulang untuk mendukung gaya hidup ramah lingkungan.',
@@ -17,38 +25,40 @@ const katalog = {
       placeholder: 'Cari produk',
     };
     section.append(hero);
-    const filterContainer = document.querySelector('#filterContainer');
-    filterContainer.innerHTML = '<filter-katalog></filter-katalog>';
-    const katalogContainer = document.querySelector('#katalogContainer');
-    const katalogData = {
-      endpoint: 'catalog/2929',
-      photo: 'https://www.purwakartapost.co.id/wp-content/uploads/2019/06/Daur-Ulang-Sampah-Plastik.jpeg',
-      name: 'Tote Bag',
-      description: 'Terbuat dari bahan plastik PVC daur ulang berkualitas tinggi, totebag ini merupakan pilihan sempurna untuk anda',
-      price: 30000,
-    };
-    for (let i = 0; i < 6; i += 1) {
-      const katalogItem = document.createElement('katalog-item');
-      katalogItem.setAttribute('id', i);
-      katalogItem.katalogData = katalogData;
-      katalogContainer.append(katalogItem);
+    try {
+      const allProduct = await ProductResources.product(currentUrl.toString());
+      loading.style.display = 'none';
+      (allProduct.data).forEach((product) => {
+        const productItem = document.createElement('katalog-item');
+        productItem.setAttribute('id', product.id);
+        productItem.katalogData = {
+          endpoint: `catalog/${product.id}`,
+          photo: product.photo,
+          name: product.name,
+          description: product.description,
+          price: product.price,
+        };
+        katalogContainer.append(productItem);
+      });
+      let curentPages;
+      if (currentUrl.has('page')) {
+        curentPages = currentUrl.get('page');
+      } else {
+        curentPages = 1;
+      }
+      if (currentUrl.has('search')) {
+        document.querySelector('#title').innerHTML = `Hasil pencarian untuk "${currentUrl.get('search')}"`;
+      }
+      const contentContainer = document.querySelector('#contentContainer');
+      const pagination = document.createElement('pagination-bar');
+      pagination.dataPages = {
+        totalPage: allProduct.metadata.page.last,
+        curentPage: Number(curentPages),
+      };
+      contentContainer.append(pagination);
+    } catch (error) {
+
     }
-    const sortButton = document.querySelector('#sort');
-    sortbutton(sortButton);
-    const currentUrl = new URLSearchParams((window.location.href).split('?')[1]);
-    let curentPages;
-    if (currentUrl.has('page')) {
-      curentPages = currentUrl.get('page');
-    } else {
-      curentPages = 1;
-    }
-    if (currentUrl.has('search')) {
-      document.querySelector('#title').innerHTML = `Hasil pencarian untuk "${currentUrl.get('search')}"`;
-    }
-    const contentContainer = document.querySelector('#contentContainer');
-    const pagination = document.createElement('pagination-bar');
-    pagination.dataPages = { totalPage: 20, curentPage: Number(curentPages) };
-    contentContainer.append(pagination);
   },
 };
 

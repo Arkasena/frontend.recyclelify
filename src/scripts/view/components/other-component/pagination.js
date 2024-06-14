@@ -100,11 +100,12 @@ class Pagination extends HTMLElement {
     if (currentUrl.has('page')) {
       currentUrl.set('page', (this.dataPages.curentPage).toString());
       urlParams = currentUrl.toString();
-    } else {
+      window.location.href = `${(window.location.hash).split('?')[0]}?${urlParams.replace(/\+/g, ' ')}`;
+    } else if (page.toString() !== '1') {
       currentUrl.append('page', page);
       urlParams = currentUrl.toString();
+      window.location.href = `${(window.location.hash).split('?')[0]}?${urlParams.replace(/\+/g, ' ')}`;
     }
-    window.location.href = `${(window.location.hash).split('?')[0]}?${urlParams.replace(/\+/g, ' ')}`;
   }
 
   render() {

@@ -8,8 +8,10 @@ class InfoSampah extends HTMLElement {
 
   connectedCallback() {
     this.render();
-    this._createMaterialTypeButton(this.materialType, document.querySelector('#materialType'));
-    document.querySelector('button-sampah').dispatchEvent(new Event('click'));
+    if (this.materialType.length !== 0) {
+      this._createMaterialTypeButton(this.materialType, document.querySelector('#materialType'));
+      document.querySelector('button-sampah').dispatchEvent(new Event('click'));
+    }
   }
 
   set materialType(value) {
@@ -42,6 +44,24 @@ class InfoSampah extends HTMLElement {
     });
   }
 
+  enableButton() {
+    const button = this.querySelector('#linkJual');
+    button.disabled = false;
+    button.classList.add('bg-lime-600');
+    button.addEventListener('click', () => {
+      window.location.href = `${window.location.hash}/form`;
+    });
+  }
+
+  disableButton() {
+    const button = this.querySelector('#linkJual');
+    button.disabled = true;
+    button.classList.add('bg-gray-400');
+    button.removeEventListener('click', () => {
+      window.location.href = `${window.location.hash}/form`;
+    });
+  }
+
   render() {
     this._emptyContent();
     this.innerHTML += `
@@ -67,9 +87,16 @@ class InfoSampah extends HTMLElement {
     </div>
     </div>
     <div class="w-full">
-    <a id="linkJual" href="${window.location.hash}/form"><button class="bg-lime-600 w-full h-10 text-lg text-white rounded-lg px-2">Ajukan Penjualan Sampah</button></a>
+    <button id="linkJual" class="w-full py-2 text-lg rounded-lg text-white px-2">
+          Ajukan Penjualan Sampah
+    </button>
     </div>
     `;
+    if (this.materialType && this.materialType.length > 0) {
+      this.enableButton();
+    } else {
+      this.disableButton();
+    }
   }
 }
 customElements.define('info-sampah', InfoSampah);

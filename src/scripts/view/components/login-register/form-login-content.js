@@ -1,3 +1,6 @@
+import API_ENDPOINT from '../../../global/api-endpoint';
+import Cookies from '../../../utils/cookies.';
+
 /* eslint-disable class-methods-use-this */
 class FormLoginContent extends HTMLElement {
   constructor() {
@@ -66,7 +69,34 @@ class FormLoginContent extends HTMLElement {
         email: form.elements.email.value,
         password: form.elements.password.value,
       };
-      console.log(formData);
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      };
+      fetch(API_ENDPOINT.LOGIN, options)
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.error) {
+            const alert = document.createElement('error-alert');
+            alert.alertData = {
+              header: 'Login gagal',
+              desc: 'Email atau Password tidak ditemukan',
+              button: 'Tutup',
+              link: null,
+            };
+            document.querySelector('main').append(alert);
+          } else {
+            Cookies.setCookie('authToken', result.data, 1);
+            console.log(Cookies.getCookie('authToken'));
+            window.location.href = `${window.location.origin}/`;
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
     });
   }
 

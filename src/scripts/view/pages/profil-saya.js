@@ -1,49 +1,76 @@
+/* eslint-disable max-len */
+import ProductResources from '../../data/product-resources';
+import UserResources from '../../data/user-resources';
 import { setLayoutDefault } from '../templates/template-creator';
 
 const profilSaya = {
   async render() {
     return `
-    <section class="w-full flex justify-center">
-          
+    <section class="w-full flex justify-center items-center grow">
+        <div id="loading" class="loading"></div>
         </section>
+      <div id="katalogContainer" class="katalog-container"></div>
           `;
   },
 
   async afterRender() {
     setLayoutDefault();
     const section = document.querySelector('section');
-    const myProfile = document.createElement('my-profile');
-    const partnerData = {
-      id: 6969,
-      username: 'ptasriindah',
-      name: 'PT Asri Indah',
-      description: 'PT Asri Indah fokus mendaur ulang  PVC dan limbah plastik lainnya. Daur ulang (PVC) dapat digunakan untuk membuat banyak produk baru, termasuk Polyester staple fiber /filamen yang digunakan untuk pakaian, tekstil rumah (selimut, bantal, karpet), suku cadang otomotif (karpet, insulasi suara, lapisan boot, sarung jok) dan barang-barang keperluan industri (geotekstil dan insulasi atap), dan kemasan botol PVC baru untuk produk makanan dan non-makanan. Ini umumnya dicampur dalam rasio virgin PVC untuk didaur ulang, tergantung pada aplikasi yang diperlukan.',
-      phone_number: 882233334455,
-      email: 'contact@asriindah.com',
-      address: 'Komplek Industri Trikencana Kav.12A Cilampeni Katapang, Bandung',
-      website: 'ptasriindah.com',
-      photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR00ZT1jtWcl-wpBOre7RCPoL-_DicUYQnrOw&s',
-      price: 5000,
-      plasticType: 'PVC',
-    };
-    myProfile.userData = partnerData;
-    section.append(myProfile);
-    const katalogContainer = document.querySelector('#katalogContainer');
-    const katalogData = {
-      endpoint: 'my-product/2929',
-      photo: 'https://www.purwakartapost.co.id/wp-content/uploads/2019/06/Daur-Ulang-Sampah-Plastik.jpeg',
-      name: 'Tote Bag',
-      description: 'Terbuat dari bahan plastik PVC daur ulang berkualitas tinggi, totebag ini merupakan pilihan sempurna untuk anda',
-      price: 30000,
-    };
-    for (let i = 0; i < 4; i += 1) {
-      const katalogItem = document.createElement('katalog-item');
-      katalogItem.setAttribute('id', i);
-      katalogItem.katalogData = katalogData;
-      katalogContainer.append(katalogItem);
+    const loading = document.getElementById('loading');
+
+    try {
+      const myProfile = document.createElement('my-profile');
+      const partner = await UserResources.detailPartner(3);
+      const acceptanceRules = await UserResources.acceptanceRules(3);
+      const allProduct = await ProductResources.product('partnerId=3');
+
+      // Hide loading spinner after data is fetched
+      loading.style.display = 'none';
+
+      const partnerData = {
+        id: partner.id,
+        username: partner.username,
+        name: partner.name,
+        description: partner.description,
+        phoneNumber: (partner.phoneNumber).replaceAll('+62', ''),
+        email: partner.email,
+        address: (partner.address).replaceAll('+', ', '),
+        website: partner.website,
+        photo: partner.photo,
+      };
+
+      const jenisPlastic = ['PETE', 'HDPE', 'LDPE', 'PVC', 'PP', 'PS'];
+      if (acceptanceRules && acceptanceRules.length > 0) {
+        partnerData.plasticType = { name: jenisPlastic[Number(acceptanceRules[0].plasticId) - 1], total: acceptanceRules.length };
+        partnerData.price = acceptanceRules[0].pricePerKilogram;
+      } else {
+        partnerData.plasticType = null;
+        partnerData.price = 0;
+      }
+
+      myProfile.userData = partnerData;
+      section.append(myProfile);
+
+      const katalogContainer = document.querySelector('#katalogContainer');
+      const productLength = allProduct.data.length > 4 ? 4 : allProduct.data.length;
+      for (let i = 0; i < productLength; i += 1) {
+        const katalogItem = document.createElement('katalog-item');
+        katalogItem.setAttribute('id', allProduct.data[i].id);
+        katalogItem.katalogData = {
+          endpoint: `my-product/${allProduct.data[i].id}`,
+          photo: allProduct.data[i].photo,
+          name: allProduct.data[i].name,
+          description: allProduct.data[i].description,
+          price: allProduct.data[i].price,
+        };
+        katalogContainer.append(katalogItem);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      loading.style.display = 'none'; // Hide loading spinner on error as well
+      section.innerHTML += '<p>Failed to load data. Please try again later.</p>';
     }
   },
 };
 
 export default profilSaya;
-// page bakal buat halaman baru

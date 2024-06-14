@@ -23,6 +23,8 @@ import './components/other-component/app-header';
 import './components/other-component/app-footer';
 import './components/other-component/app-main';
 import './components/other-component/bantuan';
+import './components/other-component/customAlert';
+import './components/other-component/errorAlert';
 // end dashboard component - start reusable component
 import './components/dashboard/solid-button';
 import './components/dashboard/bordered-button';

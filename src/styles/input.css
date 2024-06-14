@@ -6,4 +6,16 @@
     *{
         font-family: "Poppins", Arial, Helvetica ,sans-serif;
     }
+    @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .loading {
+        @apply border-4 border-t-4 border-lime-600 border-solid rounded-full;
+        border-top-color: transparent;
+        width: 36px;
+        height: 36px;
+        animation: spin 1s linear infinite;
+      }
 }

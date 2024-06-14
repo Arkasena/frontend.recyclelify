@@ -1,4 +1,7 @@
 /* eslint-disable default-case */
+
+import Cookies from '../../../utils/cookies.';
+
 /* eslint-disable class-methods-use-this */
 class AppHeader extends HTMLElement {
   constructor() {
@@ -60,13 +63,17 @@ class AppHeader extends HTMLElement {
     if (this.layout === 'default') {
       this.renderDefaultUI();
       this.menuButtonOnclickFunction();
+      this.logoutButtonOnclickFunction();
     } else if (this.layout === 'dashboard') {
       this.renderDashboardUI();
       this.menuButtonOnclickDashboardFunction();
+      this.logoutButtonOnclickFunction();
     } else if (this.layout === 'nothing') {
       this.renderNothing();
     } else {
       this.renderDefaultUI();
+      this.menuButtonOnclickFunction();
+      this.logoutButtonOnclickFunction();
     }
     const activeLink = document.querySelector(`ul a[href="${this.active}"]`);
     if (activeLink) {
@@ -83,6 +90,13 @@ class AppHeader extends HTMLElement {
       }
     }
     this.personButtonOnclickFunction();
+  }
+
+  logoutButtonOnclickFunction() {
+    document.querySelector('#logout').addEventListener('click', () => {
+      Cookies.deleteCookie('authToken');
+      window.location.href = `${window.location.origin}/`;
+    });
   }
 
   personButtonOnclickFunction() {
@@ -178,7 +192,7 @@ class AppHeader extends HTMLElement {
                 <div id="personButtonContent" class="flex-col border shadow-md bg-white border-gray-200 rounded-lg py-2 w-[168px] absolute right-4 top-14 hidden">
                     <a href="#/collaborator/dashboard" class="p-3">DashBoard</a>
                     <a href="#/my-profile" class="p-3">Profil Saya</a>
-                    <a href="" class="p-3">Keluar</a>
+                    <button id="logout" class="p-3 text-left">Keluar</button>
                 </div>
             </nav>
         </div>

@@ -7,7 +7,7 @@ class DetailMitra extends HTMLElement {
       username: null,
       name: null,
       description: null,
-      phone_number: null,
+      phoneNumber: null,
       email: null,
       address: null,
       website: null,
@@ -37,7 +37,7 @@ class DetailMitra extends HTMLElement {
     this.innerHTML += `
     <div class="flex flex-row w-full gap-4">
     <div class="w-14 h-14 rounded-xl bg-gray-300 flex justify-center items-center">
-        <img class="w-14 h-14 rounded-xl" src="${this.partnerData.photo}" alt="Foto ${this.partnerData.name}">
+        <img class="w-14 h-14 rounded-xl" src="${this.partnerData.photo ? this.partnerData.photo : './images/others/blank-profile.png'}" alt="Foto ${this.partnerData.name}">
     </div>
     <div class="flex flex-col flex-grow justify-between">
         <h1 class="text-xl font-semibold">${this.partnerData.name}</h1>
@@ -45,7 +45,7 @@ class DetailMitra extends HTMLElement {
     </div>
 </div>
 <div class="w-full">
-    <p>${this.partnerData.description}</p>
+    <p>${this.partnerData.description ? this.partnerData.description : ''}</p>
 </div>
 <div class="grid grid-cols-2 w-full gap-4">
     <div class="flex flex-row items-center gap-4">
@@ -54,11 +54,11 @@ class DetailMitra extends HTMLElement {
     </div>
     <div class="flex flex-row items-center gap-4">
         <div class="w-7 h-7 flex justify-center items-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-        <p>+62 ${this.partnerData.phone_number}</p>
+        <p>+62 ${this.partnerData.phoneNumber}</p>
     </div>
     <div class="flex flex-row items-center gap-4">
         <div class="w-7 h-7 flex justify-center items-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></div>
-        <p>${this.partnerData.website}</p>
+        <p>${this.partnerData.website ? this.partnerData.website : 'Tidak ada website'}</p>
     </div>
     <div class="flex flex-row items-center gap-4">
         <div class="w-7 h-7 flex justify-center items-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>

@@ -183,6 +183,14 @@ class FormPenjualan extends HTMLElement {
           handoverType,
         };
         console.log(data);
+        const alert = document.createElement('custom-alert');
+        alert.alertData = {
+          header: 'Formulir berhasil dikirim',
+          desc: 'Lihat statusnya dari dashboard Anda. Kami akan memberitahu Anda segera setelah Mitra menyetujui untuk membeli',
+          button: 'Buka Dashboard',
+          link: window.location.origin,
+        };
+        document.querySelector('main').append(alert);
         const buttonJualSampah = document.querySelector('#submitJualSampah');
         buttonJualSampah.setAttribute('disabled', '');
         buttonJualSampah.classList.remove('bg-lime-600', 'text-gray-50');
