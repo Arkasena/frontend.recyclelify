@@ -27,22 +27,12 @@ const mitra = {
     const currentUrl = new URLSearchParams((window.location.href).split('?')[1]);
     const sortButton = document.querySelector('#sort');
     sortbutton(sortButton);
-    console.log(Cookies.getCookie('authToken'));
     try {
       const allPartner = await UserResources.partner(currentUrl.toString());
       loading.style.display = 'none';
       (allPartner.data).forEach((partner) => {
         const mitraItem = document.createElement('mitra-item');
         mitraItem.setAttribute('id', partner.id);
-        console.log({
-          id: partner.id,
-          photo: partner.photo,
-          name: partner.name,
-          description: partner.description,
-          price: partner.acceptanceRules && partner.acceptanceRules.length > 0 ? partner.acceptanceRules[0].pricePerKilogram : '0',
-          address: (partner.address).split('+')[1],
-          material: partner.acceptanceRules && partner.acceptanceRules.length > 0 ? { name: partner.acceptanceRules[0].plastic.name, total: partner.acceptanceRules.length } : null,
-        });
         mitraItem.mitraData = {
           id: partner.id,
           photo: partner.photo,

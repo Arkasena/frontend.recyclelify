@@ -15,7 +15,6 @@ const collaboratorDashboardTransaction = {
   async afterRender() {
     setLayoutDashboard(1);
     const TransactionListComponent = document.querySelector('selling-transaction-list');
-
     const dummyData = [
       {
         company_image: 'https://yt3.googleusercontent.com/ytc/AIdro_ndItzJEgeNIMkMeMRnFGFjUCxCmCvmzQZ_s-MYCEp6fA=s900-c-k-c0x00ffffff-no-rj',
@@ -24,7 +23,7 @@ const collaboratorDashboardTransaction = {
         status: 'Diproses',
         date: '23 April 2024',
         weight: 30,
-        detail_transaction: '#',
+        detail_transaction: '#/collaborator/dashboard/transaction/5',
       },
       {
         company_image: 'https://yt3.googleusercontent.com/ytc/AIdro_ndItzJEgeNIMkMeMRnFGFjUCxCmCvmzQZ_s-MYCEp6fA=s900-c-k-c0x00ffffff-no-rj',
@@ -75,6 +74,7 @@ const collaboratorDashboardTransaction = {
 
     const menuTabComponent = document.querySelector('dashboard-menu-tab-selling-transaction');
     menuTabComponent.addEventListener('tab-changed', (event) => {
+      console.log(event.detail.status);
       const { status } = event.detail;
       generateTransactionItems(status);
     });

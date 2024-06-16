@@ -71,7 +71,7 @@ class CollaboratorSettingProfile extends HTMLElement {
       const formData = {
         name: form.elements.name.value,
         address: `${form.elements.address.value}+${form.elements.city.value}+${form.elements.province.value}`,
-        phone: form.elements.phone.value,
+        phoneNumber: form.elements.phone.value,
       };
       console.log(formData);
     });

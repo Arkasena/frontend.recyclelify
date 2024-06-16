@@ -1,5 +1,6 @@
 import API_ENDPOINT from '../../../global/api-endpoint';
 import UrlParser from '../../../routes/url-parser';
+import Cookies from '../../../utils/cookies.';
 import { loginPagesTemplateCreator, setLayoutNothing } from '../../templates/template-creator';
 
 const registerAccount = {
@@ -52,11 +53,38 @@ const registerAccount = {
           },
           body: JSON.stringify(data),
         };
-        fetch(API_ENDPOINT.PARTNER, options)
+        document.querySelector('main').innerHTML += `
+        <div id="loading" class="top-0 right-0 fixed z-[999] flex justify-center items-center w-full h-full bg-opacity-40 bg-black">
+            <div class="loading z-[999]"></div>
+        </div>`;
+        fetch(API_ENDPOINT.REGISTER, options)
           .then((response) => response.json())
           .then((result) => {
-        window.location.href = `${window.location.origin}/#/login`;
-            console.log(result);
+            if (result.error) {
+              document.querySelector('#loading').remove();
+              const alert = document.createElement('error-alert');
+              alert.alertData = {
+                header: 'Login gagal',
+                desc: 'Email atau Password tidak ditemukan',
+                button: 'Tutup',
+                link: null,
+              };
+              document.querySelector('main').append(alert);
+            } else {
+              const { token, user } = result.data;
+              Cookies.setUserAuth(token, user.id, user.role, 1);
+              window.location.href = '#/';
+              setTimeout(() => {
+                const alert = document.createElement('custom-alert');
+                alert.alertData = {
+                  header: 'Berhasil Login',
+                  desc: 'Mari berkontribusi untuk lingkungan lebih bersih, bersama Recyclelify',
+                  button: 'Cari Mitra',
+                  link: '#/find-partner',
+                };
+                document.querySelector('main').append(alert);
+              }, 0);
+            }
           })
           .catch((error) => {
             console.error('Error:', error);

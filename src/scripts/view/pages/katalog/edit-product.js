@@ -1,9 +1,14 @@
+import ProductResources from '../../../data/product-resources';
+import UrlParser from '../../../routes/url-parser';
 import { setLayoutDefault } from '../../templates/template-creator';
 
 const editProduct = {
   async render() {
     return `
-    <section class="w-full flex justify-center pb-10">
+    <section class="w-full flex flex-col item-center grow pb-10">
+    <div id="loading" class="flex w-full grow items-center justify-center">
+                <div class="loading"></div>
+            </div>
             <div class="w-full max-w-[1500px] flex flex-col px-6" id="content">
             </div>
         </section>  
@@ -12,24 +17,43 @@ const editProduct = {
 
   async afterRender() {
     setLayoutDefault();
-    const formProduk = document.createElement('form-produk');
-    document.querySelector('#content').append(formProduk);
-    const form = document.querySelector('#productForm');
-    const inputId = document.createElement('input');
-    inputId.setAttribute('type', 'hidden');
-    inputId.setAttribute('name', 'id');
-    inputId.setAttribute('id', 'id');
-    form.append(inputId);
-    const currentData = {
-      id: 2323,
-      name: 'Tote Bag',
-      price: 5000,
-      link: 'https://www.tokopedia.com/',
-      description: 'ini Produk bagus',
-      category: ['fashion', 'dekorasi', 'perabotan'],
-    };
-    formProduk.formData = currentData;
-    form.elements.id.value = currentData.id;
+    const url = UrlParser.parseActiveUrlWithoutCombiner();
+    const loading = document.getElementById('loading');
+    try {
+      const product = await ProductResources.detailProduct(url.id);
+      if (!product) {
+        loading.remove();
+        const alert = document.createElement('error-alert');
+        alert.alertData = {
+          header: 'Produk tidak ditemukan!',
+          desc: 'Produk yang di cari tidak dapat ditemukan',
+          button: 'Kembali',
+          link: '#/my-profile',
+        };
+        document.querySelector('main').append(alert);
+      } else {
+        loading.remove();
+        const formProduk = document.createElement('form-produk');
+        document.querySelector('#content').append(formProduk);
+        const currentData = {
+          name: product.name,
+          price: product.price,
+          link: product.link,
+          description: product.description,
+          category: ['fashion', 'dekorasi', 'perabotan'],
+        };
+        formProduk.formData = currentData;
+        const form = document.querySelector('#productForm');
+        const inputId = document.createElement('input');
+        inputId.setAttribute('type', 'hidden');
+        inputId.setAttribute('name', 'id');
+        inputId.setAttribute('id', 'id');
+        form.append(inputId);
+        form.elements.id.value = product.id;
+      }
+    } catch (error) {
+
+    }
   },
 };
 

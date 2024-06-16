@@ -31,10 +31,8 @@ class customAlert extends HTMLElement {
 
   closeButtonFunction() {
     const closeButton = document.querySelectorAll('#closeButton');
-    console.log(closeButton);
     closeButton.forEach((button) => {
       button.addEventListener('click', () => {
-        console.log('asu');
         this.remove();
       });
     });

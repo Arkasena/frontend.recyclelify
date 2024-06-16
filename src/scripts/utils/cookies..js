@@ -9,9 +9,6 @@ const Cookies = {
     document.cookie = `${name}=${value || ''}${expires}; path=/`;
   },
 
-  // // Contoh penggunaan
-  // const token = 'your_bearer_token_here';
-  // setCookie('authToken', token, 5); // Token disimpan selama 5 jam
   getCookie(name) {
     const nameEQ = `${name}=`;
     const ca = document.cookie.split(';');
@@ -22,11 +19,42 @@ const Cookies = {
     }
     return null;
   },
-  // Contoh penggunaan
-  // const savedToken = getCookie('authToken');
-  // console.log(savedToken); // Menampilkan token yang disimpan
+
   deleteCookie(name) {
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   },
+
+  setUserAuth(token, userId, userRole, hours) {
+    const userAuth = JSON.stringify({ token, userId, userRole });
+    this.setCookie('userAuth', userAuth, hours);
+  },
+
+  getToken() {
+    const userAuth = this.getCookie('userAuth');
+    if (userAuth) {
+      const { token } = JSON.parse(userAuth);
+      return token;
+    }
+    return null;
+  },
+
+  getUserId() {
+    const userAuth = this.getCookie('userAuth');
+    if (userAuth) {
+      const { userId } = JSON.parse(userAuth);
+      return userId;
+    }
+    return null;
+  },
+
+  getRole() {
+    const userAuth = this.getCookie('userAuth');
+    if (userAuth) {
+      const { userRole } = JSON.parse(userAuth);
+      return userRole;
+    }
+    return null;
+  },
 };
+
 export default Cookies;

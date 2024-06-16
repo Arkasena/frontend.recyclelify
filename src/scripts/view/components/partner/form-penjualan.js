@@ -174,12 +174,17 @@ class FormPenjualan extends HTMLElement {
         if (pictureInput.files.length > 0) {
           [file] = pictureInput.files;
         }
+        const jenisPlastic = ['PETE', 'HDPE', 'LDPE', 'PVC', 'PP', 'PS'];
         const data = {
-          photo: file,
-          plasticType: form.elements.plasticType.value,
+          partnerId: this.partnerData.id,
+          collaboratorId: 23, // ganti
+          photo: file.name,
+          plasticId: (jenisPlastic.indexOf(form.elements.plasticType.value)) + 1,
           weight: form.elements.estimasi.value,
           address: form.elements.address.value,
           phoneNumber: form.elements.telepon.value,
+          status: 'SUBMITTED',
+          handoverFee: 0,
           handoverType,
         };
         console.log(data);

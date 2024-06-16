@@ -190,7 +190,7 @@ class AppHeader extends HTMLElement {
                 <div class="mr-2 w-11 h-11 bg-lime-600 flex justify-center items-center rounded-xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
                 <button id="personButton" class="w-11 h-11 bg-lime-600 flex justify-center items-center rounded-xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></button>
                 <div id="personButtonContent" class="flex-col border shadow-md bg-white border-gray-200 rounded-lg py-2 w-[168px] absolute right-4 top-14 hidden">
-                    <a href="#/collaborator/dashboard" class="p-3">DashBoard</a>
+                    <a href="#/${(Cookies.getRole()).toLowerCase()}/dashboard" class="p-3">DashBoard</a>
                     <a href="#/my-profile" class="p-3">Profil Saya</a>
                     <button id="logout" class="p-3 text-left">Keluar</button>
                 </div>
@@ -240,7 +240,7 @@ class AppHeader extends HTMLElement {
                 <div id="personButtonContent" class="flex-col border shadow-md bg-white border-gray-200 rounded-lg py-2 w-[168px] absolute right-4 top-16 hidden">
                     <a href="#/partner/dashboard" class="p-3">DashBoard</a>
                     <a href="#/my-profile" class="p-3">Profil Saya</a>
-                    <a href="" class="p-3">Keluar</a>
+                    <button id="logout" class="p-3 text-left">Keluar</button>
                 </div>
             </nav>
         </div>
@@ -279,7 +279,7 @@ class AppHeader extends HTMLElement {
                 <div id="personButtonContent" class="flex-col border shadow-md bg-white border-gray-200 rounded-lg py-2 w-[168px] absolute right-4 top-16 hidden">
                     <a href="#/partner/dashboard" class="p-3">DashBoard</a>
                     <a href="#/my-profile" class="p-3">Profil Saya</a>
-                    <a href="" class="p-3">Keluar</a>
+                    <button id="logout" class="p-3 text-left">Keluar</button>
                 </div>
             </nav>
         </div>

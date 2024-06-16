@@ -1,3 +1,4 @@
+import Cookies from '../../utils/cookies.';
 import { setLayoutDefault } from '../templates/template-creator';
 
 const landingPage = {
@@ -93,6 +94,7 @@ const landingPage = {
 
   async afterRender() {
     setLayoutDefault();
+    console.log(Cookies.getToken());
   },
 };
 

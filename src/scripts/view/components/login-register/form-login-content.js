@@ -76,10 +76,15 @@ class FormLoginContent extends HTMLElement {
         },
         body: JSON.stringify(formData),
       };
+      document.querySelector('main').innerHTML += `
+      <div id="loading" class="top-0 right-0 fixed z-[999] flex justify-center items-center w-full h-full bg-opacity-40 bg-black">
+            <div class="loading z-[999]"></div>
+        </div>`;
       fetch(API_ENDPOINT.LOGIN, options)
         .then((response) => response.json())
         .then((result) => {
           if (result.error) {
+            document.querySelector('#loading').remove();
             const alert = document.createElement('error-alert');
             alert.alertData = {
               header: 'Login gagal',
@@ -89,9 +94,20 @@ class FormLoginContent extends HTMLElement {
             };
             document.querySelector('main').append(alert);
           } else {
-            Cookies.setCookie('authToken', result.data, 1);
-            console.log(Cookies.getCookie('authToken'));
-            window.location.href = `${window.location.origin}/`;
+            const { token, user } = result.data;
+            Cookies.setUserAuth(token, user.id, user.role, 1);
+            window.location.href = '#/';
+            setTimeout(() => {
+              const alert = document.createElement('custom-alert');
+              alert.alertData = {
+                header: 'Berhasil Login',
+                desc: 'Mari berkontribusi untuk lingkungan lebih bersih, bersama Recyclelify',
+                button: 'Cari Mitra',
+                link: '#/find-partner',
+              };
+              document.querySelector('main').append(alert);
+            }, 0);
+            console.log('asu');
           }
         })
         .catch((error) => {

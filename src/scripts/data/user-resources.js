@@ -4,24 +4,25 @@ import Cookies from '../utils/cookies.';
 class UserResources {
   static async partner(params) {
     console.log(`${API_ENDPOINT.PARTNER}?relations=acceptanceRules${params}`);
-    const response = await fetch(`${API_ENDPOINT.PARTNER}?relations=acceptanceRules&${params}`, {
+    const response = await fetch(`${API_ENDPOINT.PARTNER}?relations=acceptanceRules${params}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${Cookies.getCookie('authToken')}`,
+        Authorization: `Bearer ${Cookies.getToken()}`,
       },
     });
-    console.log(response);
+
     const responseJson = await response.json();
+    console.log(responseJson);
     return responseJson;
   }
 
-  static async detailPartner(id) {
-    const response = await fetch(API_ENDPOINT.DETAIL_PARTNER(id), {
+  static async detailPartner(id, params) {
+    const response = await fetch(`${API_ENDPOINT.DETAIL_PARTNER(id)}?${params}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${Cookies.getCookie('authToken')}`,
+        Authorization: `Bearer ${Cookies.getToken()}`,
       },
     });
     const responseJson = await response.json();
@@ -34,7 +35,7 @@ class UserResources {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${Cookies.getCookie('authToken')}`,
+        Authorization: `Bearer ${Cookies.getToken()}`,
       },
     });
     const responseJson = await response.json();

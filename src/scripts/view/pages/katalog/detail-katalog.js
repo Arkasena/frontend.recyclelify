@@ -6,7 +6,7 @@ import { setLayoutDefault } from '../../templates/template-creator';
 const detailKatalog = {
   async render() {
     return `
-      <section class="w-full flex flex-col justify-center grow pb-10">
+      <section class="w-full flex flex-col items-center grow pb-10">
         <div id="loading" class="flex w-full grow items-center justify-center">
           <div class="loading"></div>
         </div>
@@ -22,11 +22,9 @@ const detailKatalog = {
     const contentContainer = document.querySelector('#content');
     const detailCatalogContainer = document.getElementById('detailCatalogContainer');
     const loading = document.getElementById('loading');
-
     try {
       const url = UrlParser.parseActiveUrlWithoutCombiner();
-      const product = await ProductResources.detailProduct(url.id);
-
+      const product = await ProductResources.detailProduct(url.id, 'relations=partner');
       if (!product) {
         loading.remove();
         const alert = document.createElement('error-alert');
@@ -34,38 +32,33 @@ const detailKatalog = {
           header: 'Produk tidak ditemukan!',
           desc: 'Produk yang di cari tidak dapat ditemukan',
           button: 'Cari Produk',
-          link: '#/find-partner',
+          link: '#/catalog',
         };
         document.querySelector('main').append(alert);
       } else {
-        const partner = await UserResources.detailPartner(product.partnerId);
         const allProduct = await ProductResources.product();
         console.log(allProduct);
         loading.remove();
-
         const catalogData = {
           photo: product.photo,
           name: product.name,
           description: product.description,
           price: product.price,
           link: product.link,
-          partnerName: partner.name,
-          partnerUsername: partner.username,
-          partnerDescription: partner.description,
-          partnerEmail: partner.email,
-          partnerPhoto: partner.photo,
-          partnerAddress: (partner.address).replaceAll('+', ', '),
-          partnerPhoneNumber: partner.phoneNumber,
-          partnerWebsite: partner.website,
+          partnerName: product.partner.name,
+          partnerUsername: product.partner.username,
+          partnerDescription: product.partner.description,
+          partnerEmail: product.partner.email,
+          partnerPhoto: product.partner.photo,
+          partnerAddress: (product.partner.address).replaceAll('+', ', '),
+          partnerPhoneNumber: product.partner.phoneNumber,
+          partnerWebsite: product.partner.website,
         };
-
-        // Membuat detailCatalog setelah catalogData tersedia
         const detailCatalog = document.createElement('detail-katalog');
         detailCatalog.catalogData = catalogData;
-
-        // Menambahkan event listener untuk event custom 'detailCatalogRendered'
         detailCatalog.addEventListener('detailCatalogRendered', () => {
           const otherProduct = detailCatalog.querySelector('#otherProduct');
+          const productCategories = ['Aksesoris', 'Dekorasi', 'Busana', 'Furnitur', 'Lainnya'];
           for (let i = 0; i < 4; i += 1) {
             const katalogItem = document.createElement('katalog-item');
             katalogItem.setAttribute('id', (allProduct.data)[i].id);
@@ -75,6 +68,7 @@ const detailKatalog = {
               name: (allProduct.data)[i].name,
               description: (allProduct.data)[i].description,
               price: (allProduct.data)[i].price,
+              category: { name: productCategories[Number(allProduct.data[i].categories[0].categoryId) - 1], total: allProduct.data[i].categories.length },
             };
             katalogItem.classList.add('w-full');
             otherProduct.append(katalogItem);

@@ -46,7 +46,7 @@ class DetailKatalog extends HTMLElement {
                 <img class="w-full aspect-square rounded-2xl" src="${this.catalogData.photo}" alt="Gambar ${this.catalogData.name}">
             </div>
         </div>
-        <div class="flex flex-col gap-6 relative" id="productInfoContainer">
+        <div class="flex flex-col w-full gap-6 relative" id="productInfoContainer">
             <div class="flex flex-col gap-2">
                 <h1 class="text-2xl font-semibold">${this.catalogData.name}</h1>
                 <p class="text-base font-semibold">Rp. ${this.catalogData.price}</p>

@@ -1,11 +1,12 @@
 import UserResources from '../../../data/user-resources';
 import UrlParser from '../../../routes/url-parser';
+import Cookies from '../../../utils/cookies.';
 import { setLayoutDefault } from '../../templates/template-creator';
 
 const detailMitra = {
   async render() {
     return `
-   <section class="w-full flex grow flex-col justify-center pb-10">
+   <section class="w-full flex grow flex-col items-center pb-10">
             <div id="loading" class="flex w-full grow items-center justify-center">
                 <div class="loading"></div>
             </div>
@@ -34,7 +35,7 @@ const detailMitra = {
     const loading = document.getElementById('loading');
     try {
       const url = UrlParser.parseActiveUrlWithoutCombiner();
-      const partner = await UserResources.detailPartner(url.id);
+      const partner = await UserResources.detailPartner(url.id, 'relations=acceptanceRules');
       if (!partner) {
         loading.remove();
         const alert = document.createElement('error-alert');
@@ -46,7 +47,6 @@ const detailMitra = {
         };
         document.querySelector('main').append(alert);
       } else {
-        const acceptanceRules = await UserResources.acceptanceRules(url.id);
         loading.remove();
         const partnerData = {
           id: partner.id,
@@ -61,8 +61,7 @@ const detailMitra = {
         };
         const jenisPlastic = ['PETE', 'HDPE', 'LDPE', 'PVC', 'PP', 'PS'];
         const acceptTrash = [];
-
-        acceptanceRules.forEach((rules) => {
+        partner.acceptanceRules.forEach((rules) => {
           acceptTrash.push({
             name: jenisPlastic[Number(rules.plasticId) - 1],
             accept: rules.status,

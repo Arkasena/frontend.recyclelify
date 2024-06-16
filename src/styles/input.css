@@ -18,4 +18,8 @@
         height: 36px;
         animation: spin 1s linear infinite;
       }
+      .fade-out {
+        @apply transition-opacity duration-500 ease-out;
+        opacity: 0;
+      }
 }

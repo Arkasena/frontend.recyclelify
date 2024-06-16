@@ -1,5 +1,10 @@
+/* eslint-disable no-script-url */
 /* eslint-disable no-param-reassign */
 /* eslint-disable max-len */
+
+import API_ENDPOINT from '../../../global/api-endpoint';
+import Cookies from '../../../utils/cookies.';
+
 /* eslint-disable class-methods-use-this */
 class FormProduk extends HTMLElement {
   // eslint-disable-next-line no-useless-constructor
@@ -99,17 +104,113 @@ class FormProduk extends HTMLElement {
       event.preventDefault();
       const checkedValues = Array.from(form.elements.productType).filter((input) => input.checked).map((input) => input.value);
       const data = {
+        partnerId: Cookies.getUserId(),
+        photo: 'https://images.tokopedia.net/img/cache/900/VqbcmM/2023/8/31/2ae23a03-5889-442d-a320-69ceb10518f4.jpg',
         name: form.elements.name.value,
         price: form.elements.price.value,
         link: form.elements.link.value,
         description: form.elements.description.value,
         productType: checkedValues,
       };
+      const dataProduct = (({
+        partnerId, photo, name, price, link, description,
+      }) => ({
+        partnerId, photo, name, price, link, description,
+      }))(data);
       if (form.elements.id) {
         data.id = form.elements.id.value;
       }
       if (checkedValues.length !== 0) {
-        console.log(data);
+        if (form.elements.id) {
+          console.log('edit');
+          const options = {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${Cookies.getToken()}`,
+            },
+            body: JSON.stringify(dataProduct),
+          };
+          document.querySelector('main').innerHTML += `
+        <div id="loading" class="top-0 right-0 fixed z-[999] flex justify-center items-center w-full h-full bg-opacity-40 bg-black">
+            <div class="loading z-[999]"></div>
+        </div>`;
+          fetch(API_ENDPOINT.DETAIL_PRODUCT(form.elements.id.value), options)
+            .then((response) => response.json())
+            .then((result) => {
+              if (result.error) {
+                document.querySelector('#loading').remove();
+                const alert = document.createElement('error-alert');
+                alert.alertData = {
+                  header: 'Tambah Produk Gagal',
+                  desc: result.error.details[0].message,
+                  button: 'Muat ulang',
+                  link: 'javascript:location.reload()',
+                };
+                document.querySelector('main').append(alert);
+              } else {
+                window.location.href = `${window.location.origin}/#/my-profile`;
+                console.log(result);
+              }
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+        } else {
+          const options = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${Cookies.getToken()}`,
+            },
+            body: JSON.stringify(dataProduct),
+          };
+          document.querySelector('main').innerHTML += `
+        <div id="loading" class="top-0 right-0 fixed z-[999] flex justify-center items-center w-full h-full bg-opacity-40 bg-black">
+            <div class="loading z-[999]"></div>
+        </div>`;
+          fetch(API_ENDPOINT.PRODUCT, options)
+            .then((response) => response.json())
+            .then((result) => {
+              if (result.error) {
+                document.querySelector('#loading').remove();
+                const alert = document.createElement('error-alert');
+                alert.alertData = {
+                  header: 'Tambah Produk Gagal',
+                  desc: result.error.details[0].message,
+                  button: 'Tutup',
+                  link: null,
+                };
+                document.querySelector('main').append(alert);
+              } else {
+                const productCategories = ['Aksesoris', 'Dekorasi', 'Busana', 'Furnitur', 'Lainnya'];
+                const dataCategories = data.productType.map((category) => ({
+                  productId: result.data.id,
+                  categoryId: productCategories[Number(category) - 1],
+                }));
+                dataCategories.forEach((categories) => {
+                  const categoriesOptions = {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      Authorization: `Bearer ${Cookies.getToken()}`,
+                    },
+                    body: JSON.stringify(categories),
+                  };
+                  fetch(API_ENDPOINT.PRODUCT_CATEGORIES, categoriesOptions)
+                    .then((response) => response.json())
+                    .then((res) => {
+                      console.log(res);
+                    });
+                });
+                window.location.href = `${window.location.origin}/#/my-profile`;
+                console.log(result);
+              }
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+        }
       }
     });
   }
@@ -147,7 +248,7 @@ class FormProduk extends HTMLElement {
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-up"><path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21"/><path d="m14 19.5 3-3 3 3"/><path d="M17 22v-5.5"/><circle cx="9" cy="9" r="2"/></svg>
                     <img src="" id="preview" alt="" class="z-10 absolute max-w-full max-h-full">
                 </div>
-                <input accept=".jpg, .jpeg, .png" id="picture" type="file" class="hidden">
+                <input accept=".jpg, .jpeg, .png" id="picture" name="picture" type="file" class="hidden">
             </label>
             <span class="text-gray-400 text-center pt-3">Upload foto produk</span>
         </div>

@@ -29,6 +29,7 @@ const katalog = {
       const allProduct = await ProductResources.product(currentUrl.toString());
       loading.style.display = 'none';
       (allProduct.data).forEach((product) => {
+        const productCategories = ['Aksesoris', 'Dekorasi', 'Busana', 'Furnitur', 'Lainnya'];
         const productItem = document.createElement('katalog-item');
         productItem.setAttribute('id', product.id);
         productItem.katalogData = {
@@ -37,6 +38,7 @@ const katalog = {
           name: product.name,
           description: product.description,
           price: product.price,
+          category: { name: productCategories[Number(product.categories[0].categoryId) - 1], total: product.categories.length },
         };
         katalogContainer.append(productItem);
       });

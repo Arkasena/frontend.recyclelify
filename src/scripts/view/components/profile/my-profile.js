@@ -52,7 +52,7 @@ class MyProfile extends HTMLElement {
   render() {
     this._emptyContent();
     this.innerHTML += `
-    <div class="w-full max-w-[1500px] flex flex-col gap-[40px] justify-center relative px-6 pt-10 pb-14">
+    <div class="w-full max-w-[1500px] min-w-[1500px] flex flex-col gap-[40px] justify-center relative px-6 pt-10 pb-14">
                 <div class="w-full flex flex-col">
                     <div class="w-full bg-lime-50 relative rounded-2xl h-72">
                         <div class="absolute p-5 right-0">
