@@ -20,7 +20,7 @@ const profilSaya = {
     const loading = document.getElementById('loading');
     try {
       const myProfile = document.createElement('my-profile');
-      const partner = await UserResources.detailPartner(Cookies.getUserId(), 'relations=acceptanceRules&relations=products');
+      const partner = await UserResources.detailPartner(Cookies.getUserId(), 'relations=acceptanceRules&relations=products&relations=categories');
       loading.style.display = 'none';
       const partnerData = {
         id: partner.id,
@@ -45,7 +45,7 @@ const profilSaya = {
       section.append(myProfile);
       const katalogContainer = document.querySelector('#katalogContainer');
       const productLength = partner.products.length;
-      console.log(productLength);
+      const productCategories = ['Aksesoris', 'Dekorasi', 'Busana', 'Furnitur', 'Lainnya'];
       for (let i = 0; i < productLength; i += 1) {
         const katalogItem = document.createElement('katalog-item');
         katalogItem.setAttribute('id', partner.products[i].id);
@@ -55,6 +55,10 @@ const profilSaya = {
           name: partner.products[i].name,
           description: partner.products[i].description,
           price: partner.products[i].price,
+          category: partner.products[i].categories[0] ? {
+            name: productCategories[Number(partner.products[i].categories[0].categoryId) - 1],
+            total: partner.products[i].categories.length,
+          } : null,
         };
         katalogContainer.append(katalogItem);
       }

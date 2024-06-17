@@ -38,7 +38,7 @@ const katalog = {
           name: product.name,
           description: product.description,
           price: product.price,
-          category: { name: productCategories[Number(product.categories[0].categoryId) - 1], total: product.categories.length },
+          category: product.categories[0] ? { name: productCategories[Number(product.categories[0].categoryId) - 1], total: product.categories.length } : null,
         };
         katalogContainer.append(productItem);
       });
@@ -54,7 +54,7 @@ const katalog = {
       const contentContainer = document.querySelector('#contentContainer');
       const pagination = document.createElement('pagination-bar');
       pagination.dataPages = {
-        totalPage: allProduct.metadata.page.last,
+        totalPage: allProduct.meta.page.last,
         curentPage: Number(curentPages),
       };
       contentContainer.append(pagination);

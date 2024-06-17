@@ -123,6 +123,25 @@ class FormProduk extends HTMLElement {
       if (checkedValues.length !== 0) {
         if (form.elements.id) {
           console.log('edit');
+          fetch(`${API_ENDPOINT.PRODUCT_CATEGORIES}?productId=${form.elements.id.value}`, {
+            method: 'get',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${Cookies.getToken()}`,
+            },
+          }).then((response) => response.json())
+            .then((result) => {
+              result.data.forEach((categories) => {
+                fetch(`${API_ENDPOINT.PRODUCT_CATEGORIES}/${categories.id}`, {
+                  method: 'DELETE',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${Cookies.getToken()}`,
+                  },
+
+                });
+              });
+            });
           const options = {
             method: 'PUT',
             headers: {
@@ -149,6 +168,26 @@ class FormProduk extends HTMLElement {
                 };
                 document.querySelector('main').append(alert);
               } else {
+                const productCategories = ['aksesoris', 'dekorasi', 'busana', 'furnitur', 'lainnya'];
+                const dataCategories = data.productType.map((category) => ({
+                  productId: result.data.id,
+                  categoryId: productCategories.indexOf(category) + 1,
+                }));
+                dataCategories.forEach((categories) => {
+                  const categoriesOptions = {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      Authorization: `Bearer ${Cookies.getToken()}`,
+                    },
+                    body: JSON.stringify(categories),
+                  };
+                  fetch(API_ENDPOINT.PRODUCT_CATEGORIES, categoriesOptions)
+                    .then((response) => response.json())
+                    .then((res) => {
+                      console.log(res);
+                    });
+                });
                 window.location.href = `${window.location.origin}/#/my-profile`;
                 console.log(result);
               }
@@ -183,10 +222,10 @@ class FormProduk extends HTMLElement {
                 };
                 document.querySelector('main').append(alert);
               } else {
-                const productCategories = ['Aksesoris', 'Dekorasi', 'Busana', 'Furnitur', 'Lainnya'];
+                const productCategories = ['aksesoris', 'dekorasi', 'busana', 'furnitur', 'lainnya'];
                 const dataCategories = data.productType.map((category) => ({
                   productId: result.data.id,
-                  categoryId: productCategories[Number(category) - 1],
+                  categoryId: productCategories.indexOf(category) + 1,
                 }));
                 dataCategories.forEach((categories) => {
                   const categoriesOptions = {
@@ -309,10 +348,10 @@ class FormProduk extends HTMLElement {
                     <td>
                         <div class="grid grid-cols-2">
                             <label for="aksesoris" class="text-sm px-2 py-2 flex flex-row items-center"><input type="checkbox" name="productType" id="aksesoris" value="aksesoris" class="mr-2 accent-lime-400 cursor-pointer w-4 h-4 ">Aksesoris</label>
-                            <label for="perabotan" class="text-sm px-2 py-2 flex flex-row items-center"><input type="checkbox" name="productType" id="perabotan" value="perabotan" class="mr-2  accent-lime-400 cursor-pointer w-4 h-4 ">Perabotan</label>
+                            <label for="busana" class="text-sm px-2 py-2 flex flex-row items-center"><input type="checkbox" name="productType" id="busana" value="busana" class="mr-2  accent-lime-400 cursor-pointer w-4 h-4 ">Busana</label>
                             <label for="dekorasi" class="text-sm px-2 py-2 flex flex-row items-center"><input type="checkbox" name="productType" id="dekorasi" value="dekorasi" class="mr-2  accent-lime-400 cursor-pointer w-4 h-4 ">Dekorasi</label>
-                            <label for="peralatan dapur" class="text-sm px-2 py-2 flex flex-row items-center"><input type="checkbox" name="productType" id="peralatan dapur" value="peralatan dapur" class="mr-2  accent-lime-400 cursor-pointer w-4 h-4 ">Peralatan Dapur</label>
-                            <label for="fashion" class="text-sm px-2 py-2 flex flex-row items-center"><input type="checkbox" name="productType" id="fashion" value="fashion" class="mr-2  accent-lime-400 cursor-pointer w-4 h-4 ">Fashion</label>
+                            <label for="furnitur" class="text-sm px-2 py-2 flex flex-row items-center"><input type="checkbox" name="productType" id="furnitur" value="furnitur" class="mr-2  accent-lime-400 cursor-pointer w-4 h-4 ">Furnitur</label>
+                            <label for="lainnya" class="text-sm px-2 py-2 flex flex-row items-center"><input type="checkbox" name="productType" id="lainnya" value="lainnya" class="mr-2  accent-lime-400 cursor-pointer w-4 h-4 ">Lainnya</label>
                         </div>
                         <p id="productTypeValidation" class="text-red-500 text-sm" aria-live="polite"></p>
                     </td>

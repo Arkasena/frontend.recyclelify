@@ -1,4 +1,5 @@
 import UserResources from '../../../../data/user-resources';
+import Cookies from '../../../../utils/cookies.';
 import { setLayoutDashboard } from '../../../templates/template-creator';
 
 const collaboratorDashboardSettings = {
@@ -20,20 +21,23 @@ const collaboratorDashboardSettings = {
     const content = document.querySelector('#content');
     const loading = document.querySelector('#loading');
     try {
-      const partner = await UserResources.detailPartner(8);
+      const partner = await UserResources.detailPartner(Cookies.getUserId());
       loading.remove();
       content.innerHTML += `<collaborator-setting-profile></collaborator-setting-profile>
                 <setting-account class="hidden"></setting-account>`;
       const settingProfile = document.querySelector('collaborator-setting-profile');
       const settingAccount = document.querySelector('setting-account');
       const menuTabSetting = document.querySelector('collaborator-dashboard-menu-tab-setting');
-      console.log(partner);
       const profileData = {
+        username: partner.username,
         fullname: partner.name,
         address: partner.address.split('+')[0].toString(),
         city: partner.address.split('+')[1].toString(),
         province: partner.address.split('+')[2].toString(),
-        phone: partner.phoneNumber,
+        phone: (partner.phoneNumber).replace('+62', '0'),
+        website: partner.website ? partner.website : '',
+        email: partner.email,
+        description: partner.description ? partner.description : '',
       };
       settingProfile.settingProfileData = profileData;
       menuTabSetting.addEventListener('tab-changed', (event) => {

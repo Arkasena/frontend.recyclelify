@@ -50,7 +50,7 @@ class KatalogItem extends HTMLElement {
             <div class="bg-lime-100 py-2 px-4 rounded-xl">${this.katalogData.category.name}</div>
           `}
         ` : `
-        
+         <div class="bg-lime-100 py-2 px-4 rounded-xl">Lainnya</div>
         `}
         </div>
     </div>

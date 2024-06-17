@@ -56,7 +56,7 @@ const mitra = {
       const contentContainer = document.querySelector('#contentContainer');
       const pagination = document.createElement('pagination-bar');
       pagination.dataPages = {
-        totalPage: allPartner.metadata.page.last,
+        totalPage: allPartner.meta.page.last,
         curentPage: Number(curentPages),
       };
       contentContainer.append(pagination);

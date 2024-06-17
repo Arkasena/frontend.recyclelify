@@ -20,7 +20,8 @@ const editProduct = {
     const url = UrlParser.parseActiveUrlWithoutCombiner();
     const loading = document.getElementById('loading');
     try {
-      const product = await ProductResources.detailProduct(url.id);
+      const product = await ProductResources.detailProduct(url.id, 'relations=categories');
+      console.log(product);
       if (!product) {
         loading.remove();
         const alert = document.createElement('error-alert');
@@ -35,13 +36,15 @@ const editProduct = {
         loading.remove();
         const formProduk = document.createElement('form-produk');
         document.querySelector('#content').append(formProduk);
+        // const productCategories = ['Aksesoris', 'Dekorasi', 'Busana', 'Furnitur', 'Lainnya'];
         const currentData = {
           name: product.name,
           price: product.price,
           link: product.link,
           description: product.description,
-          category: ['fashion', 'dekorasi', 'perabotan'],
+          category: product.categories.map((item) => item.category.name.toLowerCase()),
         };
+        console.log(currentData);
         formProduk.formData = currentData;
         const form = document.querySelector('#productForm');
         const inputId = document.createElement('input');

@@ -1,3 +1,6 @@
+import API_ENDPOINT from "../../../../global/api-endpoint";
+import Cookies from "../../../../utils/cookies.";
+
 /* eslint-disable class-methods-use-this */
 class CollaboratorSettingProfile extends HTMLElement {
   constructor() {
@@ -69,11 +72,50 @@ class CollaboratorSettingProfile extends HTMLElement {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const formData = {
+        id: Cookies.getUserId(),
+        username: this.settingProfileData.username,
         name: form.elements.name.value,
         address: `${form.elements.address.value}+${form.elements.city.value}+${form.elements.province.value}`,
-        phoneNumber: form.elements.phone.value,
+        phoneNumber: `+62${form.elements.phone.value.slice(1)}`,
+        email: this.settingProfileData.email,
+        password: '12345678',
+        website: 'edit',
+        description: 'edit',
+        role: Cookies.getRole(),
       };
       console.log(formData);
+      const options = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Cookies.getToken()}`,
+        },
+        body: JSON.stringify(formData),
+      };
+      console.log(options);
+      document.querySelector('main').innerHTML += `
+        <div id="loading" class="top-0 right-0 fixed z-[999] flex justify-center items-center w-full h-full bg-opacity-40 bg-black">
+            <div class="loading z-[999]"></div>
+        </div>`;
+      fetch(API_ENDPOINT.DETAIL_PARTNER(Cookies.getUserId()), options)
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.error) {
+            console.log(result);
+            document.querySelector('#loading').remove();
+            const alert = document.createElement('error-alert');
+            alert.alertData = {
+              header: 'Edit User Gagal',
+              desc: result.error,
+              button: 'Tutup',
+              link: null,
+            };
+            document.querySelector('main').append(alert);
+          } else {
+            document.querySelector('#loading').remove();
+            location.reload();
+          }
+        });
     });
   }
 

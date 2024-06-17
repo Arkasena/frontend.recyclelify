@@ -94,7 +94,7 @@ class AppHeader extends HTMLElement {
 
   logoutButtonOnclickFunction() {
     document.querySelector('#logout').addEventListener('click', () => {
-      Cookies.deleteCookie('authToken');
+      Cookies.deleteCookie('userAuth');
       window.location.href = `${window.location.origin}/`;
     });
   }
@@ -174,7 +174,7 @@ class AppHeader extends HTMLElement {
                 <button id="menuButton" class="justify-center items-center flex lg:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#52525b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
                 </button>
-                <a href="/" class="flex justify-center items-center"><div class="w-40 h-9 bg-slate-100"></div></a>
+                <a href="/" class="flex justify-center items-center"><img class="w-40 h-9" src="./images/others/logo-nav.svg" alt="Logo Recyclelify"></a>
             </div>
             <nav class="flex flex-row items-center" id="nav-bar">
             <div id="menuOption" class="h-full ease-0 duration-300 top-[77px] left-[-320px] fixed border bg-white border-gray-200 lg:h-auto lg:border-none lg:top-auto lg:left-auto lg:relative lg:bg-transparent lg:flex">
@@ -190,7 +190,7 @@ class AppHeader extends HTMLElement {
                 <div class="mr-2 w-11 h-11 bg-lime-600 flex justify-center items-center rounded-xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
                 <button id="personButton" class="w-11 h-11 bg-lime-600 flex justify-center items-center rounded-xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></button>
                 <div id="personButtonContent" class="flex-col border shadow-md bg-white border-gray-200 rounded-lg py-2 w-[168px] absolute right-4 top-14 hidden">
-                    <a href="#/${(Cookies.getRole()).toLowerCase()}/dashboard" class="p-3">DashBoard</a>
+                    <a href="#/${Cookies.getRole() ? (Cookies.getRole()).toLowerCase() : 'collaborator'}/dashboard" class="p-3">DashBoard</a>
                     <a href="#/my-profile" class="p-3">Profil Saya</a>
                     <button id="logout" class="p-3 text-left">Keluar</button>
                 </div>
@@ -219,7 +219,7 @@ class AppHeader extends HTMLElement {
             <button id="menuButton" class="justify-center items-center flex lg:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#52525b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
             </button>
-            <a href="/" class="flex justify-center items-center"><div class="w-40 h-9 bg-slate-100"></div></a>
+            <a href="/" class="flex justify-center items-center"><img class="w-40 h-9" src="./images/others/logo-nav.svg" alt="Logo Recyclelify"></a>
         </div>
                 <h1 class="text-2xl font-medium hidden sm:block" id="pageHeader"></h1>
             </div>
@@ -259,7 +259,7 @@ class AppHeader extends HTMLElement {
             <button id="menuButton" class="justify-center items-center flex lg:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#52525b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
             </button>
-            <a href="/" class="flex justify-center items-center"><div class="w-40 h-9 bg-slate-100"></div></a>
+            <a href="/" class="flex justify-center items-center"><img class="w-40 h-9" src="./images/others/logo-nav.svg" alt="Logo Recyclelify"></a>
         </div>
                 <h1 class="text-2xl font-medium hidden sm:block"  id="pageHeader"></h1>
             </div>

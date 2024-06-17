@@ -1,3 +1,5 @@
+import Cookies from '../../../utils/cookies.';
+
 class MyProfile extends HTMLElement {
   constructor() {
     super();
@@ -93,7 +95,7 @@ class MyProfile extends HTMLElement {
                     </div>
                 </div>
                 <div class="border border-gray-200 w-full"></div>
-                <h2 class="text-xl font-semibold">Terbuka Membeli Sampah</h2>
+                ${Cookies.getRole() === 'PARTNER' ? `<h2 class="text-xl font-semibold">Terbuka Membeli Sampah</h2>
                 <a href="">
             <div class="flex flex-col w-80 shadow-md rounded-2xl">
                 <div class="w-full bg-lime-50 relative rounded-2xl h-36">
@@ -138,7 +140,8 @@ class MyProfile extends HTMLElement {
                     <a href="#/my-profile/add-product" class="h-8 bg-lime-600 text-gray-50 px-3 flex items-center text-center rounded-lg">Tambah Item Katalog</a>
                 </div>
                 <div class="grid grid-cols-2 890:grid-cols-4 gap-8" id="katalogContainer">
-                </div>
+                </div>` : ''}
+                
             </div>
         </div>
     `;

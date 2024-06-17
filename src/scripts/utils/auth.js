@@ -9,7 +9,7 @@ const Auth = {
         setTimeout(() => {
           const alert = document.createElement('error-alert');
           alert.alertData = {
-            header: 'Akses Ditolak',
+            header: '<span class="text-red-400">Akses Ditolak!</span>',
             desc: 'Anda belum Login, silahkan Login terlebih dahulu',
             button: 'Tutup',
             link: null,
