@@ -31,6 +31,7 @@ const collaboratorDashboardSettings = {
       const settingAccount = document.querySelector('setting-account');
       const menuTabSetting = document.querySelector('collaborator-dashboard-menu-tab-setting');
       const profileData = {
+        profilePicture: partner.photo,
         username: partner.username,
         fullname: partner.name,
         address: partner.address.split('+')[0].toString(),

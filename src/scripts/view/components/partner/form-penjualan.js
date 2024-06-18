@@ -177,29 +177,41 @@ class FormPenjualan extends HTMLElement {
         }
         const jenisPlastic = ['PETE', 'HDPE', 'LDPE', 'PVC', 'PP', 'PS'];
         const plasticSelected = this.acceptRules.find((trash) => trash.name === form.elements.plasticType.value);
-        const data = {
-          sellerId: Number(Cookies.getUserId()),
-          buyerId: Number(this.partnerData.id),
-          partnerId: Number(this.partnerData.id),
-          collaboratorId: Number(Cookies.getUserId()), // ganti
-          photo: file.name,
-          plasticId: (jenisPlastic.indexOf(form.elements.plasticType.value)) + 1,
-          weight: form.elements.estimasi.value,
-          address: form.elements.address.value,
-          phoneNumber: form.elements.telepon.value,
-          status: 'SUBMITTED',
-          // handoverFee: 0,
-          handover: handoverType,
-          pricePerKilogram: Number(plasticSelected.pricePerKilogram),
-
-        };
+        // const data = {
+        //   sellerId: Number(Cookies.getUserId()),
+        //   buyerId: Number(this.partnerData.id),
+        //   partnerId: Number(this.partnerData.id),
+        //   collaboratorId: Number(Cookies.getUserId()),
+        //   photo: file.name,
+        //   plasticId: (jenisPlastic.indexOf(form.elements.plasticType.value)) + 1,
+        //   weight: form.elements.estimasi.value,
+        //   address: form.elements.address.value,
+        //   phoneNumber: form.elements.telepon.value,
+        //   status: 'SUBMITTED',
+        //   handoverFee: 0,
+        //   handover: handoverType,
+        //   pricePerKilogram: Number(plasticSelected.pricePerKilogram),
+        // };
+        const formData = new FormData();
+        formData.append('sellerId', Number(Cookies.getUserId()));
+        formData.append('buyerId', Number(this.partnerData.id));
+        formData.append('partnerId', Number(this.partnerData.id));
+        formData.append('collaboratorId', Number(Cookies.getUserId()));
+        formData.append('photo', file);
+        formData.append('plasticId', (jenisPlastic.indexOf(form.elements.plasticType.value)) + 1);
+        formData.append('weight', form.elements.estimasi.value);
+        formData.append('address', form.elements.address.value);
+        formData.append('phoneNumber', form.elements.telepon.value);
+        formData.append('status', 'SUBMITTED');
+        formData.append('handoverFee', 0);
+        formData.append('handover', handoverType);
+        formData.append('pricePerKilogram', Number(plasticSelected.pricePerKilogram));
         const options = {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
             Authorization: `Bearer ${Cookies.getToken()}`,
           },
-          body: JSON.stringify(data),
+          body: formData,
         };
         document.querySelector('main').innerHTML += `
       <div id="loading" class="top-0 right-0 fixed z-[999] flex justify-center items-center w-full h-full bg-opacity-40 bg-black">
@@ -210,10 +222,10 @@ class FormPenjualan extends HTMLElement {
         buttonJualSampah.classList.remove('bg-lime-600', 'text-gray-50');
         buttonJualSampah.classList.add('bg-gray-400', 'text-gray-200');
         fetch(API_ENDPOINT.TRANSACTIONS, options)
-          .then((response) => response.json())
-          .then((result) => {
-            console.log(result);
-            if (result.error) {
+          .then((response) => {
+            response.json();
+            console.log(response);
+            if (!response.ok) {
               document.querySelector('#loading').remove();
               setTimeout(() => {
                 const alert = document.createElement('error-alert');
@@ -290,7 +302,7 @@ class FormPenjualan extends HTMLElement {
     this._emptyContent();
     this.classList.add('flex', 'flex-col');
     this.innerHTML += `
-      <form id="formPenjualanSampah" class="flex flex-col gap-8">
+      <form id="formPenjualanSampah" enctype="multipart/form-data" class="flex flex-col gap-8">
             <div class="flex flex-col">
                 <div class="flex flex-col w-full border-2 border-dashed border-gray-400 rounded-2xl p-3">
                     <label for="picture" class="flex flex-col items-center justify-center w-full aspect-video bg-gray-100 rounded-lg cursor-pointer relative">

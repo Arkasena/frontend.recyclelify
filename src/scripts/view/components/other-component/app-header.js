@@ -185,7 +185,6 @@ class AppHeader extends HTMLElement {
                         <a class="pr-20 lg:pr-0 py-3 lg:py-0" href="/"><li class="px-8 lg:px-4 py-3">Beranda</li></a>
                         <a class="pr-20 lg:pr-0 py-3 lg:py-0" href="#/find-partner"><li class="px-8 lg:px-4 py-3">Mitra</li></a>
                         <a  class="pr-20 lg:pr-0 py-3 lg:py-0" href="#/catalog"><li class="px-8 lg:px-4 py-3">Katalog</li></a>
-                        <a class="pr-20 lg:pr-0 py-3 lg:py-0" href=""><li class="px-8 lg:px-4 py-3">Blog</li></a>
                         <a class="pr-20 lg:pr-0 py-3 lg:py-0" href="#/about-us"><li class="px-8 lg:px-4 py-3" >Tentang Kami</li></a>
                         <a class="pr-20 lg:pr-0 py-3 lg:py-0"href="#/help"><li class="px-8 lg:px-4 py-3">Bantuan</li></a>
                     </ul>

@@ -73,6 +73,7 @@ const partnerDashboardSettings = {
       console.log(trash);
       openReceive.trashData = trash;
       const partnerData = {
+        profilePicture: partner.photo, 
         username: partner.username,
         fullname: partner.name,
         address: partner.address.split('+')[0].toString(),

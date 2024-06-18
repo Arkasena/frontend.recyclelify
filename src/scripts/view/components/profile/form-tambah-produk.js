@@ -102,155 +102,101 @@ class FormProduk extends HTMLElement {
     });
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-      const checkedValues = Array.from(form.elements.productType).filter((input) => input.checked).map((input) => input.value);
-      const data = {
-        partnerId: Cookies.getUserId(),
-        photo: 'https://images.tokopedia.net/img/cache/900/VqbcmM/2023/8/31/2ae23a03-5889-442d-a320-69ceb10518f4.jpg',
-        name: form.elements.name.value,
-        price: form.elements.price.value,
-        link: form.elements.link.value,
-        description: form.elements.description.value,
-        productType: checkedValues,
-      };
-      const dataProduct = (({
-        partnerId, photo, name, price, link, description,
-      }) => ({
-        partnerId, photo, name, price, link, description,
-      }))(data);
-      if (form.elements.id) {
-        data.id = form.elements.id.value;
+      // Mengambil nilai dari elemen-elemen formulir
+      const pictureInput = form.elements.picture;
+      let file;
+      if (pictureInput.files.length > 0) {
+        file = pictureInput.files[0];
       }
-      if (checkedValues.length !== 0) {
-        if (form.elements.id) {
-          console.log('edit');
-          fetch(`${API_ENDPOINT.PRODUCT_CATEGORIES}?productId=${form.elements.id.value}`, {
-            method: 'get',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${Cookies.getToken()}`,
-            },
-          }).then((response) => response.json())
-            .then((result) => {
-              result.data.forEach((categories) => {
-                fetch(`${API_ENDPOINT.PRODUCT_CATEGORIES}/${categories.id}`, {
-                  method: 'DELETE',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${Cookies.getToken()}`,
-                  },
+      const name = form.elements.name.value;
+      const price = form.elements.price.value;
+      const link = form.elements.link.value;
+      const description = form.elements.description.value;
+      const checkedValues = Array.from(form.elements.productType)
+        .filter((input) => input.checked)
+        .map((input) => input.value);
 
-                });
-              });
-            });
-          const options = {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${Cookies.getToken()}`,
-            },
-            body: JSON.stringify(dataProduct),
-          };
-          document.querySelector('main').innerHTML += `
-        <div id="loading" class="top-0 right-0 fixed z-[999] flex justify-center items-center w-full h-full bg-opacity-40 bg-black">
-            <div class="loading z-[999]"></div>
-        </div>`;
-          fetch(API_ENDPOINT.DETAIL_PRODUCT(form.elements.id.value), options)
-            .then((response) => response.json())
-            .then((result) => {
-              if (result.error) {
-                document.querySelector('#loading').remove();
-                const alert = document.createElement('error-alert');
-                alert.alertData = {
-                  header: 'Tambah Produk Gagal',
-                  desc: result.error.details[0].message,
-                  button: 'Muat ulang',
-                  link: 'javascript:location.reload()',
-                };
-                document.querySelector('main').append(alert);
-              } else {
-                const productCategories = ['aksesoris', 'dekorasi', 'busana', 'furnitur', 'lainnya'];
-                const dataCategories = data.productType.map((category) => ({
-                  productId: result.data.id,
-                  categoryId: productCategories.indexOf(category) + 1,
-                }));
-                dataCategories.forEach((categories) => {
-                  const categoriesOptions = {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                      Authorization: `Bearer ${Cookies.getToken()}`,
-                    },
-                    body: JSON.stringify(categories),
-                  };
-                  fetch(API_ENDPOINT.PRODUCT_CATEGORIES, categoriesOptions)
-                    .then((response) => response.json())
-                    .then((res) => {
-                      console.log(res);
-                    });
-                });
-                window.location.href = `${window.location.origin}/#/my-profile`;
-                console.log(result);
-              }
-            })
-            .catch((error) => {
-              console.error('Error:', error);
-            });
-        } else {
-          const options = {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${Cookies.getToken()}`,
-            },
-            body: JSON.stringify(dataProduct),
-          };
-          document.querySelector('main').innerHTML += `
-        <div id="loading" class="top-0 right-0 fixed z-[999] flex justify-center items-center w-full h-full bg-opacity-40 bg-black">
-            <div class="loading z-[999]"></div>
-        </div>`;
-          fetch(API_ENDPOINT.PRODUCT, options)
-            .then((response) => response.json())
-            .then((result) => {
-              if (result.error) {
-                document.querySelector('#loading').remove();
-                const alert = document.createElement('error-alert');
-                alert.alertData = {
-                  header: 'Tambah Produk Gagal',
-                  desc: result.error.details[0].message,
-                  button: 'Tutup',
-                  link: null,
-                };
-                document.querySelector('main').append(alert);
-              } else {
-                const productCategories = ['aksesoris', 'dekorasi', 'busana', 'furnitur', 'lainnya'];
-                const dataCategories = data.productType.map((category) => ({
-                  productId: result.data.id,
-                  categoryId: productCategories.indexOf(category) + 1,
-                }));
-                dataCategories.forEach((categories) => {
-                  const categoriesOptions = {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                      Authorization: `Bearer ${Cookies.getToken()}`,
-                    },
-                    body: JSON.stringify(categories),
-                  };
-                  fetch(API_ENDPOINT.PRODUCT_CATEGORIES, categoriesOptions)
-                    .then((response) => response.json())
-                    .then((res) => {
-                      console.log(res);
-                    });
-                });
-                window.location.href = `${window.location.origin}/#/my-profile`;
-                console.log(result);
-              }
-            })
-            .catch((error) => {
-              console.error('Error:', error);
-            });
-        }
+      // Membuat objek FormData baru
+      const formData = new FormData();
+      formData.append('partnerId', Cookies.getUserId());
+      formData.append('name', name);
+      formData.append('price', price);
+      formData.append('link', link);
+      formData.append('description', description);
+      formData.append('productType', JSON.stringify(checkedValues));
+      if (file) {
+        formData.append('photo', file);
       }
+
+      // Kirim data menggunakan fetch
+      const options = {
+        method: form.elements.id ? 'PUT' : 'POST',
+        headers: {
+          Authorization: `Bearer ${Cookies.getToken()}`,
+        },
+        body: formData,
+      };
+
+      // Handle request berdasarkan metode PUT atau POST
+      const endpoint = form.elements.id
+        ? `${API_ENDPOINT.DETAIL_PRODUCT(form.elements.id.value)}`
+        : API_ENDPOINT.PRODUCT;
+
+      document.querySelector('main').innerHTML += `
+          <div id="loading" class="top-0 right-0 fixed z-[999] flex justify-center items-center w-full h-full bg-opacity-40 bg-black">
+            <div class="loading z-[999]"></div>
+          </div>`;
+
+      fetch(endpoint, options)
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.error) {
+            document.querySelector('#loading').remove();
+            const alert = document.createElement('error-alert');
+            alert.alertData = {
+              header: 'Tambah Produk Gagal',
+              desc: result.error.details[0].message,
+              button: 'Muat ulang',
+              link: 'javascript:location.reload()',
+            };
+            document.querySelector('main').append(alert);
+          } else {
+            const productCategories = ['aksesoris', 'dekorasi', 'busana', 'furnitur', 'lainnya'];
+            const dataCategories = checkedValues.map((category) => ({
+              productId: result.data.id,
+              categoryId: productCategories.indexOf(category) + 1,
+            }));
+
+            // Kirim data kategori produk
+            const categoryPromises = dataCategories.map((categories) => {
+              const categoriesOptions = {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${Cookies.getToken()}`,
+                },
+                body: JSON.stringify(categories),
+              };
+              return fetch(API_ENDPOINT.PRODUCT_CATEGORIES, categoriesOptions);
+            });
+
+            Promise.all(categoryPromises)
+              .then((responses) => Promise.all(responses.map((response) => response.json())))
+              .then((res) => {
+                console.log(res);
+                window.location.href = `${window.location.origin}/#/my-profile`;
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+              })
+              .finally(() => {
+                document.querySelector('#loading').remove();
+              });
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
     });
   }
 
