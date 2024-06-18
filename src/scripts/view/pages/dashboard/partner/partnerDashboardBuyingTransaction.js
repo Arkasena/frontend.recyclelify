@@ -1,5 +1,6 @@
 import Auth from '../../../../utils/auth';
 import { setLayoutDashboard } from '../../../templates/template-creator';
+import Cookies from '../../../../utils/cookies.';
 import transactionStatus from '../../../../data/transaction-status';
 
 const partnerDashboardBuyingTransaction = {
