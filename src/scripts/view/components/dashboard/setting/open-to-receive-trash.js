@@ -1,3 +1,6 @@
+import API_ENDPOINT from '../../../../global/api-endpoint';
+import Cookies from '../../../../utils/cookies.';
+
 /* eslint-disable class-methods-use-this */
 class OpenToReceiveTrash extends HTMLElement {
   constructor() {
@@ -30,6 +33,36 @@ class OpenToReceiveTrash extends HTMLElement {
     this.render();
     this.formSubmit();
     this.checkboxFunction();
+    this.isChecked();
+  }
+
+  isChecked() {
+    const jenisPlastic = ['PETE', 'HDPE', 'LDPE', 'PVC', 'PP', 'PS'];
+    jenisPlastic.forEach((trash) => {
+      if (this.trashData[`${trash.toLowerCase()}Checked`]) {
+        const checkbox = document.querySelector(`input#${trash}`);
+        checkbox.checked = true;
+        const parentLabel = checkbox.closest('label');
+        const grandparentElement = parentLabel.parentElement;
+        const allInput = grandparentElement.parentElement.querySelectorAll('input[type="number"]');
+        const toggleColor = grandparentElement.querySelector('.toggle-label');
+        checkbox.classList.add('right-0');
+        toggleColor.classList.remove('bg-gray-300');
+        toggleColor.classList.add('bg-lime-400');
+        allInput.forEach((inputElement) => {
+          inputElement.setAttribute('required', '');
+          const inputEvents = ['click', 'input', 'change', 'invalid', 'blur'];
+          inputEvents.forEach((eventType) => {
+            inputElement.addEventListener(eventType, () => {
+              inputElement.setCustomValidity('');
+              if (inputElement.validity.valueMissing) {
+                inputElement.setCustomValidity('Bagian ini tidak boleh kosong.');
+              }
+            });
+          });
+        });
+      }
+    });
   }
 
   checkboxFunction() {
@@ -119,7 +152,7 @@ class OpenToReceiveTrash extends HTMLElement {
           }
           const jenisPlastic = ['PETE', 'HDPE', 'LDPE', 'PVC', 'PP', 'PS'];
           return {
-            partnerId: 2,
+            partnerId: Cookies.getUserId(),
             plasticId: (jenisPlastic.indexOf(name)) + 1,
             status: material.accept ? 'ACTIVE' : 'INACTIVE',
             minimumTransactionWeight: minimum,
@@ -128,20 +161,70 @@ class OpenToReceiveTrash extends HTMLElement {
           };
         }).filter((entry) => entry !== null); // Remove null entries
       }
-
-      // Hasil pengelompokan dan penyaringan
       const groupedFilteredData = groupAndFilterData(arrayData, arrayCheckbox);
-
-      // Menampilkan hasil
       console.log(groupedFilteredData);
+      fetch(`${API_ENDPOINT.UPDATE_ACC_RULES}?partnerId=${Cookies.getUserId()}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Cookies.getToken()}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          (result.data).forEach((data) => {
+            fetch(`${API_ENDPOINT.UPDATE_ACC_RULES}/${data.id}`, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${Cookies.getToken()}`,
+              },
+            });
+          });
+          groupedFilteredData.forEach((trash) => {
+            const options = {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${Cookies.getToken()}`,
+              },
+              body: JSON.stringify(trash),
+            };
+            document.querySelector('main').innerHTML += `
+              <div id="loading" class="top-0 right-0 fixed z-[999] flex justify-center items-center w-full h-full bg-opacity-40 bg-black">
+                  <div class="loading z-[999]"></div>
+              </div>`;
+            fetch(API_ENDPOINT.UPDATE_ACC_RULES, options)
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data);
+                if (data.error) {
+                  document.querySelector('#loading').remove();
+                  const alert = document.createElement('error-alert');
+                  alert.alertData = {
+                    header: 'Edit Info Gagal',
+                    desc: data.error.password,
+                    button: 'Tutup',
+                    link: null,
+                  };
+                  document.querySelector('main').append(alert);
+                } else {
+                  document.querySelector('#loading').remove();
+                  location.reload();
+                }
+              });
+          });
+        });
     });
   }
 
   set trashData(value) {
     this._trashData = value;
+    console.log('di buat');
     this.render();
     this.formSubmit();
     this.checkboxFunction();
+    this.isChecked();
   }
 
   get trashData() {
@@ -165,10 +248,10 @@ class OpenToReceiveTrash extends HTMLElement {
                             </label>
                         </div>
                         <label for="PETEminimal" class="text-base px-2 py-2 flex flex-row items-center">
-                            Minimal<input type="number" min=0 id="PETEminimal" name="PETEminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
+                            Minimal<input type="number" value="${this.trashData.peteMin}" min=0 id="PETEminimal" name="PETEminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
                         </label>
                         <label for="PETEharga" class="text-base px-2 py-2 flex flex-row items-center">
-                            Harga<input type="number" min=0 id="PETEharga" name="PETEharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
+                            Harga<input type="number" value="${this.trashData.petePrice}" min=0 id="PETEharga" name="PETEharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
                         </label>
                     </div>
                     <div class="grid grid-cols-3">
@@ -182,10 +265,10 @@ class OpenToReceiveTrash extends HTMLElement {
                             </label>
                         </div>
                         <label for="HDPEminimal" class="text-base px-2 py-2 flex flex-row items-center">
-                            Minimal<input type="number" min=0 id="HDPEminimal" name="HDPEminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
+                            Minimal<input type="number" value="${this.trashData.hdpeMin}" min=0 id="HDPEminimal" name="HDPEminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
                         </label>
                         <label for="HDPEharga" class="text-base px-2 py-2 flex flex-row items-center">
-                            Harga<input type="number" min=0 id="HDPEharga" name="HDPEharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
+                            Harga<input type="number" value="${this.trashData.hdpePrice}" min=0 id="HDPEharga" name="HDPEharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
                         </label>
                     </div>
                     <div class="grid grid-cols-3">
@@ -199,10 +282,10 @@ class OpenToReceiveTrash extends HTMLElement {
                             </label>
                         </div>
                         <label for="PVCminimal" class="text-base px-2 py-2 flex flex-row items-center">
-                            Minimal<input type="number" min=0 id="PVCminimal" name="PVCminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
+                            Minimal<input type="number" value="${this.trashData.pvcMin}" min=0 id="PVCminimal" name="PVCminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
                         </label>
                         <label for="PVCharga" class="text-base px-2 py-2 flex flex-row items-center">
-                            Harga<input type="number" min=0 id="PVCharga" name="PVCharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
+                            Harga<input type="number" value="${this.trashData.pvcPrice}" min=0 id="PVCharga" name="PVCharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
                         </label>
                     </div>
                     <div class="grid grid-cols-3">
@@ -216,10 +299,10 @@ class OpenToReceiveTrash extends HTMLElement {
                             </label>
                         </div>
                         <label for="LDPEminimal" class="text-base px-2 py-2 flex flex-row items-center">
-                            Minimal<input type="number" min=0 id="LDPEminimal" name="LDPEminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
+                            Minimal<input type="number" value="${this.trashData.ldpeMin}" min=0 id="LDPEminimal" name="LDPEminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
                         </label>
                         <label for="LDPEharga" class="text-base px-2 py-2 flex flex-row items-center">
-                            Harga<input type="number" min=0 id="LDPEharga" name="LDPEharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
+                            Harga<input type="number" value="${this.trashData.ldpePrice}" min=0 id="LDPEharga" name="LDPEharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
                         </label>
                     </div>
                     <div class="grid grid-cols-3">
@@ -233,10 +316,10 @@ class OpenToReceiveTrash extends HTMLElement {
                             </label>
                         </div>
                         <label for="PPminimal" class="text-base px-2 py-2 flex flex-row items-center">
-                            Minimal<input type="number" min=0 id="PPminimal" name="PPminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
+                            Minimal<input type="number" value="${this.trashData.ppMin}" min=0 id="PPminimal" name="PPminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
                         </label>
                         <label for="PPharga" class="text-base px-2 py-2 flex flex-row items-center">
-                            Harga<input type="number" min=0 id="PPharga" name="PPharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
+                            Harga<input type="number" value="${this.trashData.ppPrice}" min=0 id="PPharga" name="PPharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
                         </label>
                     </div>
                     <div class="grid grid-cols-3">
@@ -250,10 +333,10 @@ class OpenToReceiveTrash extends HTMLElement {
                             </label>
                         </div>
                         <label for="PSminimal" class="text-base px-2 py-2 flex flex-row items-center">
-                            Minimal<input type="number" min=0 id="PSminimal" name="PSminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
+                            Minimal<input type="number" value="${this.trashData.psMin}" min=0 id="PSminimal" name="PSminimal" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 mr-2 ml-4" placeholder="kg">
                         </label>
                         <label for="PSharga" class="text-base px-2 py-2 flex flex-row items-center">
-                            Harga<input type="number" min=0 id="PSharga" name="PSharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
+                            Harga<input type="number" value="${this.trashData.psPrice}" min=0 id="PSharga" name="PSharga" class="rounded-lg outline-lime-600 invalid:outline-red-500 invalid:border invalid:border-red-500 relative text-base text-right w-full h-12 shadow-md px-3 ml-4" placeholder="Rp. ">
                         </label>
                     </div>
                 </div>

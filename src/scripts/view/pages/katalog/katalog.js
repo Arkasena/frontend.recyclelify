@@ -59,7 +59,8 @@ const katalog = {
       };
       contentContainer.append(pagination);
     } catch (error) {
-
+      console.error('Error fetching data:', error);
+      loading.style.display = 'none';
     }
   },
 };

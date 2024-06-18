@@ -1,14 +1,15 @@
+/* eslint-disable no-script-url */
 /* eslint-disable max-len */
+import API_ENDPOINT from '../../../global/api-endpoint';
+import UrlParser from '../../../routes/url-parser';
+import Cookies from '../../../utils/cookies.';
+
 /* eslint-disable class-methods-use-this */
 class FormPenjualan extends HTMLElement {
   // eslint-disable-next-line no-useless-constructor
   constructor() {
     super();
     this._partnerData = {
-      id: null,
-      name: null,
-      phone_number: null,
-      address: null,
     };
     this._acceptRules = [];
   }
@@ -175,31 +176,74 @@ class FormPenjualan extends HTMLElement {
           [file] = pictureInput.files;
         }
         const jenisPlastic = ['PETE', 'HDPE', 'LDPE', 'PVC', 'PP', 'PS'];
+        const plasticSelected = this.acceptRules.find((trash) => trash.name === form.elements.plasticType.value);
         const data = {
-          partnerId: this.partnerData.id,
-          collaboratorId: 23, // ganti
+          sellerId: Number(Cookies.getUserId()),
+          buyerId: Number(this.partnerData.id),
+          partnerId: Number(this.partnerData.id),
+          collaboratorId: Number(Cookies.getUserId()), // ganti
           photo: file.name,
           plasticId: (jenisPlastic.indexOf(form.elements.plasticType.value)) + 1,
           weight: form.elements.estimasi.value,
           address: form.elements.address.value,
           phoneNumber: form.elements.telepon.value,
           status: 'SUBMITTED',
-          handoverFee: 0,
-          handoverType,
+          // handoverFee: 0,
+          handover: handoverType,
+          pricePerKilogram: Number(plasticSelected.pricePerKilogram),
+
         };
-        console.log(data);
-        const alert = document.createElement('custom-alert');
-        alert.alertData = {
-          header: 'Formulir berhasil dikirim',
-          desc: 'Lihat statusnya dari dashboard Anda. Kami akan memberitahu Anda segera setelah Mitra menyetujui untuk membeli',
-          button: 'Buka Dashboard',
-          link: window.location.origin,
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${Cookies.getToken()}`,
+          },
+          body: JSON.stringify(data),
         };
-        document.querySelector('main').append(alert);
+        document.querySelector('main').innerHTML += `
+      <div id="loading" class="top-0 right-0 fixed z-[999] flex justify-center items-center w-full h-full bg-opacity-40 bg-black">
+          <div class="loading z-[999]"></div>
+      </div>`;
         const buttonJualSampah = document.querySelector('#submitJualSampah');
         buttonJualSampah.setAttribute('disabled', '');
         buttonJualSampah.classList.remove('bg-lime-600', 'text-gray-50');
         buttonJualSampah.classList.add('bg-gray-400', 'text-gray-200');
+        fetch(API_ENDPOINT.TRANSACTIONS, options)
+          .then((response) => response.json())
+          .then((result) => {
+            console.log(result);
+            if (result.error) {
+              document.querySelector('#loading').remove();
+              setTimeout(() => {
+                const alert = document.createElement('error-alert');
+                alert.alertData = {
+                  header: 'Gagal',
+                  desc: 'Formulir gagal dikirimkan',
+                  button: 'Isi ulang Form',
+                  link: 'javascript:location.reload()',
+                };
+                document.querySelector('main').append(alert);
+              }, 0);
+            } else {
+              document.querySelector('#loading').remove();
+              const url = UrlParser.parseActiveUrlWithoutCombiner();
+              window.location.href = `#/find-partner/${url.id}`;
+              setTimeout(() => {
+                const alert = document.createElement('custom-alert');
+                alert.alertData = {
+                  header: 'Formulir berhasil dikirim',
+                  desc: 'Lihat statusnya dari dashboard Anda. Kami akan memberitahu Anda segera setelah Mitra menyetujui untuk membeli',
+                  button: 'Buka Dashboard',
+                  link: window.location.origin,
+                };
+                document.querySelector('main').append(alert);
+              }, 0);
+            }
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
       }
     });
   }

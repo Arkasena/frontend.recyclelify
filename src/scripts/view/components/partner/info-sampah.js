@@ -3,7 +3,7 @@ class InfoSampah extends HTMLElement {
   // eslint-disable-next-line no-useless-constructor
   constructor() {
     super();
-    this._materialType = null;
+    this._materialType = [];
   }
 
   connectedCallback() {

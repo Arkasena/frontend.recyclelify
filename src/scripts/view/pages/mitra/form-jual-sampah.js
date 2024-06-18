@@ -75,7 +75,9 @@ const formJualSampah = {
         document.querySelector('#linkJual').remove();
       }
     } catch (error) {
-
+      console.error('Error fetching data:', error);
+      loading.style.display = 'none'; // Hide loading spinner on error as well
+      document.querySelector('section').innerHTML += '<p>Failed to load data. Please try again later.</p>';
     }
   },
 };

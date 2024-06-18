@@ -1,3 +1,4 @@
+import Auth from '../../../../utils/auth';
 import { setLayoutDashboard } from '../../../templates/template-creator';
 
 const collaboratorDashboardStatistic = {
@@ -44,6 +45,7 @@ const collaboratorDashboardStatistic = {
   },
 
   async afterRender() {
+    Auth.isPartner();
     setLayoutDashboard(2);
     // input data ke barchart
     const barChartComponent = document.querySelector('bar-chart');

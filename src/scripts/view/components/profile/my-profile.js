@@ -53,8 +53,9 @@ class MyProfile extends HTMLElement {
 
   render() {
     this._emptyContent();
+    this.classList.add('w-full', 'max-w-[1500px]', 'flex', 'flex-col', 'gap-[40px]', 'justify-center', 'px-6', 'pt-10', 'pb-14');
     this.innerHTML += `
-    <div class="w-full max-w-[1500px] min-w-[1500px] flex flex-col gap-[40px] justify-center relative px-6 pt-10 pb-14">
+    <div class="w-full max-w-[1500px] flex flex-col gap-[40px] justify-center relative px-6 pt-10 pb-14">
                 <div class="w-full flex flex-col">
                     <div class="w-full bg-lime-50 relative rounded-2xl h-72">
                         <div class="absolute p-5 right-0">
@@ -64,7 +65,7 @@ class MyProfile extends HTMLElement {
                     <div class="flex flex-col w-full gap-8 px-9 pb-8 z-10 mt-[-72px]">
                         <div class="flex flex-row gap-4">
                             <div class="w-14 h-14 rounded-xl bg-gray-300 flex justify-center items-center">
-                                <img class="w-14 h-14 rounded-xl" src="${this.userData.photo}" alt="Foto ${this.userData.name}">
+                                <img class="w-14 h-14 rounded-xl" src="${this.userData.photo ? this.userData.photo : './images/others/blank-profile.png'}" alt="Foto ${this.userData.name}">
                             </div>
                             <div class="flex flex-col flex-grow justify-between">
                                 <h1 class="text-xl font-semibold">${this.userData.name}</h1>

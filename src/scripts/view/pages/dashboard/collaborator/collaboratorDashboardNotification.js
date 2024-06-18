@@ -1,3 +1,4 @@
+import Auth from '../../../../utils/auth';
 import { setLayoutDashboard } from '../../../templates/template-creator';
 
 const collaboratorDashboardNotification = {
@@ -11,6 +12,7 @@ const collaboratorDashboardNotification = {
   },
 
   async afterRender() {
+    Auth.isCollaborator();
     setLayoutDashboard(1);
     const notifications = [
       {

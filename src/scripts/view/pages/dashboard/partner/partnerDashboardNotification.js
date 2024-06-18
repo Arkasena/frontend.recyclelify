@@ -1,3 +1,4 @@
+import Auth from '../../../../utils/auth';
 import { setLayoutDashboard } from '../../../templates/template-creator';
 
 const partnerDashboardNotification = {
@@ -11,6 +12,7 @@ const partnerDashboardNotification = {
   },
 
   async afterRender() {
+    Auth.isPartner();
     setLayoutDashboard(2);
     const notifications = [
       {

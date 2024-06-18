@@ -3,8 +3,8 @@ class Pagination extends HTMLElement {
   constructor() {
     super();
     this._dataPages = {
-      totalPage: null,
-      curentPage: null,
+      totalPage: 0,
+      curentPage: 0,
     };
   }
 

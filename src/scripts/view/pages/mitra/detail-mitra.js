@@ -1,6 +1,5 @@
 import UserResources from '../../../data/user-resources';
 import UrlParser from '../../../routes/url-parser';
-import Cookies from '../../../utils/cookies.';
 import { setLayoutDefault } from '../../templates/template-creator';
 
 const detailMitra = {
@@ -83,7 +82,8 @@ const detailMitra = {
         materialInformationContainer.append(infoSampah);
       }
     } catch (error) {
-
+      console.error('Error fetching data:', error);
+      loading.style.display = 'none';
     }
   },
 };

@@ -1,3 +1,4 @@
+import Auth from '../../../../utils/auth';
 import { setLayoutDashboard } from '../../../templates/template-creator';
 
 const partnerDashboardSelingTransaction = {
@@ -13,6 +14,7 @@ const partnerDashboardSelingTransaction = {
   },
 
   async afterRender() {
+    Auth.isPartner();
     setLayoutDashboard(2);
     const TransactionListComponent = document.querySelector('selling-transaction-list');
 

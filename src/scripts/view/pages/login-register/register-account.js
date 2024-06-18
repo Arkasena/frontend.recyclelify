@@ -57,7 +57,7 @@ const registerAccount = {
         <div id="loading" class="top-0 right-0 fixed z-[999] flex justify-center items-center w-full h-full bg-opacity-40 bg-black">
             <div class="loading z-[999]"></div>
         </div>`;
-        fetch(API_ENDPOINT.REGISTER, options)
+        fetch(API_ENDPOINT.PARTNER, options)
           .then((response) => response.json())
           .then((result) => {
             if (result.error) {

@@ -1,4 +1,8 @@
 /* eslint-disable class-methods-use-this */
+
+import API_ENDPOINT from '../../../../global/api-endpoint';
+import Cookies from '../../../../utils/cookies.';
+
 /* eslint-disable no-useless-constructor */
 class SettingAccount extends HTMLElement {
   constructor() {
@@ -69,10 +73,10 @@ class SettingAccount extends HTMLElement {
   formSubmitFucntions() {
     const formPassword = document.querySelector('#change-password-section');
     const formDelete = document.querySelector('#delete-account-section');
-    const password = formPassword.querySelector('#current-password');
-    const newPassword = formPassword.querySelector('#new-password');
-    const confirm = formPassword.querySelector('#confirm-new-password');
-    const inputDelete = formDelete.querySelector('#confirm-password-to-delete-account');
+    const password = formPassword.querySelector('#currentPassword');
+    const newPassword = formPassword.querySelector('#newPassword');
+    const confirm = formPassword.querySelector('#confirmNewPassword');
+    const inputDelete = formDelete.querySelector('#confirmPasswordToDeleteAccount');
     function customValidationEmptyHandler(event) {
       event.target.setCustomValidity('');
       if (event.target.validity.valueMissing) {
@@ -81,7 +85,7 @@ class SettingAccount extends HTMLElement {
         const minChar = event.target.getAttribute('minLength');
         event.target.setCustomValidity(`Telalu pendek, anda kurang ${minChar - event.target.value.length} karakter`);
       }
-      if (event.target.name === 'confirm-new-password') {
+      if (event.target.name === 'confirmNewPassword') {
         if (event.target.value !== newPassword.value) {
           event.target.setCustomValidity('Password tidak sama');
         }
@@ -110,15 +114,88 @@ class SettingAccount extends HTMLElement {
         input.addEventListener(eventType, customValidationEmptyHandler);
       });
       if (eventType !== 'click' && eventType !== 'change') {
-        password.addEventListener(eventType, (event) => { customMessage(event, 'current-passwordValidation'); });
-        newPassword.addEventListener(eventType, (event) => { customMessage(event, 'new-passwordValidation'); });
-        confirm.addEventListener(eventType, (event) => { customMessage(event, 'confirm-new-passwordValidation'); });
-        inputDelete.addEventListener(eventType, (event) => { customMessage(event, 'confirm-password-to-delete-accountValidation'); });
+        password.addEventListener(eventType, (event) => { customMessage(event, 'currentPasswordValidation'); });
+        newPassword.addEventListener(eventType, (event) => { customMessage(event, 'newPasswordValidation'); });
+        confirm.addEventListener(eventType, (event) => { customMessage(event, 'confirmNewPasswordValidation'); });
+        inputDelete.addEventListener(eventType, (event) => { customMessage(event, 'confirmPasswordToDeleteAccountValidation'); });
       }
     });
     formPassword.addEventListener('submit', (e) => {
       e.preventDefault();
-      console.log('tolol');
+      const formPasswordData = {
+        oldPassword: formPassword.elements.currentPassword.value,
+        newPassword: formPassword.elements.newPassword.value,
+      };
+      console.log(formPasswordData);
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Cookies.getToken()}`,
+        },
+        body: JSON.stringify(formPasswordData),
+      };
+      document.querySelector('main').innerHTML += `
+        <div id="loading" class="top-0 right-0 fixed z-[999] flex justify-center items-center w-full h-full bg-opacity-40 bg-black">
+            <div class="loading z-[999]"></div>
+        </div>`;
+      fetch(API_ENDPOINT.CHANGE_PASSWORD(Cookies.getUserId()), options)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          if (result.error) {
+            document.querySelector('#loading').remove();
+            const alert = document.createElement('error-alert');
+            alert.alertData = {
+              header: 'Edit User Gagal',
+              desc: result.error.password,
+              button: 'Tutup',
+              link: null,
+            };
+            document.querySelector('main').append(alert);
+          } else {
+            document.querySelector('#loading').remove();
+            location.reload();
+          }
+        });
+    });
+    formDelete.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = {
+        password: formDelete.elements.confirmPasswordToDeleteAccount.value,
+      };
+      console.log(formData);
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Cookies.getToken()}`,
+        },
+        body: JSON.stringify(formData),
+      };
+      document.querySelector('main').innerHTML += `
+        <div id="loading" class="top-0 right-0 fixed z-[999] flex justify-center items-center w-full h-full bg-opacity-40 bg-black">
+            <div class="loading z-[999]"></div>
+        </div>`;
+      fetch(API_ENDPOINT.CHANGE_PASSWORD(Cookies.getUserId()), options)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          if (result.error) {
+            document.querySelector('#loading').remove();
+            const alert = document.createElement('error-alert');
+            alert.alertData = {
+              header: 'Edit User Gagal',
+              desc: result.error.password,
+              button: 'Tutup',
+              link: null,
+            };
+            document.querySelector('main').append(alert);
+          } else {
+            document.querySelector('#loading').remove();
+            location.reload();
+          }
+        });
     });
   }
 
@@ -149,19 +226,19 @@ class SettingAccount extends HTMLElement {
                     </div>
                     <div id="form-change-password" class="ml-[4rem] mr-[4rem] flex flex-col gap-2">
                         <div class="flex flex-col pb-4 w-full">
-                            <label for="current-password" class="font-medium text-base py-2">Password saat ini</label>
-                            <input aria-describedby="current-passwordValidation"  class="rounded-lg outline-lime-600 relative border-0 text-base w-full h-16 shadow-md px-3" type="text" name="current-password" id="current-password" placeholder="Masukkan password">
-                            <p id="current-passwordValidation" class="text-red-500 text-sm" aria-live="polite"></p>
+                            <label for="currentPassword" class="font-medium text-base py-2">Password saat ini</label>
+                            <input aria-describedby="currentPasswordValidation"  class="rounded-lg outline-lime-600 relative border-0 text-base w-full h-16 shadow-md px-3" type="text" name="currentPassword" id="currentPassword" placeholder="Masukkan password">
+                            <p id="currentPasswordValidation" class="text-red-500 text-sm" aria-live="polite"></p>
                         </div>
                         <div class="flex flex-col pb-4 w-full">
-                            <label for="new-password" class="font-medium text-base py-2">Password baru</label>
-                            <input aria-describedby="new-passwordValidation" class="rounded-lg outline-lime-600 relative border-0 text-base w-full h-16 shadow-md px-3" minlength="8" type="text" name="new-password" id="new-password" placeholder="Masukkan password">
-                            <p id="new-passwordValidation" class="text-red-500 text-sm" aria-live="polite"></p>
+                            <label for="newPassword" class="font-medium text-base py-2">Password baru</label>
+                            <input aria-describedby="newPasswordValidation" class="rounded-lg outline-lime-600 relative border-0 text-base w-full h-16 shadow-md px-3" minlength="8" type="text" name="newPassword" id="newPassword" placeholder="Masukkan password">
+                            <p id="newPasswordValidation" class="text-red-500 text-sm" aria-live="polite"></p>
                         </div>
                         <div class="flex flex-col pb-4 w-full">
-                            <label for="confirm-new-password" class="font-medium text-base py-2">Konfirmasi password baru </label>
-                            <input aria-describedby="confirm-new-passwordValidation" class="rounded-lg outline-lime-600 relative border-0 text-base w-full h-16 shadow-md px-3" minlength="8" type="text" name="confirm-new-password" id="confirm-new-password" placeholder="Masukkan password">
-                            <p id="confirm-new-passwordValidation" class="text-red-500 text-sm" aria-live="polite"></p>
+                            <label for="confirmNewPassword" class="font-medium text-base py-2">Konfirmasi password baru </label>
+                            <input aria-describedby="confirmNewPasswordValidation" class="rounded-lg outline-lime-600 relative border-0 text-base w-full h-16 shadow-md px-3" minlength="8" type="text" name="confirmNewPassword" id="confirmNewPassword" placeholder="Masukkan password">
+                            <p id="confirmNewPasswordValidation" class="text-red-500 text-sm" aria-live="polite"></p>
                         </div>
                         <div class="place-self-end">
                             <button type="submit" class="bg-lime-600 text-gray-50 rounded-xl px-4 py-3">Simpan Perubahan</button>
@@ -180,8 +257,8 @@ class SettingAccount extends HTMLElement {
                         <p class="break-words">Anda dapat membatalkan penghapusan akun dalam waktu 30 hari setelah tindakan ini. Setelah itu, akun dan data yang terkait akan dihapus secara permanen.</p>
                         <p class="break-words">Untuk mengonfirmasi tindakan ini, masukkan password akun Anda:</p>
                         <div class="flex flex-col pb-4 w-full">
-                            <input aria-describedby="confirm-password-to-delete-accountValidation" class="rounded-lg outline-lime-600 relative border-0 text-base w-full h-16 shadow-md px-3" type="text" name="confirm-password-to-delete-account" id="confirm-password-to-delete-account" placeholder="Masukkan password">
-                            <p id="confirm-password-to-delete-accountValidation" class="text-red-500 text-sm" aria-live="polite"></p>
+                            <input aria-describedby="confirmPasswordToDeleteAccountValidation" class="rounded-lg outline-lime-600 relative border-0 text-base w-full h-16 shadow-md px-3" type="text" name="confirmPasswordToDeleteAccount" id="confirmPasswordToDeleteAccount" placeholder="Masukkan password">
+                            <p id="confirmPasswordToDeleteAccountValidation" class="text-red-500 text-sm" aria-live="polite"></p>
                             </div>
                         <div class="place-self-end">
                             <button type="submit" class="bg-lime-600 text-gray-50 rounded-xl px-4 py-3">Hapus Akun</button>

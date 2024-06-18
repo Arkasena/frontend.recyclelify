@@ -36,9 +36,9 @@ class Hero extends HTMLElement {
 
   _isSearchValue() {
     const url = new URLSearchParams((window.location.href).split('?')[1]);
-    if (url.has('search')) {
+    if (url.has('name')) {
       const inputSearch = document.querySelector('#search');
-      inputSearch.value = url.get('search');
+      inputSearch.value = url.get('name');
     }
   }
 
@@ -47,11 +47,11 @@ class Hero extends HTMLElement {
     const currentUrl = new URLSearchParams((window.location.href).split('?')[1]);
     let urlParams;
     if (searchValue === '' || searchValue === ' ') {
-      currentUrl.delete('search');
-    } else if (currentUrl.has('search')) {
-      currentUrl.set('search', searchValue);
+      currentUrl.delete('name');
+    } else if (currentUrl.has('name')) {
+      currentUrl.set('name', searchValue);
     } else {
-      currentUrl.append('search', searchValue);
+      currentUrl.append('name', searchValue);
     }
     urlParams = currentUrl.toString();
     window.location.href = `${(window.location.hash).split('?')[0]}?${urlParams.replace(/\+/g, ' ')}`;

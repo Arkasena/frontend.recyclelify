@@ -1222,10 +1222,6 @@ video {
   width: 100vw;
 }
 
-.min-w-\[1500px\] {
-  min-width: 1500px;
-}
-
 .max-w-\[1500px\] {
   max-width: 1500px;
 }
@@ -2265,14 +2261,6 @@ video {
 
 .placeholder\:text-left::placeholder {
   text-align: left;
-}
-
-.placeholder\:text-right::-moz-placeholder {
-  text-align: right;
-}
-
-.placeholder\:text-right::placeholder {
-  text-align: right;
 }
 
 .placeholder\:text-black::-moz-placeholder {

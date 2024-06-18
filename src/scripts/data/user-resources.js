@@ -3,8 +3,8 @@ import Cookies from '../utils/cookies.';
 
 class UserResources {
   static async partner(params) {
-    console.log(`${API_ENDPOINT.PARTNER}?relations=acceptanceRules${params}`);
-    const response = await fetch(`${API_ENDPOINT.PARTNER}?relations=acceptanceRules${params}`, {
+    console.log(`${API_ENDPOINT.PARTNER}?relations=acceptanceRules&${params}`);
+    const response = await fetch(`${API_ENDPOINT.PARTNER}?relations=acceptanceRules&${params}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import UserResources from '../../../data/user-resources';
-import Cookies from '../../../utils/cookies.';
 import sortbutton from '../../../utils/sortbutton-function';
 import { mainPages, setLayoutDefault } from '../../templates/template-creator';
 
@@ -61,7 +60,9 @@ const mitra = {
       };
       contentContainer.append(pagination);
     } catch (error) {
-
+      console.error('Error fetching data:', error);
+      loading.style.display = 'none';
+      section.innerHTML += '<p>Failed to load data. Please try again later.</p>';
     }
   },
 };

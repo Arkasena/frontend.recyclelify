@@ -1,3 +1,4 @@
+import Auth from '../../../../utils/auth';
 import { setLayoutDashboard } from '../../../templates/template-creator';
 
 const collaboratorDashboard = {
@@ -27,6 +28,7 @@ const collaboratorDashboard = {
   },
 
   async afterRender() {
+    Auth.isCollaborator();
     setLayoutDashboard(1);
     const lastTransactionComponent = document.querySelector('last-transaction');
     const data = {

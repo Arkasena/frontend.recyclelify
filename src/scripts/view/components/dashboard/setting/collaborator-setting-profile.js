@@ -1,5 +1,5 @@
-import API_ENDPOINT from "../../../../global/api-endpoint";
-import Cookies from "../../../../utils/cookies.";
+import API_ENDPOINT from '../../../../global/api-endpoint';
+import Cookies from '../../../../utils/cookies.';
 
 /* eslint-disable class-methods-use-this */
 class CollaboratorSettingProfile extends HTMLElement {
@@ -78,9 +78,8 @@ class CollaboratorSettingProfile extends HTMLElement {
         address: `${form.elements.address.value}+${form.elements.city.value}+${form.elements.province.value}`,
         phoneNumber: `+62${form.elements.phone.value.slice(1)}`,
         email: this.settingProfileData.email,
-        password: '12345678',
-        website: 'edit',
-        description: 'edit',
+        website: 'test',
+        description: 'test',
         role: Cookies.getRole(),
       };
       console.log(formData);

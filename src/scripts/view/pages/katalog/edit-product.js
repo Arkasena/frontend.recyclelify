@@ -55,7 +55,8 @@ const editProduct = {
         form.elements.id.value = product.id;
       }
     } catch (error) {
-
+      console.error('Error fetching data:', error);
+      loading.style.display = 'none';
     }
   },
 };

@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-import ProductResources from '../../data/product-resources';
 import UserResources from '../../data/user-resources';
 import Cookies from '../../utils/cookies.';
 import { setLayoutDefault } from '../templates/template-creator';

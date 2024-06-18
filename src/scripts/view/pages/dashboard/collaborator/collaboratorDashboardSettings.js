@@ -1,4 +1,5 @@
 import UserResources from '../../../../data/user-resources';
+import Auth from '../../../../utils/auth';
 import Cookies from '../../../../utils/cookies.';
 import { setLayoutDashboard } from '../../../templates/template-creator';
 
@@ -17,6 +18,7 @@ const collaboratorDashboardSettings = {
   },
 
   async afterRender() {
+    Auth.isCollaborator();
     setLayoutDashboard(1);
     const content = document.querySelector('#content');
     const loading = document.querySelector('#loading');

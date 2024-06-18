@@ -11,24 +11,19 @@ class App {
   async renderPage() {
     const url = UrlParser.parseActiveUrlWithCombiner();
     console.log(url);
-    const publicRoutes = ['/', '/login', '/register', '/register?', '/404', '/about-us', '/help'];
+    const publicRoutes = ['/', '/login', '/register', '/register?', '/404', '/about-us', '/help', '/find-partner', '/catalog', '/find-partner/:id', '/catalog/:id', '/find-partner?', '/catalog?'];
     const loginRegister = ['/login', '/register'];
     let page = routes[url];
     if (!page) {
       page = routes['/404'];
     }
     if (Cookies.getToken() && loginRegister.includes(url)) {
-      window.location.hash = '#/';
-      setTimeout(() => {
-        const alert = document.createElement('error-alert');
-        alert.alertData = {
-          header: 'Aksi Gagal!',
-          desc: 'Anda sudah Login, Tidak dapat <span class="text-red-400">Login/Register</span> kembali.',
-          button: 'Tutup',
-          link: null,
-        };
-        document.querySelector('main').append(alert);
-      }, 0);
+      try {
+        await Auth.isNotLogin();
+      } catch (error) {
+        console.error(error);
+        return;
+      }
     }
     if (!publicRoutes.includes(url) && page !== routes['/404']) {
       try {

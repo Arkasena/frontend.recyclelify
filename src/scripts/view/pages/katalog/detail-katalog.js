@@ -1,5 +1,4 @@
 import ProductResources from '../../../data/product-resources';
-import UserResources from '../../../data/user-resources';
 import UrlParser from '../../../routes/url-parser';
 import { setLayoutDefault } from '../../templates/template-creator';
 
@@ -86,8 +85,8 @@ const detailKatalog = {
         detailCatalog.dispatchEvent(new Event('detailCatalogRendered'));
       }
     } catch (error) {
-      // Handle error
-      console.error(error);
+      console.error('Error fetching data:', error);
+      loading.style.display = 'none';
     }
   },
 };
