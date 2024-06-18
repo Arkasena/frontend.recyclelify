@@ -37,7 +37,7 @@ const partnerDashboard = {
 
       const lastTransactionComponent = document.querySelector('last-transaction');
 
-      lastTransactions.forEach((transaction) => {
+      await lastTransactions.forEach((transaction) => {
         const transactionItem = document.createElement('div');
         transactionItem.classList.add('grid', 'grid-cols-5', 'gap-2', 'content-center', 'justify-between', 'w-full', 'h-full');
         transactionItem.innerHTML = `
@@ -64,7 +64,7 @@ const partnerDashboard = {
         datasets: [
           {
             label: 'Total Sampah',
-            data: totalWeightThisMonth,
+            data: await totalWeightThisMonth,
             backgroundColor: '#65A30D',
             borderColor: '#65A30D',
             borderRadius: 8,
@@ -80,7 +80,7 @@ const partnerDashboard = {
         datasets: [
           {
             label: 'Pendapatan',
-            data: totalIncomeThisMonth,
+            data: await totalIncomeThisMonth,
             backgroundColor: '#65A30D',
             borderColor: '#65A30D',
             borderWidth: 1,
@@ -93,7 +93,7 @@ const partnerDashboard = {
       // Input data into sales-recap
       const salesRecapComponent = document.querySelector('sales-recap');
 
-      salesRecapComponent.salesRecapData = salesRecapData;
+      salesRecapComponent.salesRecapData = await salesRecapData;
     } catch (error) {
       console.error('PARTNER DASHBOARD STATISTIC:', error);
     }
