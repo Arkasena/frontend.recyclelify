@@ -1,5 +1,7 @@
+import { format } from 'date-fns';
 import { setLayoutDashboard } from '../../../templates/template-creator';
 import Cookies from '../../../../utils/cookies.';
+import transactionStatus from '../../../../data/transaction-status';
 
 const partnerDashboard = {
   async render() {
@@ -31,27 +33,35 @@ const partnerDashboard = {
     setLayoutDashboard(2);
 
     try {
+      const statistic = await fetch(`https://backend-recyclelify.vercel.app/api/statistic/purchase/${Cookies.getUserId()}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Cookies.getToken()}`,
+        },
+      });
+
       const {
         lastTransactions, totalWeightThisMonth, totalIncomeThisMonth, salesRecapData,
-      } = await fetch(`https://backend-recyclelify.vercel.app/api/statistic/purchase/${Cookies.getUserId()}`);
+      } = await statistic.json();
 
       const lastTransactionComponent = document.querySelector('last-transaction');
 
-      await lastTransactions.forEach((transaction) => {
+      lastTransactions.forEach((transaction) => {
         const transactionItem = document.createElement('div');
         transactionItem.classList.add('grid', 'grid-cols-5', 'gap-2', 'content-center', 'justify-between', 'w-full', 'h-full');
         transactionItem.innerHTML = `
           <div class="flex flex-col gap-4 w-full h-full col-span-2 md:flex-row">
-            <img src="${transaction.partner.photo}" alt="Foto Profil Mitra" class="w-[50px] h-[50px] rounded-2xl">
+            <img src="${transaction.seller.photo}" alt="Foto Profil Mitra" class="w-[50px] h-[50px] rounded-2xl">
             <div class="flex flex-col place-content-center">
-              <p class="text-sm font-medium break-words">${transaction.partner.name}</p>
-              <p class="text-sm font-regular text-gray-400 break-words">${transaction.updatedAt}</p>
+              <p class="text-sm font-medium break-words">${transaction.seller.name}</p>
+              <p class="text-sm font-regular text-gray-400 break-words">${format(transaction.updatedAt, 'dd MMM yyyy')}</p>
             </div>
           </div>
           <div class="grid grid-cols-3 gap-2 col-span-3 w-full items-center">
             <p class="text-sm font-regular break-words">${transaction.weight} kg</p>
             <p class="text-sm font-regular break-words">Rp. ${transaction.weight * transaction.pricePerKilogram}</p>
-            <p class="text-sm font-regular break-words">${transaction.status}</p>
+            <p class="text-sm font-regular break-words">${transactionStatus[transaction.status]}</p>
           </div>
         `;
         lastTransactionComponent.querySelector('#transaction-list').append(transactionItem);
@@ -64,7 +74,7 @@ const partnerDashboard = {
         datasets: [
           {
             label: 'Total Sampah',
-            data: await totalWeightThisMonth,
+            data: totalWeightThisMonth,
             backgroundColor: '#65A30D',
             borderColor: '#65A30D',
             borderRadius: 8,
@@ -80,7 +90,7 @@ const partnerDashboard = {
         datasets: [
           {
             label: 'Pendapatan',
-            data: await totalIncomeThisMonth,
+            data: totalIncomeThisMonth,
             backgroundColor: '#65A30D',
             borderColor: '#65A30D',
             borderWidth: 1,
@@ -93,7 +103,7 @@ const partnerDashboard = {
       // Input data into sales-recap
       const salesRecapComponent = document.querySelector('sales-recap');
 
-      salesRecapComponent.salesRecapData = await salesRecapData;
+      salesRecapComponent.salesRecapData = salesRecapData;
     } catch (error) {
       console.error('PARTNER DASHBOARD STATISTIC:', error);
     }

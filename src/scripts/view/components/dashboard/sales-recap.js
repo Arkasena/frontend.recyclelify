@@ -3,10 +3,10 @@ class SalesRecap extends HTMLElement {
   constructor() {
     super();
     this._salesRecapData = {
-      total_weight: null,
-      total_partner: null,
-      total_income: null,
-      total_transaction: null,
+      totalWeight: null,
+      totalPartner: null,
+      totalIncome: null,
+      totalTransaction: null,
     };
   }
 
@@ -34,7 +34,7 @@ class SalesRecap extends HTMLElement {
         <div id="recap-container" class="grid grid-cols-2 gap-4 h-full w-full content-between justify-between">
           <div id="trash-card" class="bg-yellow-100 p-5 rounded-2xl grid grid-cols-3 justify-between w-full h-full">
             <div class="flex flex-col gap-2 col-span-2">
-              <p id="total_weight" class="text-xl font-semibold break-words">${this.salesRecapData.total_weight} kg</p>
+              <p id="total_weight" class="text-xl font-semibold break-words">${this.salesRecapData.totalWeight} kg</p>
               <p class="text-base font-normal break-words">Sampah</p>
             </div>
             <div class="bg-yellow-500 w-[45px] h-[45px] rounded-full flex items-center justify-center justify-self-end">
@@ -47,7 +47,7 @@ class SalesRecap extends HTMLElement {
           </div>
           <div id="income-card" class="bg-lime-100 p-5 rounded-2xl grid grid-cols-3 justify-between w-full h-full">
             <div class="flex flex-col gap-2 col-span-2">
-              <p id="total_weight" class="text-xl font-semibold break-words">${this.salesRecapData.total_income}</p>
+              <p id="total_weight" class="text-xl font-semibold break-words">${this.salesRecapData.totalIncome}</p>
               <p class="text-base font-normal break-words">Rupiah</p>
             </div>
             <div class="bg-lime-500 w-[45px] h-[45px] rounded-full flex items-center justify-center justify-self-end">
@@ -60,7 +60,7 @@ class SalesRecap extends HTMLElement {
           </div>
           <div id="partner-card" class="bg-orange-100 p-5 rounded-2xl grid grid-cols-3 justify-between w-full h-full">
             <div class="flex flex-col gap-2 col-span-2">
-              <p id="total_weight" class="text-xl font-semibold break-words">${this.salesRecapData.total_partner}</p>
+              <p id="total_weight" class="text-xl font-semibold break-words">${this.salesRecapData.totalPartner}</p>
               <p class="text-base font-normal break-words">Mitra</p>
             </div>
             <div class="bg-orange-500 w-[45px] h-[45px] rounded-full flex items-center justify-center justify-self-end">
@@ -73,7 +73,7 @@ class SalesRecap extends HTMLElement {
           </div>
           <div id="transaction-card" class="bg-sky-100 p-5 rounded-2xl grid grid-cols-3 justify-between w-full h-full">
             <div class="flex flex-col gap-2 col-span-2">
-              <p id="total_weight" class="text-xl font-semibold break-words">${this.salesRecapData.total_transaction}</p>
+              <p id="total_weight" class="text-xl font-semibold break-words">${this.salesRecapData.totalTransaction}</p>
               <p class="text-base font-normal break-words">Transaksi</p>
             </div>
             <div class="bg-sky-500 w-[45px] h-[45px] rounded-full flex items-center justify-center justify-self-end">
