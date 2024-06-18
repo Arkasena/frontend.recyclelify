@@ -2,7 +2,7 @@ class DashboardMenuTabBuyingTransaction extends HTMLElement {
   constructor() {
     super();
     this._menuTabData = [
-      { name: 'Tawaran', linkTo: '#', status: 'Tawaran' },
+      { name: 'Dikirim', linkTo: '#', status: 'Dikirim' },
       { name: 'Diproses', linkTo: '#', status: 'Diproses' },
       { name: 'Selesai', linkTo: '#', status: 'Selesai' },
       { name: 'Gagal', linkTo: '#', status: 'Gagal' },
@@ -47,11 +47,11 @@ class DashboardMenuTabBuyingTransaction extends HTMLElement {
 
   activateDefaultTab() {
     const tabButtons = this.querySelectorAll('.tab-btn');
-    const defaultIndex = this._menuTabData.findIndex((tab) => tab.status === 'Tawaran');
+    const defaultIndex = this._menuTabData.findIndex((tab) => tab.status === 'Dikirim');
     if (defaultIndex !== -1) {
       tabButtons[defaultIndex].classList.add('tab-active');
       this.dispatchEvent(new CustomEvent('tab-changed', {
-        detail: { status: 'Tawaran' },
+        detail: { status: 'Dikirim' },
       }));
     }
   }

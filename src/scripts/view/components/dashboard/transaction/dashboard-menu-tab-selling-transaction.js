@@ -2,7 +2,7 @@ class DashboardMenuTabSellingTransaction extends HTMLElement {
   constructor() {
     super();
     this._menuTabData = [
-      { name: 'Diproses', linkTo: '#', status: 's' },
+      { name: 'Diproses', linkTo: '#', status: 'Diproses' },
       { name: 'Disetujui', linkTo: '#', status: 'Disetujui' },
       { name: 'Selesai', linkTo: '#', status: 'Selesai' },
       { name: 'Gagal', linkTo: '#', status: 'Gagal' },
