@@ -5,7 +5,7 @@ import { setLayoutDefault } from '../../templates/template-creator';
 const editProduct = {
   async render() {
     return `
-    <section class="w-full flex flex-col item-center grow pb-10">
+    <section class="w-full flex flex-col item-center justify-center grow pb-10">
     <div id="loading" class="flex w-full grow items-center justify-center">
                 <div class="loading"></div>
             </div>

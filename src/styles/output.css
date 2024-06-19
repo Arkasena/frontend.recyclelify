@@ -1112,6 +1112,10 @@ video {
   width: 4rem;
 }
 
+.w-20 {
+  width: 5rem;
+}
+
 .w-28 {
   width: 7rem;
 }
@@ -1222,8 +1226,16 @@ video {
   width: 100vw;
 }
 
-.w-20 {
-  width: 5rem;
+.w-\[206px\] {
+  width: 206px;
+}
+
+.w-\[20px\] {
+  width: 20px;
+}
+
+.w-\[200px\] {
+  width: 200px;
 }
 
 .max-w-\[1500px\] {
