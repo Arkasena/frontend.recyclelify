@@ -32,13 +32,10 @@ const partnerDashboardBuyingTransaction = {
 
       const transactions = await transactionsResponse.json();
 
-      console.log(transactions);
-
       const generateTransactionItems = (status) => {
         const transactionList = TransactionListComponent.querySelector('#buying-transaction-list');
         transactionList.innerHTML = '';
         transactions.data.forEach((data) => {
-          console.log(data);
           if (transactionStatus[data.status] === status) {
             const transactionItem = document.createElement('div');
             transactionItem.classList.add('w-full', 'h-full', 'grid', 'grid-cols-12', 'px-8', 'py-4', 'mt-4', 'hover:bg-gray-100', 'rounded-lg');

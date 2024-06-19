@@ -32,8 +32,6 @@ const partnerDashboardSelingTransaction = {
 
       const transactions = await transactionsResponse.json();
 
-      console.log(transactionsResponse);
-
       const generateTransactionItems = (status) => {
         const transactionList = TransactionListComponent.querySelector('#selling-transaction-list');
         transactionList.innerHTML = '';
