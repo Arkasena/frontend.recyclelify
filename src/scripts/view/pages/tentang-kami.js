@@ -48,7 +48,7 @@ const tentangKami = {
                 <div class="flex flex-col 830:flex-row gap-10 830:gap-20">
                     <div class="flex flex-col gap-9 justify-center items-center">
                         <div class="w-[209px] aspect-square rounded-full flex justify-center items-center bg-gray-100">
-                            <img class="w-[200px] aspect-square rounded-full" src="./images/others/MRizki.png" alt="Foto Muhammad Rizki">  
+                            <img class="w-[200px] aspect-square rounded-full" src="./images/others/MRizki.webp" alt="Foto Muhammad Rizki">  
                         </div>
                         <div class="flex flex-col gap-4">
                             <h3 class="text-white text-xl font-semibold text-center">Muhammad Rizki</h3>
@@ -57,7 +57,7 @@ const tentangKami = {
                     </div>
                     <div class="flex flex-col gap-9 justify-center items-center">
                         <div class="w-[209px] aspect-square rounded-full flex justify-center items-center bg-gray-100">
-                            <img class="w-[200px] aspect-square rounded-full" src="./images/others/MRizkiKhairullah.png" alt="Foto Muhammad Rizky Khairullah">  
+                            <img class="w-[200px] aspect-square rounded-full" src="./images/others/MRizkiKhairullah.webp" alt="Foto Muhammad Rizky Khairullah">  
                         </div>
                         <div class="flex flex-col gap-4">
                             <h3 class="text-white text-xl font-semibold text-center">Muhammad Rizky Khairullah</h3>
@@ -66,7 +66,7 @@ const tentangKami = {
                     </div>
                     <div class="flex flex-col gap-9 justify-center items-center">
                         <div class="w-[209px] aspect-square rounded-full flex justify-center items-center bg-gray-100">
-                            <img class="w-[200px] aspect-square rounded-full" src="./images/others/Rifqah.jpeg" alt="Foto Rifqah Amaliyah">  
+                            <img class="w-[200px] aspect-square rounded-full" src="./images/others/Rifqah.webp" alt="Foto Rifqah Amaliyah">  
                         </div>
                         <div class="flex flex-col gap-4">
                             <h3 class="text-white text-xl font-semibold text-center">Rifqah Amaliyah</h3>

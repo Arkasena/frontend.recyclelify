@@ -1164,6 +1164,10 @@ video {
   width: 168px;
 }
 
+.w-\[200px\] {
+  width: 200px;
+}
+
 .w-\[209px\] {
   width: 209px;
 }
@@ -1224,18 +1228,6 @@ video {
 
 .w-screen {
   width: 100vw;
-}
-
-.w-\[206px\] {
-  width: 206px;
-}
-
-.w-\[20px\] {
-  width: 20px;
-}
-
-.w-\[200px\] {
-  width: 200px;
 }
 
 .max-w-\[1500px\] {
