@@ -22,7 +22,7 @@ const partnerDashboardSelingTransaction = {
     const TransactionListComponent = document.querySelector('selling-transaction-list');
 
     try {
-      const transactionsResponse = await fetch(`https://backend-recyclelify.vercel.app/api/transactions?sellerId=${Cookies.getUserId()}&relations=seller`, {
+      const transactionsResponse = await fetch(`https://backend-recyclelify.vercel.app/api/transactions?sellerId=${Cookies.getUserId()}&relations=buyer`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
