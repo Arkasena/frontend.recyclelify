@@ -47,24 +47,30 @@ const tentangKami = {
                 <h2 class="text-4xl font-bold text-white">DIBALIK RECYCLELIFY</h2>
                 <div class="flex flex-col 830:flex-row gap-10 830:gap-20">
                     <div class="flex flex-col gap-9 justify-center items-center">
-                        <div class="w-[209px] aspect-square rounded-full bg-gray-100"></div>
+                        <div class="w-[209px] aspect-square rounded-full flex justify-center items-center bg-gray-100">
+                            <img class="w-[200px] aspect-square rounded-full" src="./images/others/MRizki.webp" alt="Foto Muhammad Rizki">  
+                        </div>
                         <div class="flex flex-col gap-4">
-                            <h3 class="text-white text-xl font-semibold text-center">Nama</h3>
-                            <p class="text-white text-xl text-center">Role</p>
+                            <h3 class="text-white text-xl font-semibold text-center">Muhammad Rizki</h3>
+                            <p class="text-white text-xl text-center">Front End</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-9 justify-center items-center">
-                        <div class="w-[209px] aspect-square rounded-full bg-gray-100"></div>
+                        <div class="w-[209px] aspect-square rounded-full flex justify-center items-center bg-gray-100">
+                            <img class="w-[200px] aspect-square rounded-full" src="./images/others/MRizkiKhairullah.webp" alt="Foto Muhammad Rizky Khairullah">  
+                        </div>
                         <div class="flex flex-col gap-4">
-                            <h3 class="text-white text-xl font-semibold text-center">Nama</h3>
-                            <p class="text-white text-xl text-center">Role</p>
+                            <h3 class="text-white text-xl font-semibold text-center">Muhammad Rizky Khairullah</h3>
+                            <p class="text-white text-xl text-center">Back End</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-9 justify-center items-center">
-                        <div class="w-[209px] aspect-square rounded-full bg-gray-100"></div>
+                        <div class="w-[209px] aspect-square rounded-full flex justify-center items-center bg-gray-100">
+                            <img class="w-[200px] aspect-square rounded-full" src="./images/others/Rifqah.webp" alt="Foto Rifqah Amaliyah">  
+                        </div>
                         <div class="flex flex-col gap-4">
-                            <h3 class="text-white text-xl font-semibold text-center">Nama</h3>
-                            <p class="text-white text-xl text-center">Role</p>
+                            <h3 class="text-white text-xl font-semibold text-center">Rifqah Amaliyah</h3>
+                            <p class="text-white text-xl text-center">Product Manager/UI UX</p>
                         </div>
                     </div>
                 </div>

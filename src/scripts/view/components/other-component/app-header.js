@@ -213,7 +213,7 @@ class AppHeader extends HTMLElement {
     this._emptyContent();
     this.classList.remove(...this.classList);
     if (this.classList.contains('hidden')) { this.classList.remove('hidden'); }
-    this.classList.add('flex-col', 'bg-white', 'h-[78px]', 'flex', 'justify-center', 'border', 'bg-white', 'border-gray-200', 'fixed', 'w-screen');
+    this.classList.add('flex-col', 'bg-white', 'h-[78px]', 'flex', 'justify-center', 'border', 'z-50', 'bg-white', 'border-gray-200', 'fixed', 'w-screen');
     this.innerHTML = `
     <div class="w-full flex flex-row justify-between items-center px-6">
             <div class="flex flex-row gap-16 justify-center items-center px-4">
@@ -253,7 +253,7 @@ class AppHeader extends HTMLElement {
     this._emptyContent();
     this.classList.remove(...this.classList);
     if (this.classList.contains('hidden')) { this.classList.remove('hidden'); }
-    this.classList.add('flex-col', 'bg-white', 'h-[78px]', 'flex', 'justify-center', 'border', 'bg-white', 'border-gray-200', 'fixed', 'w-screen');
+    this.classList.add('flex-col', 'bg-white', 'h-[78px]', 'flex', 'justify-center', 'z-50', 'border', 'bg-white', 'border-gray-200', 'fixed', 'w-screen');
     this.innerHTML = `
     <div class="w-full flex flex-row justify-between items-center px-6">
             <div class="flex flex-row gap-16 justify-center items-center px-4">
