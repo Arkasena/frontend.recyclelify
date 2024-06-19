@@ -44,8 +44,8 @@ const partnerDashboardBuyingTransaction = {
             transactionItem.classList.add('w-full', 'h-full', 'grid', 'grid-cols-12', 'px-8', 'py-4', 'mt-4', 'hover:bg-gray-100', 'rounded-lg');
             transactionItem.innerHTML = `
               <div class="flex flex-row col-span-3 gap-4 items-center">
-                <img src="${data.buyer.photo}" alt="Foto Profil Mitra" class="w-[50px] h-[50px] rounded-2xl">
-                <p class="text-sm font-regular break-words">${data.buyer.name}</p>
+                <img src="${data.seller.photo}" alt="Foto Profil Mitra" class="w-[50px] h-[50px] rounded-2xl">
+                <p class="text-sm font-regular break-words">${data.seller.name}</p>
               </div>
               <div class="grid grid-cols-4 col-span-5">
                 <p class="flex items-center justify-center text-sm font-regular text-gray-400 break-words">${format(data.updatedAt, 'dd MMM yyyy')}</p>
