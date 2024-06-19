@@ -20,8 +20,6 @@ class SellingTransactionList extends HTMLElement {
   render() {
     this.innerHTML = `
       <div id="selling-transaction-list">
-        <div id="transaction-item" class="w-full h-full grid grid-cols-12 gap-2">
-        </div>
       </div>
     `;
   }

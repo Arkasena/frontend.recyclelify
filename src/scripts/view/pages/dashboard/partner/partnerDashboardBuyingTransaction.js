@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import Auth from '../../../../utils/auth';
 import { setLayoutDashboard } from '../../../templates/template-creator';
 import Cookies from '../../../../utils/cookies.';
@@ -21,7 +22,7 @@ const partnerDashboardBuyingTransaction = {
     const TransactionListComponent = document.querySelector('buying-transaction-list');
 
     try {
-      const transactionsResponse = await fetch(`https://backend-recyclelify.vercel.app/api/transactions?sellerId=${Cookies.getUserId()}`, {
+      const transactionsResponse = await fetch(`https://backend-recyclelify.vercel.app/api/transactions?buyerId=${Cookies.getUserId()}&relations=buyer`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -31,10 +32,13 @@ const partnerDashboardBuyingTransaction = {
 
       const transactions = await transactionsResponse.json();
 
+      console.log(transactions);
+
       const generateTransactionItems = (status) => {
         const transactionList = TransactionListComponent.querySelector('#buying-transaction-list');
         transactionList.innerHTML = '';
         transactions.data.forEach((data) => {
+          console.log(data);
           if (transactionStatus[data.status] === status) {
             const transactionItem = document.createElement('div');
             transactionItem.classList.add('w-full', 'h-full', 'grid', 'grid-cols-12', 'px-8', 'py-4', 'mt-4', 'hover:bg-gray-100', 'rounded-lg');
@@ -44,7 +48,7 @@ const partnerDashboardBuyingTransaction = {
                 <p class="text-sm font-regular break-words">${data.buyer.name}</p>
               </div>
               <div class="grid grid-cols-4 col-span-5">
-                <p class="flex items-center justify-center text-sm font-regular text-gray-400 break-words">${data.updatedAt}</p>
+                <p class="flex items-center justify-center text-sm font-regular text-gray-400 break-words">${format(data.updatedAt, 'dd MMM yyyy')}</p>
                 <p class="flex items-center justify-center text-sm font-regular break-words">${data.weight} kg</p>
                 <p class="flex items-center justify-center text-sm font-regular break-words">Rp. ${data.weight * data.pricePerKilogram}</p>
                 <p class="flex items-center justify-center text-sm font-regular break-words">${transactionStatus[data.status]}</p>

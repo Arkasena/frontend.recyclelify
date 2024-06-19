@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import Auth from '../../../../utils/auth';
 import { setLayoutDashboard } from '../../../templates/template-creator';
 import Cookies from '../../../../utils/cookies.';
@@ -21,7 +22,7 @@ const partnerDashboardSelingTransaction = {
     const TransactionListComponent = document.querySelector('selling-transaction-list');
 
     try {
-      const transactionsResponse = await fetch(`https://backend-recyclelify.vercel.app/api/transactions?sellerId=${Cookies.getUserId()}`, {
+      const transactionsResponse = await fetch(`https://backend-recyclelify.vercel.app/api/transactions?sellerId=${Cookies.getUserId()}&relations=seller`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -30,6 +31,8 @@ const partnerDashboardSelingTransaction = {
       });
 
       const transactions = await transactionsResponse.json();
+
+      console.log(transactionsResponse);
 
       const generateTransactionItems = (status) => {
         const transactionList = TransactionListComponent.querySelector('#selling-transaction-list');
@@ -44,7 +47,7 @@ const partnerDashboardSelingTransaction = {
                 <p class="text-sm font-regular break-words">${data.buyer.name}</p>
               </div>
               <div class="grid grid-cols-5 col-span-9 justify-between items-center">
-                <p class="text-sm font-regular text-gray-400 break-words">${data.updatedAt}</p>
+                <p class="text-sm font-regular text-gray-400 break-words">${format(data.updatedAt, 'dd MMM yyyy')}</p>
                 <p class="text-sm font-regular break-words">${data.weight} kg</p>
                 <p class="text-sm font-regular break-words">Rp. ${data.weight * data.pricePerKilogram}</p>
                 <p class="text-sm font-regular break-words">${transactionStatus[data.status]}</p>
@@ -56,7 +59,7 @@ const partnerDashboardSelingTransaction = {
         });
       };
 
-      generateTransactionItems('Diproses');
+      generateTransactionItems('Dikirim');
 
       const menuTabComponent = document.querySelector('dashboard-menu-tab-selling-transaction');
       menuTabComponent.addEventListener('tab-changed', (event) => {

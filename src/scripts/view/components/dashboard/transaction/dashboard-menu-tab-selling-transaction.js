@@ -2,10 +2,12 @@ class DashboardMenuTabSellingTransaction extends HTMLElement {
   constructor() {
     super();
     this._menuTabData = [
-      { name: 'Diproses', linkTo: '#', status: 'Diproses' },
+      { name: 'Dikirim', linkTo: '#', status: 'Dikirim' },
       { name: 'Disetujui', linkTo: '#', status: 'Disetujui' },
-      { name: 'Selesai', linkTo: '#', status: 'Selesai' },
+      { name: 'Diproses', linkTo: '#', status: 'Diproses' },
+      { name: 'Ditolak', linkTo: '#', status: 'Ditolak' },
       { name: 'Gagal', linkTo: '#', status: 'Gagal' },
+      { name: 'Selesai', linkTo: '#', status: 'Selesai' },
     ];
   }
 
@@ -47,11 +49,11 @@ class DashboardMenuTabSellingTransaction extends HTMLElement {
 
   activateDefaultTab() {
     const tabButtons = this.querySelectorAll('.tab-btn');
-    const defaultIndex = this._menuTabData.findIndex((tab) => tab.status === 'Diproses');
+    const defaultIndex = this._menuTabData.findIndex((tab) => tab.status === 'Dikirim');
     if (defaultIndex !== -1) {
       tabButtons[defaultIndex].classList.add('tab-active');
       this.dispatchEvent(new CustomEvent('tab-changed', {
-        detail: { status: 'Diproses' },
+        detail: { status: 'Dikirim' },
       }));
     }
   }

@@ -3,9 +3,11 @@ class DashboardMenuTabBuyingTransaction extends HTMLElement {
     super();
     this._menuTabData = [
       { name: 'Dikirim', linkTo: '#', status: 'Dikirim' },
+      { name: 'Disetujui', linkTo: '#', status: 'Disetujui' },
       { name: 'Diproses', linkTo: '#', status: 'Diproses' },
-      { name: 'Selesai', linkTo: '#', status: 'Selesai' },
+      { name: 'Ditolak', linkTo: '#', status: 'Ditolak' },
       { name: 'Gagal', linkTo: '#', status: 'Gagal' },
+      { name: 'Selesai', linkTo: '#', status: 'Selesai' },
     ];
   }
 
@@ -66,7 +68,7 @@ class DashboardMenuTabBuyingTransaction extends HTMLElement {
             </button>
           `).join('')}
         </div>
-          <div class="w-full h-px bg-gray-100"></div> 
+        <div class="w-full h-px bg-gray-100"></div> 
       </div>
     `;
   }
